@@ -21,7 +21,7 @@ L'annuaire digital de référence pour les professionnels du BTP au Sénégal.
 ### Frontend
 - **React 18** avec TypeScript
 - **Vite** pour le build ultra-rapide
-- **Tailwind CSS** pour le styling
+- **Material-UI (MUI)** pour les composants UI
 - **Framer Motion** pour les animations
 - **React Router DOM v6** pour la navigation
 - **Lucide React** pour les icônes
@@ -47,103 +47,40 @@ L'annuaire digital de référence pour les professionnels du BTP au Sénégal.
 - Compte Supabase (gratuit)
 
 ### 1. Cloner le projet
-\`\`\`bash
-git clone <url-du-repo>
-cd annuaire-btp-senegal
-\`\`\`
+```bash
+git clone https://github.com/fatimaknt/btp-senegal.git
+cd btp-senegal
+```
 
 ### 2. Installer les dépendances
-\`\`\`bash
+```bash
 npm install
-\`\`\`
+```
 
 ### 3. Configuration Supabase
 
 1. Créer un projet sur [supabase.com](https://supabase.com)
 2. Copier le fichier d'environnement :
-\`\`\`bash
+```bash
 cp env.example .env
-\`\`\`
+```
 
 3. Remplir les variables d'environnement :
-\`\`\`env
+```env
 VITE_SUPABASE_URL=https://votre-project.supabase.co
-VITE_SUPABASE_ANON_KEY=votre-anon-key
-\`\`\`
+VITE_SUPABASE_ANON_KEY=votre-clé-anonyme
+```
 
-### 4. Créer le schéma de base de données
-
-Exécuter ces requêtes SQL dans l'éditeur Supabase :
-
-\`\`\`sql
--- Table des catégories
-CREATE TABLE categories (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  name VARCHAR(100) NOT NULL UNIQUE,
-  icon VARCHAR(50),
-  color VARCHAR(7),
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Table des entreprises
-CREATE TABLE enterprises (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  description TEXT,
-  category_id UUID REFERENCES categories(id),
-  address TEXT NOT NULL,
-  city VARCHAR(100) NOT NULL,
-  phone VARCHAR(50) NOT NULL,
-  email VARCHAR(255),
-  website VARCHAR(255),
-  coordinates GEOGRAPHY(POINT),
-  logo_url TEXT,
-  images TEXT[],
-  rating FLOAT DEFAULT 0,
-  review_count INTEGER DEFAULT 0,
-  is_verified BOOLEAN DEFAULT false,
-  is_active BOOLEAN DEFAULT true,
-  working_hours JSONB,
-  services TEXT[],
-  owner_id UUID REFERENCES auth.users(id),
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Table des avis
-CREATE TABLE reviews (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  enterprise_id UUID REFERENCES enterprises(id) ON DELETE CASCADE,
-  user_id UUID REFERENCES auth.users(id),
-  rating INTEGER CHECK (rating >= 1 AND rating <= 5),
-  comment TEXT,
-  is_verified BOOLEAN DEFAULT false,
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Politiques de sécurité
-ALTER TABLE enterprises ENABLE ROW LEVEL SECURITY;
-ALTER TABLE reviews ENABLE ROW LEVEL SECURITY;
-
--- Lecture publique des entreprises
-CREATE POLICY "Enterprises are viewable by everyone" 
-ON enterprises FOR SELECT USING (true);
-
--- Lecture publique des avis
-CREATE POLICY "Reviews are viewable by everyone" 
-ON reviews FOR SELECT USING (true);
-\`\`\`
-
-### 5. Lancer l'application
-\`\`\`bash
+### 4. Lancer le projet
+```bash
 npm run dev
-\`\`\`
+```
 
-L'application sera disponible sur http://localhost:5173
+Le site sera accessible sur `http://localhost:5173`
 
 ## 📂 Structure du projet
 
-\`\`\`
+```
 src/
 ├── components/          # Composants réutilisables
 │   ├── ui/             # Composants UI de base
@@ -162,31 +99,30 @@ src/
 ├── types/              # Types TypeScript
 ├── data/               # Données statiques et mock
 └── styles/             # Styles globaux
-\`\`\`
+```
 
 ## 🎨 Thème et couleurs
 
 Le design s'inspire des couleurs du drapeau sénégalais :
 
+- **Orange BTP** (#f97316) - Couleur principale, énergie
 - **Vert Sénégal** (#00853f) - Croissance, nature
-- **Jaune Sénégal** (#ff0) - Soleil, prospérité  
-- **Rouge Sénégal** (#e31b23) - Énergie, détermination
-- **Bleu BTP** (#1e40af) - Confiance, professionnalisme
-- **Orange accent** (#f97316) - Call-to-action
+- **Blanc** (#ffffff) - Pureté, professionnalisme
+- **Gris foncé** (#1e293b) - Élégance, sérieux
 
 ## 🚀 Déploiement
 
 ### Vercel (Recommandé)
-\`\`\`bash
+```bash
 npm install -g vercel
 vercel
-\`\`\`
+```
 
 ### Build manuel
-\`\`\`bash
+```bash
 npm run build
 # Servir le dossier dist/
-\`\`\`
+```
 
 ## 📱 Fonctionnalités à venir
 
@@ -206,14 +142,10 @@ Les contributions sont les bienvenues ! Consultez le guide de contribution pour 
 
 Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
-## 📞 Support
+## 👨‍💻 Auteur
 
-- Email: contact@annuaire-btp.sn
-- Discord: [Rejoindre la communauté](#)
-- Documentation: [docs.annuaire-btp.sn](#)
+**Fatima Kante** - [@fatimaknt](https://github.com/fatimaknt)
 
 ---
 
-**Développé avec ❤️ pour le secteur BTP sénégalais**
-
-🇸🇳 **Sunu BTP, sunu plateforme** (Notre BTP, notre plateforme)
+*Développé avec ❤️ pour le secteur BTP au Sénégal 🇸🇳*
