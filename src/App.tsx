@@ -3,6 +3,7 @@ import { ThemeProvider, createTheme, CssBaseline } from '@mui/material'
 import Router from './Router'
 
 // Thème BTP professionnel - Orange et Blanc avec accents Sénégal
+// Test HMR - Modification du thème - Version 2
 const theme = createTheme({
   palette: {
     primary: {

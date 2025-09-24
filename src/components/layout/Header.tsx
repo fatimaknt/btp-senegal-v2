@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import {
   AppBar,
   Toolbar,
@@ -7,10 +7,6 @@ import {
   Box,
   Button,
   IconButton,
-  Menu,
-  MenuItem,
-  TextField,
-  InputAdornment,
   Avatar,
   useMediaQuery,
   useTheme,
@@ -21,47 +17,28 @@ import {
   ListItemButton
 } from '@mui/material'
 import {
-  Search as SearchIcon,
   Menu as MenuIcon,
   Phone as PhoneIcon,
   Email as EmailIcon,
-  AccountCircle as AccountCircleIcon,
   PersonAdd as PersonAddIcon,
   Login as LoginIcon
 } from '@mui/icons-material'
 
 const Header: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState('')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [userMenuAnchor, setUserMenuAnchor] = useState<null | HTMLElement>(null)
 
   const location = useLocation()
-  const navigate = useNavigate()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
   const navigation = [
     { name: 'Accueil', href: '/', icon: '🏠' },
     { name: 'Annuaire', href: '/annuaire', icon: '📋' },
+    { name: 'Services', href: '/services', icon: '🔧' },
     { name: 'Blog', href: '/blog', icon: '📝' },
     { name: 'À propos', href: '/about', icon: '📖' },
     { name: 'Contact', href: '/contact', icon: '📞' }
   ]
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (searchQuery.trim()) {
-      navigate(`/annuaire?search=${encodeURIComponent(searchQuery)}`)
-    }
-  }
-
-  const handleUserMenuClick = (event: React.MouseEvent<HTMLElement>) => {
-    setUserMenuAnchor(event.currentTarget)
-  }
-
-  const handleUserMenuClose = () => {
-    setUserMenuAnchor(null)
-  }
 
   const isActivePage = (href: string) => {
     if (href === '/') {
@@ -212,7 +189,7 @@ const Header: React.FC = () => {
                   textShadow: '0 2px 4px rgba(249, 115, 22, 0.1)'
                 }}
               >
-                BTP Sénégal
+                BTP SENEGAL
               </Typography>
               <Typography
                 variant="caption"
@@ -228,60 +205,6 @@ const Header: React.FC = () => {
             </Box>
           </Box>
 
-          {/* Search bar moderne (desktop) */}
-          {!isMobile && (
-            <Box sx={{ flexGrow: 1, maxWidth: 450, mx: 3 }}>
-              <form onSubmit={handleSearch}>
-                <TextField
-                  fullWidth
-                  size="small"
-                  placeholder="Rechercher une entreprise, un service..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SearchIcon sx={{
-                          color: 'primary.main',
-                          fontSize: 20,
-                          filter: 'drop-shadow(0 1px 2px rgba(249, 115, 22, 0.3))'
-                        }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  sx={{
-                    '& .MuiOutlinedInput-root': {
-                      height: '45px',
-                      borderRadius: 4,
-                      backgroundColor: 'rgba(249, 115, 22, 0.05)',
-                      border: '2px solid rgba(249, 115, 22, 0.1)',
-                      transition: 'all 0.3s ease',
-                      '&:hover': {
-                        backgroundColor: 'rgba(249, 115, 22, 0.08)',
-                        border: '2px solid rgba(249, 115, 22, 0.2)',
-                        transform: 'translateY(-1px)',
-                        boxShadow: '0 4px 12px rgba(249, 115, 22, 0.15)'
-                      },
-                      '&.Mui-focused': {
-                        backgroundColor: 'white',
-                        border: '2px solid #f97316',
-                        boxShadow: '0 6px 20px rgba(249, 115, 22, 0.2)',
-                        transform: 'translateY(-2px)'
-                      }
-                    },
-                    '& input': {
-                      fontSize: '0.95rem',
-                      fontWeight: 500,
-                      '&::placeholder': {
-                        color: 'rgba(107, 114, 128, 0.7)',
-                        fontWeight: 400
-                      }
-                    }
-                  }}
-                />
-              </form>
-            </Box>
-          )}
 
           {/* Desktop navigation moderne */}
           {!isMobile && (
@@ -392,34 +315,6 @@ const Header: React.FC = () => {
           </Box>
         </Toolbar>
 
-        {/* Mobile search bar */}
-        {isMobile && (
-          <Box sx={{ px: 2, pb: 2 }}>
-            <form onSubmit={handleSearch}>
-              <TextField
-                fullWidth
-                size="small"
-                placeholder="Rechercher..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon sx={{ color: 'primary.main' }} />
-                    </InputAdornment>
-                  ),
-                }}
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: 3,
-                    '&:hover fieldset': { borderColor: 'primary.main' },
-                    '&.Mui-focused fieldset': { borderColor: 'primary.main' }
-                  }
-                }}
-              />
-            </form>
-          </Box>
-        )}
       </AppBar>
 
       {/* Mobile drawer */}

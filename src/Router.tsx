@@ -11,6 +11,9 @@ import BlogPage from './pages/Blog/BlogPage'
 import ArticlePage from './pages/Blog/ArticlePage'
 import Login from './pages/Auth/Login'
 import Register from './pages/Auth/Register'
+import ResultsPage from './pages/Results/ResultsPage'
+import CompanyProfilePage from './pages/CompanyProfile/CompanyProfilePage'
+import ServicesPage from './pages/Services/ServicesPage'
 
 const Router: React.FC = () => {
     return (
@@ -23,6 +26,9 @@ const Router: React.FC = () => {
 
                     {/* Pages principales */}
                     <Route path="/annuaire" element={<DirectoryPage />} />
+                    <Route path="/resultats" element={<ResultsPage />} />
+                    <Route path="/entreprise/:companyId" element={<CompanyProfilePage />} />
+                    <Route path="/services" element={<ServicesPage />} />
                     <Route path="/entreprise/:id" element={<EnterprisePage />} />
 
                     {/* Blog */}
