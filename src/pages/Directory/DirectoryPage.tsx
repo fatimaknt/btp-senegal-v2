@@ -45,7 +45,7 @@ const DirectoryPage: React.FC = () => {
             city: 'Dakar',
             rating: 4.8,
             reviews: 45,
-            phone: '+221 33 825 XX XX',
+            phone: '+221774424223',
             description: 'Spécialiste en construction résidentielle et commerciale depuis 15 ans.',
             services: ['Maçonnerie', 'Béton armé', 'Rénovation'],
             verified: true
@@ -57,7 +57,7 @@ const DirectoryPage: React.FC = () => {
             city: 'Thiès',
             rating: 4.6,
             reviews: 32,
-            phone: '+221 33 951 XX XX',
+            phone: '+221774424223',
             description: 'Installation et réparation de plomberie pour particuliers et entreprises.',
             services: ['Installation', 'Réparation', 'Urgences 24h'],
             verified: true
@@ -69,7 +69,7 @@ const DirectoryPage: React.FC = () => {
             city: 'Dakar',
             rating: 4.7,
             reviews: 28,
-            phone: '+221 33 864 XX XX',
+            phone: '+221774424223',
             description: 'Solutions électriques complètes pour tous types de bâtiments.',
             services: ['Installation électrique', 'Dépannage', 'Éclairage'],
             verified: false
@@ -429,33 +429,26 @@ const DirectoryPage: React.FC = () => {
                                         <Typography variant="body2">{enterprise.phone}</Typography>
                                     </Box>
 
-                                    <Box sx={{ display: 'flex', gap: 1 }}>
+                                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                                         <Button
                                             variant="contained"
-                                            size="small"
+                                            size="medium"
+                                            onClick={() => window.open('https://wa.me/221774424223', '_blank')}
                                             sx={{
-                                                flex: 1,
-                                                background: 'linear-gradient(135deg, #f97316 0%, #fb923c 100%)',
+                                                background: 'linear-gradient(135deg, #e67e22 0%, #f39c12 100%)',
+                                                color: 'white',
+                                                px: 4,
+                                                py: 1.5,
+                                                borderRadius: 2,
+                                                fontWeight: 600,
                                                 '&:hover': {
-                                                    background: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)',
+                                                    background: 'linear-gradient(135deg, #d35400 0%, #e67e22 100%)',
+                                                    transform: 'translateY(-2px)',
+                                                    boxShadow: '0 8px 25px rgba(230, 126, 34, 0.3)'
                                                 }
                                             }}
                                         >
-                                            Voir profil
-                                        </Button>
-                                        <Button
-                                            variant="outlined"
-                                            size="small"
-                                            sx={{
-                                                borderColor: '#f97316',
-                                                color: '#f97316',
-                                                '&:hover': {
-                                                    backgroundColor: 'rgba(249, 115, 22, 0.1)',
-                                                    borderColor: '#f97316',
-                                                }
-                                            }}
-                                        >
-                                            Contacter
+                                            📞 Contacter via WhatsApp
                                         </Button>
                                     </Box>
                                 </CardContent>

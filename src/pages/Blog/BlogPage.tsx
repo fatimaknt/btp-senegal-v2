@@ -94,21 +94,21 @@ const BlogPage: React.FC = () => {
         <PageTransition>
             <Box sx={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
                 {/* Header */}
-                <Box sx={{ backgroundColor: '#f97316', color: 'white', py: 8 }}>
+                <Box sx={{ backgroundColor: '#e67e22', color: 'white', py: 8 }}>
                     <Container maxWidth="lg">
                         <Typography
                             variant="h2"
                             sx={{
                                 fontWeight: 800,
                                 mb: 2,
-                                background: 'linear-gradient(45deg, #ffffff 0%, #fbbf24 50%, #f97316 100%)',
+                                background: 'linear-gradient(45deg, #ffffff 0%, #fbbf24 50%, #e67e22 100%)',
                                 backgroundClip: 'text',
                                 WebkitBackgroundClip: 'text',
                                 WebkitTextFillColor: 'transparent',
                                 textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
                             }}
                         >
-                            📝 Blog BTP Sénégal
+                            Blog BTP Sénégal
                         </Typography>
                         <Typography variant="h5" sx={{ opacity: 0.9, maxWidth: '600px' }}>
                             Conseils, actualités et guides pour les professionnels du BTP
@@ -129,14 +129,14 @@ const BlogPage: React.FC = () => {
                                     InputProps={{
                                         startAdornment: (
                                             <InputAdornment position="start">
-                                                <SearchIcon sx={{ color: '#f97316' }} />
+                                                <SearchIcon sx={{ color: '#e67e22' }} />
                                             </InputAdornment>
                                         ),
                                     }}
                                     sx={{
                                         '& .MuiOutlinedInput-root': {
-                                            '&:hover fieldset': { borderColor: '#f97316' },
-                                            '&.Mui-focused fieldset': { borderColor: '#f97316' }
+                                            '&:hover fieldset': { borderColor: '#e67e22' },
+                                            '&.Mui-focused fieldset': { borderColor: '#e67e22' }
                                         }
                                     }}
                                 />
@@ -150,11 +150,11 @@ const BlogPage: React.FC = () => {
                                             onClick={() => setSelectedCategory(category)}
                                             variant={selectedCategory === category ? 'filled' : 'outlined'}
                                             sx={{
-                                                backgroundColor: selectedCategory === category ? '#f97316' : 'transparent',
-                                                color: selectedCategory === category ? 'white' : '#f97316',
-                                                borderColor: '#f97316',
+                                                backgroundColor: selectedCategory === category ? '#e67e22' : 'transparent',
+                                                color: selectedCategory === category ? 'white' : '#e67e22',
+                                                borderColor: '#e67e22',
                                                 '&:hover': {
-                                                    backgroundColor: selectedCategory === category ? '#ea580c' : 'rgba(249, 115, 22, 0.1)'
+                                                    backgroundColor: selectedCategory === category ? '#d35400' : 'rgba(230, 126, 34, 0.1)'
                                                 }
                                             }}
                                         />
@@ -189,7 +189,7 @@ const BlogPage: React.FC = () => {
                                                 size="small"
                                                 sx={{
                                                     backgroundColor: 'rgba(249, 115, 22, 0.1)',
-                                                    color: '#f97316',
+                                                    color: '#e67e22',
                                                     fontWeight: 600
                                                 }}
                                             />
@@ -230,13 +230,13 @@ const BlogPage: React.FC = () => {
                                             fullWidth
                                             variant="outlined"
                                             sx={{
-                                                borderColor: '#f97316',
-                                                color: '#f97316',
+                                                borderColor: '#e67e22',
+                                                color: '#e67e22',
                                                 fontWeight: 600,
                                                 '&:hover': {
-                                                    background: 'linear-gradient(135deg, #f97316 0%, #fb923c 100%)',
+                                                    background: 'linear-gradient(135deg, #e67e22 0%, #f39c12 100%)',
                                                     color: 'white',
-                                                    borderColor: '#f97316'
+                                                    borderColor: '#e67e22'
                                                 }
                                             }}
                                         >

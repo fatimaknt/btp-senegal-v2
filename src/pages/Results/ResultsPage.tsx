@@ -27,7 +27,7 @@ const ResultsPage: React.FC = () => {
             category: "MATÉRIAUX & MATÉRIELS",
             status: "Ouvert maintenant",
             location: "Km 33 ancienne route de Thiès BP 29, Rufisque",
-            phone: "+221 33 839 88 60",
+            phone: "+221774424223",
             image: "/images/partners/sococim.jpg",
             isAd: true
         },
@@ -37,7 +37,7 @@ const ResultsPage: React.FC = () => {
             category: "MENUISERIE",
             status: "Ouvert maintenant",
             location: "Sébikotane - BP : 22 SEBIKOTANE",
-            phone: "+221 77 123 45 67",
+            phone: "+221774424223",
             isAd: false
         },
         {
@@ -46,7 +46,7 @@ const ResultsPage: React.FC = () => {
             category: "MATÉRIAUX & MATÉRIELS",
             status: "Ouvert maintenant",
             location: "Avenue El Hadji Malick Sy Mbour",
-            phone: "+221 77 234 56 78",
+            phone: "+221774424223",
             isAd: false
         },
         {
@@ -55,7 +55,7 @@ const ResultsPage: React.FC = () => {
             category: "MATÉRIAUX & MATÉRIELS",
             status: "Ouvert maintenant",
             location: "Communauté Rural de Ndiass - Route de Mbour",
-            phone: "+221 77 345 67 89",
+            phone: "+221774424223",
             isAd: false
         }
     ]
@@ -109,7 +109,7 @@ const ResultsPage: React.FC = () => {
                                 <CardContent sx={{ p: 4, backgroundColor: 'white' }}>
                                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                                         <Box sx={{
-                                            background: '#f97316',
+                                            background: '#e67e22',
                                             color: 'white',
                                             px: 2,
                                             py: 0.5,
@@ -168,9 +168,9 @@ const ResultsPage: React.FC = () => {
                                             size="small"
                                             sx={{
                                                 mt: 1,
-                                                backgroundColor: '#f97316',
+                                                backgroundColor: '#e67e22',
                                                 '&:hover': {
-                                                    backgroundColor: '#ea580c'
+                                                    backgroundColor: '#d35400'
                                                 }
                                             }}
                                         >
@@ -203,8 +203,8 @@ const ResultsPage: React.FC = () => {
                                             size="small"
                                             startIcon={<PhoneIcon />}
                                             sx={{
-                                                borderColor: '#f97316',
-                                                color: '#f97316',
+                                                borderColor: '#e67e22',
+                                                color: '#e67e22',
                                                 borderRadius: 2,
                                                 px: 3,
                                                 py: 1.5,
@@ -215,9 +215,9 @@ const ResultsPage: React.FC = () => {
                                                 boxShadow: '0 2px 8px rgba(249, 115, 22, 0.1)',
                                                 transition: 'all 0.3s ease',
                                                 '&:hover': {
-                                                    backgroundColor: '#f97316',
+                                                    backgroundColor: '#e67e22',
                                                     color: 'white',
-                                                    borderColor: '#f97316',
+                                                    borderColor: '#e67e22',
                                                     transform: 'translateY(-2px)',
                                                     boxShadow: '0 4px 12px rgba(249, 115, 22, 0.3)'
                                                 }
@@ -231,8 +231,8 @@ const ResultsPage: React.FC = () => {
                                             size="small"
                                             startIcon={<PlaceIcon />}
                                             sx={{
-                                                borderColor: '#f97316',
-                                                color: '#f97316',
+                                                borderColor: '#e67e22',
+                                                color: '#e67e22',
                                                 borderRadius: 2,
                                                 px: 3,
                                                 py: 1.5,
@@ -243,9 +243,9 @@ const ResultsPage: React.FC = () => {
                                                 boxShadow: '0 2px 8px rgba(249, 115, 22, 0.1)',
                                                 transition: 'all 0.3s ease',
                                                 '&:hover': {
-                                                    backgroundColor: '#f97316',
+                                                    backgroundColor: '#e67e22',
                                                     color: 'white',
-                                                    borderColor: '#f97316',
+                                                    borderColor: '#e67e22',
                                                     transform: 'translateY(-2px)',
                                                     boxShadow: '0 4px 12px rgba(249, 115, 22, 0.3)'
                                                 }

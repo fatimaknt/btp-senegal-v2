@@ -89,10 +89,10 @@ const ContactPage: React.FC = () => (
                 boxShadow: '0 10px 25px rgba(249, 115, 22, 0.1)'
             }}>
                 <div style={{ marginBottom: '1rem' }}>
-                    <strong style={{ color: '#f97316' }}>📧 Email:</strong> contact@btp-senegal.sn
+                    <strong style={{ color: '#f97316' }}>📧 Email:</strong> contact@btpsenegal.com
                 </div>
                 <div style={{ marginBottom: '1rem' }}>
-                    <strong style={{ color: '#f97316' }}>📞 Téléphone:</strong> +221 33 XXX XX XX
+                    <strong style={{ color: '#f97316' }}>📞 Téléphone:</strong> +221774424223
                 </div>
                 <div>
                     <strong style={{ color: '#f97316' }}>📍 Adresse:</strong> Dakar, Sénégal

@@ -23,7 +23,7 @@ const ServicesPage: React.FC = () => {
             id: 1,
             title: "Fourniture d'ouvriers",
             description: "Une équipe distinguée pour chaque mission",
-            icon: <ConstructionIcon sx={{ fontSize: 60, color: '#f97316' }} />,
+            icon: <ConstructionIcon sx={{ fontSize: 60, color: '#e67e22' }} />,
             details: [
                 "Ouvriers qualifiés et expérimentés",
                 "Équipes spécialisées par domaine",
@@ -37,7 +37,7 @@ const ServicesPage: React.FC = () => {
             id: 2,
             title: "Location de matériels",
             description: "Une gamme complète pour chaque projet",
-            icon: <BuildIcon sx={{ fontSize: 60, color: '#f97316' }} />,
+            icon: <BuildIcon sx={{ fontSize: 60, color: '#e67e22' }} />,
             details: [
                 "Matériels de construction modernes",
                 "Engins de chantier de dernière génération",
@@ -51,7 +51,7 @@ const ServicesPage: React.FC = () => {
             id: 3,
             title: "Expertise et Appui technique",
             description: "Des solutions précises pour chaque défi",
-            icon: <EngineeringIcon sx={{ fontSize: 60, color: '#f97316' }} />,
+            icon: <EngineeringIcon sx={{ fontSize: 60, color: '#e67e22' }} />,
             details: [
                 "Conseil technique spécialisé",
                 "Études de faisabilité",
@@ -68,7 +68,7 @@ const ServicesPage: React.FC = () => {
             <Box sx={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
                 {/* Hero Section */}
                 <Box sx={{
-                    background: 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)',
+                    background: 'linear-gradient(135deg, #e67e22 0%, #d35400 100%)',
                     py: 8,
                     color: 'white'
                 }}>
@@ -178,7 +178,7 @@ const ServicesPage: React.FC = () => {
                                                         <Box sx={{
                                                             width: 6,
                                                             height: 6,
-                                                            backgroundColor: '#f97316',
+                                                            backgroundColor: '#e67e22',
                                                             borderRadius: '50%',
                                                             mr: 2,
                                                             flexShrink: 0
@@ -197,7 +197,7 @@ const ServicesPage: React.FC = () => {
                                                 variant="contained"
                                                 endIcon={<ArrowForwardIcon />}
                                                 sx={{
-                                                    backgroundColor: '#f97316',
+                                                    backgroundColor: '#e67e22',
                                                     color: 'white',
                                                     px: 4,
                                                     py: 1.5,
@@ -207,7 +207,7 @@ const ServicesPage: React.FC = () => {
                                                     fontSize: '1rem',
                                                     boxShadow: '0 4px 15px rgba(249, 115, 22, 0.3)',
                                                     '&:hover': {
-                                                        backgroundColor: '#ea580c',
+                                                        backgroundColor: '#d35400',
                                                         transform: 'translateY(-2px)',
                                                         boxShadow: '0 6px 20px rgba(249, 115, 22, 0.4)'
                                                     }
@@ -250,7 +250,7 @@ const ServicesPage: React.FC = () => {
                                     variant="contained"
                                     size="large"
                                     sx={{
-                                        backgroundColor: '#f97316',
+                                        backgroundColor: '#e67e22',
                                         color: 'white',
                                         px: 6,
                                         py: 2,
@@ -259,7 +259,7 @@ const ServicesPage: React.FC = () => {
                                         borderRadius: 2,
                                         textTransform: 'none',
                                         '&:hover': {
-                                            backgroundColor: '#ea580c'
+                                            backgroundColor: '#d35400'
                                         }
                                     }}
                                 >

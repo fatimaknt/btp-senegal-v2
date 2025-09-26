@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
 
     return (
         <Box component="footer" sx={{
-            backgroundColor: '#1e293b',
+            backgroundColor: '#000000',
             color: 'white',
             py: 8
         }}>
@@ -45,27 +45,27 @@ const Footer: React.FC = () => {
                         </Typography>
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                                <HomeIcon sx={{ color: '#3b82f6', fontSize: 20 }} />
+                                <HomeIcon sx={{ color: '#e67e22', fontSize: 20 }} />
                                 <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.8)' }}>
-                                    Appartements
+                                    Fourniture d'ouvriers
                                 </Typography>
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                                <CarIcon sx={{ color: '#3b82f6', fontSize: 20 }} />
+                                <CarIcon sx={{ color: '#e67e22', fontSize: 20 }} />
                                 <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.8)' }}>
-                                    Voitures
+                                    Location de matériels
                                 </Typography>
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                                <CalendarIcon sx={{ color: '#3b82f6', fontSize: 20 }} />
+                                <CalendarIcon sx={{ color: '#e67e22', fontSize: 20 }} />
                                 <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.8)' }}>
-                                    Réservation
+                                    Expertise et Appui technique
                                 </Typography>
                             </Box>
                         </Box>
                     </Box>
 
-                    {/* Entreprise Column */}
+                    {/* Navigation Column */}
                     <Box sx={{ flex: 1 }}>
                         <Typography variant="h6" sx={{
                             fontWeight: 600,
@@ -73,25 +73,31 @@ const Footer: React.FC = () => {
                             color: 'white',
                             fontSize: '1.2rem'
                         }}>
-                            Entreprise
+                            Navigation
                         </Typography>
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                                <InfoIcon sx={{ color: '#3b82f6', fontSize: 20 }} />
+                                <HomeIcon sx={{ color: '#e67e22', fontSize: 20 }} />
                                 <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.8)' }}>
-                                    À propos
+                                    Accueil
                                 </Typography>
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                                <ContactMailIcon sx={{ color: '#3b82f6', fontSize: 20 }} />
+                                <InfoIcon sx={{ color: '#e67e22', fontSize: 20 }} />
                                 <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.8)' }}>
-                                    Contact
+                                    Annuaire
                                 </Typography>
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                                <HelpIcon sx={{ color: '#3b82f6', fontSize: 20 }} />
+                                <CalendarIcon sx={{ color: '#e67e22', fontSize: 20 }} />
                                 <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.8)' }}>
-                                    FAQ
+                                    Services
+                                </Typography>
+                            </Box>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                                <ContactMailIcon sx={{ color: '#e67e22', fontSize: 20 }} />
+                                <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.8)' }}>
+                                    Actualité
                                 </Typography>
                             </Box>
                         </Box>
@@ -109,21 +115,15 @@ const Footer: React.FC = () => {
                         </Typography>
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 3 }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                                <PhoneIcon sx={{ color: '#3b82f6', fontSize: 20 }} />
+                                <PhoneIcon sx={{ color: '#e67e22', fontSize: 20 }} />
                                 <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.8)' }}>
-                                    +221 77 087 46 19
+                                    +221774424223
                                 </Typography>
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                                <EmailIcon sx={{ color: '#3b82f6', fontSize: 20 }} />
+                                <EmailIcon sx={{ color: '#e67e22', fontSize: 20 }} />
                                 <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.8)' }}>
-                                    contact@btp-senegal.sn
-                                </Typography>
-                            </Box>
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                                <LocationIcon sx={{ color: '#3b82f6', fontSize: 20 }} />
-                                <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.8)' }}>
-                                    Dakar, Sénégal
+                                    contact@btpsenegal.com
                                 </Typography>
                             </Box>
                         </Box>
@@ -183,13 +183,13 @@ const Footer: React.FC = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             sx={{
-                                color: '#25D366',
+                                color: '#e67e22',
                                 textDecoration: 'none',
                                 fontWeight: 600,
                                 cursor: 'pointer',
                                 transition: 'all 0.3s ease',
                                 '&:hover': {
-                                    color: '#128C7E',
+                                    color: '#f39c12',
                                     textDecoration: 'underline'
                                 }
                             }}

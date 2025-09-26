@@ -129,7 +129,7 @@ const CompanyProfilePage: React.FC = () => {
                                             key={word}
                                             label={word}
                                             sx={{
-                                                backgroundColor: '#f97316',
+                                                backgroundColor: '#e67e22',
                                                 color: 'white',
                                                 fontWeight: 600,
                                                 fontSize: '0.8rem'
@@ -179,8 +179,8 @@ const CompanyProfilePage: React.FC = () => {
                                         startIcon={<StarIcon />}
                                         onClick={() => setShowReviewForm(!showReviewForm)}
                                         sx={{
-                                            backgroundColor: '#f97316',
-                                            '&:hover': { backgroundColor: '#ea580c' },
+                                            backgroundColor: '#e67e22',
+                                            '&:hover': { backgroundColor: '#d35400' },
                                             px: 3,
                                             py: 1.5,
                                             fontWeight: 600
@@ -211,7 +211,7 @@ const CompanyProfilePage: React.FC = () => {
                                                         setReviewForm({ ...reviewForm, overallRating: newValue || 0 })
                                                     }}
                                                     size="large"
-                                                    sx={{ color: '#f97316' }}
+                                                    sx={{ color: '#e67e22' }}
                                                 />
                                             </Box>
 
@@ -246,7 +246,7 @@ const CompanyProfilePage: React.FC = () => {
                                                             onChange={(event, newValue) => {
                                                                 setReviewForm({ ...reviewForm, [category.key]: newValue || 0 })
                                                             }}
-                                                            sx={{ color: '#f97316' }}
+                                                            sx={{ color: '#e67e22' }}
                                                         />
                                                     </Grid>
                                                 ))}
@@ -317,8 +317,8 @@ const CompanyProfilePage: React.FC = () => {
                                                 variant="contained"
                                                 startIcon={<SendIcon />}
                                                 sx={{
-                                                    backgroundColor: '#f97316',
-                                                    '&:hover': { backgroundColor: '#ea580c' },
+                                                    backgroundColor: '#e67e22',
+                                                    '&:hover': { backgroundColor: '#d35400' },
                                                     px: 4,
                                                     py: 1.5,
                                                     fontWeight: 600
@@ -350,7 +350,7 @@ const CompanyProfilePage: React.FC = () => {
                                         </Box>
                                         <Button
                                             variant="text"
-                                            sx={{ color: '#f97316', textTransform: 'none', p: 0, fontSize: '0.9rem' }}
+                                            sx={{ color: '#e67e22', textTransform: 'none', p: 0, fontSize: '0.9rem' }}
                                         >
                                             Obtenir des instructions
                                         </Button>
@@ -386,7 +386,7 @@ const CompanyProfilePage: React.FC = () => {
                                         <Button
                                             variant="outlined"
                                             size="small"
-                                            sx={{ borderColor: '#f97316', color: '#f97316', fontSize: '0.8rem' }}
+                                            sx={{ borderColor: '#e67e22', color: '#e67e22', fontSize: '0.8rem' }}
                                         >
                                             + Ouvrir
                                         </Button>
@@ -401,7 +401,7 @@ const CompanyProfilePage: React.FC = () => {
                                         </Box>
                                         <Button
                                             variant="text"
-                                            sx={{ color: '#f97316', fontWeight: 600, textTransform: 'none', p: 0, fontSize: '0.9rem' }}
+                                            sx={{ color: '#e67e22', fontWeight: 600, textTransform: 'none', p: 0, fontSize: '0.9rem' }}
                                         >
                                             Réclamez maintenant !
                                         </Button>
@@ -474,8 +474,8 @@ const CompanyProfilePage: React.FC = () => {
                                             startIcon={<SendIcon />}
                                             fullWidth
                                             sx={{
-                                                backgroundColor: '#f97316',
-                                                '&:hover': { backgroundColor: '#ea580c' },
+                                                backgroundColor: '#e67e22',
+                                                '&:hover': { backgroundColor: '#d35400' },
                                                 py: 1.5,
                                                 fontWeight: 600
                                             }}

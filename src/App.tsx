@@ -7,9 +7,9 @@ import Router from './Router'
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#f97316', // Orange BTP moderne (couleur principale)
-      light: '#fb923c',
-      dark: '#ea580c',
+      main: '#e67e22', // Orange plus doux (couleur principale)
+      light: '#f39c12',
+      dark: '#d35400',
     },
     secondary: {
       main: '#1e293b', // Gris foncé professionnel

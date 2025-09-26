@@ -21,7 +21,13 @@ import {
   Phone as PhoneIcon,
   Email as EmailIcon,
   PersonAdd as PersonAddIcon,
-  Login as LoginIcon
+  Login as LoginIcon,
+  Home as HomeIcon,
+  Business as BusinessIcon,
+  Build as BuildIcon,
+  Article as ArticleIcon,
+  Info as InfoIcon,
+  ContactPhone as ContactIcon
 } from '@mui/icons-material'
 
 const Header: React.FC = () => {
@@ -32,12 +38,12 @@ const Header: React.FC = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
   const navigation = [
-    { name: 'Accueil', href: '/', icon: '🏠' },
-    { name: 'Annuaire', href: '/annuaire', icon: '📋' },
-    { name: 'Services', href: '/services', icon: '🔧' },
-    { name: 'Blog', href: '/blog', icon: '📝' },
-    { name: 'À propos', href: '/about', icon: '📖' },
-    { name: 'Contact', href: '/contact', icon: '📞' }
+    { name: 'Accueil', href: '/', icon: <HomeIcon /> },
+    { name: 'Annuaire', href: '/annuaire', icon: <BusinessIcon /> },
+    { name: 'Services', href: '/services', icon: <BuildIcon /> },
+    { name: 'Actualité', href: '/blog', icon: <ArticleIcon /> },
+    { name: 'À propos', href: '/about', icon: <InfoIcon /> },
+    { name: 'Contact', href: '/contact', icon: <ContactIcon /> }
   ]
 
   const isActivePage = (href: string) => {
@@ -51,7 +57,7 @@ const Header: React.FC = () => {
     <>
       {/* Top contact bar moderne */}
       <Box sx={{
-        background: 'linear-gradient(135deg, #f97316 0%, #fb923c 50%, #ea580c 100%)',
+        background: 'linear-gradient(135deg, #e67e22 0%, #f39c12 50%, #d35400 100%)',
         color: 'white',
         py: 1.5,
         display: { xs: 'none', md: 'block' },
@@ -88,7 +94,7 @@ const Header: React.FC = () => {
             }}>
               <PhoneIcon sx={{ fontSize: 18, filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.2))' }} />
               <Typography variant="body2" sx={{ fontWeight: 500, textShadow: '0 1px 2px rgba(0,0,0,0.2)' }}>
-                +221 33 XXX XX XX
+                +221774424223
               </Typography>
             </Box>
             <Box sx={{
@@ -103,7 +109,7 @@ const Header: React.FC = () => {
             }}>
               <EmailIcon sx={{ fontSize: 18, filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.2))' }} />
               <Typography variant="body2" sx={{ fontWeight: 500, textShadow: '0 1px 2px rgba(0,0,0,0.2)' }}>
-                contact@btp-senegal.sn
+                contact@btpsenegal.com
               </Typography>
             </Box>
           </Box>
@@ -116,7 +122,7 @@ const Header: React.FC = () => {
             borderRadius: 3,
             backdropFilter: 'blur(10px)'
           }}>
-            🇸🇳 Annuaire BTP Sénégal - Votre partenaire construction
+            🏗️ Annuaire BTP - Votre partenaire construction
           </Typography>
         </Box>
       </Box>
@@ -129,8 +135,8 @@ const Header: React.FC = () => {
           background: 'rgba(255, 255, 255, 0.95)',
           backdropFilter: 'blur(20px)',
           color: 'primary.main',
-          boxShadow: '0 8px 32px rgba(249, 115, 22, 0.15)',
-          borderBottom: '1px solid rgba(249, 115, 22, 0.1)',
+          boxShadow: '0 8px 32px rgba(230, 126, 34, 0.15)',
+          borderBottom: '1px solid rgba(230, 126, 34, 0.1)',
           '&::before': {
             content: '""',
             position: 'absolute',
@@ -138,7 +144,7 @@ const Header: React.FC = () => {
             left: 0,
             right: 0,
             height: '2px',
-            background: 'linear-gradient(90deg, #f97316, #fb923c, #ea580c)'
+            background: 'linear-gradient(90deg, #e67e22, #f39c12, #d35400)'
           }
         }}
       >
@@ -165,7 +171,7 @@ const Header: React.FC = () => {
                 width: { xs: 45, md: 55 },
                 height: { xs: 45, md: 55 },
                 mr: 2,
-                background: 'linear-gradient(135deg, #f97316 0%, #fb923c 100%)',
+                background: 'linear-gradient(135deg, #e67e22 0%, #f39c12 100%)',
                 boxShadow: '0 4px 15px rgba(249, 115, 22, 0.3)',
                 transition: 'all 0.3s ease',
                 '&:hover': {
@@ -200,7 +206,7 @@ const Header: React.FC = () => {
                   letterSpacing: '0.5px'
                 }}
               >
-                Annuaire professionnel
+                Le Digital au Service
               </Typography>
             </Box>
           </Box>
@@ -240,7 +246,10 @@ const Header: React.FC = () => {
                     }
                   }}
                 >
-                  {item.icon} {item.name}
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    {item.icon}
+                    {item.name}
+                  </Box>
                 </Button>
               ))}
             </Box>
@@ -283,7 +292,7 @@ const Header: React.FC = () => {
                   variant="contained"
                   size="small"
                   sx={{
-                    background: 'linear-gradient(135deg, #f97316 0%, #fb923c 100%)',
+                    background: 'linear-gradient(135deg, #e67e22 0%, #f39c12 100%)',
                     borderRadius: 3,
                     px: 3,
                     py: 1.5,
@@ -291,7 +300,7 @@ const Header: React.FC = () => {
                     boxShadow: '0 4px 15px rgba(249, 115, 22, 0.3)',
                     transition: 'all 0.3s ease',
                     '&:hover': {
-                      background: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)',
+                      background: 'linear-gradient(135deg, #d35400 0%, #e67e22 100%)',
                       transform: 'translateY(-2px)',
                       boxShadow: '0 8px 25px rgba(249, 115, 22, 0.4)'
                     }
@@ -331,7 +340,7 @@ const Header: React.FC = () => {
       >
         <Box sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider' }}>
           <Typography variant="h6" sx={{ fontWeight: 700, color: 'primary.main' }}>
-            🏗️ BTP Sénégal
+            🏗️ BTP
           </Typography>
           <Typography variant="body2" color="text.secondary">
             Navigation
@@ -353,7 +362,12 @@ const Header: React.FC = () => {
                 }}
               >
                 <ListItemText
-                  primary={`${item.icon} ${item.name}`}
+                  primary={
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      {item.icon}
+                      {item.name}
+                    </Box>
+                  }
                   sx={{
                     '& .MuiListItemText-primary': {
                       color: isActivePage(item.href) ? 'primary.main' : 'text.primary',

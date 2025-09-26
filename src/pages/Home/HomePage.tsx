@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
-    ThemeProvider,
-    createTheme,
-    CssBaseline,
     Typography,
     Container,
     Box,
@@ -11,28 +8,28 @@ import {
     CardContent,
     TextField,
     Button,
-    Avatar,
-    Paper
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    IconButton
 } from '@mui/material'
 import {
     Search as SearchIcon,
     Business as BusinessIcon,
     LocationOn as LocationIcon,
     Star as StarIcon,
-    Favorite as FavoriteIcon,
     Phone as PhoneIcon,
-    Map as MapIcon,
     AccessTime as AccessTimeIcon,
-    Call as CallIcon,
-    MapOutlined as MapOutlinedIcon,
-    Place as PlaceIcon
+    Place as PlaceIcon,
+    Close as CloseIcon
 } from '@mui/icons-material'
 import PageTransition from '../../components/animations/PageTransition'
 
 const HomePage: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('')
-    const [selectedCategory, setSelectedCategory] = useState('')
-    const [selectedCity, setSelectedCity] = useState('')
+    const [mapOpen, setMapOpen] = useState(false)
+    const [selectedCompany, setSelectedCompany] = useState('')
     const navigate = useNavigate()
 
     const handleSearch = (e: React.FormEvent) => {
@@ -44,14 +41,43 @@ const HomePage: React.FC = () => {
         navigate(`/annuaire?${params.toString()}`)
     }
 
+    const handleOpenMap = (companyName: string) => {
+        setSelectedCompany(companyName)
+        setMapOpen(true)
+    }
+
     return (
         <PageTransition>
             {/* Hero Section avec recherche moderne */}
             <Box sx={{
-                backgroundColor: '#f97316',
+                background: `
+                    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),
+                    url('/images/partners/btp.jpg') center/cover
+                `,
                 color: 'white',
-                py: { xs: 8, md: 12 },
-                position: 'relative'
+                py: { xs: 16, md: 19 },
+                position: 'relative',
+                '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'url("/images/partners/sococim.jpg") center/cover',
+                    opacity: 0.6,
+                    zIndex: -1
+                },
+                '&::after': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'linear-gradient(135deg, rgba(230, 126, 34, 0.2) 0%, rgba(243, 153, 18, 0.2) 50%, rgba(211, 84, 0, 0.2) 100%)',
+                    zIndex: -1
+                }
             }}>
                 <Container maxWidth="lg">
                     <Box sx={{ textAlign: 'center', mb: 6 }}>
@@ -61,7 +87,7 @@ const HomePage: React.FC = () => {
                             sx={{
                                 fontWeight: 900,
                                 mb: 3,
-                                color: '#ffffff',
+                                color: '#e67e22',
                                 textShadow: '3px 3px 6px rgba(0,0,0,0.5)',
                                 letterSpacing: '-0.02em',
                                 fontSize: { xs: '2.5rem', md: '4rem' }
@@ -72,7 +98,7 @@ const HomePage: React.FC = () => {
                         <Typography
                             variant="h5"
                             sx={{
-                                mb: 6,
+                                mb: 10,
                                 color: 'rgba(255, 255, 255, 0.95)',
                                 maxWidth: '700px',
                                 mx: 'auto',
@@ -88,7 +114,7 @@ const HomePage: React.FC = () => {
                     </Box>
 
                     {/* Barre de recherche glassmorphisme moderne */}
-                    <Box sx={{ maxWidth: 900, mx: 'auto', mb: 8 }}>
+                    <Box sx={{ maxWidth: 1200, mx: 'auto', mb: 3 }}>
                         <Card sx={{
                             background: 'rgba(255, 255, 255, 0.15)',
                             backdropFilter: 'blur(30px)',
@@ -107,11 +133,9 @@ const HomePage: React.FC = () => {
                             }
                         }}>
                             <CardContent sx={{ p: 5 }}>
-                                <Typography variant="h5" sx={{ mb: 4, fontWeight: 700, color: 'white', textAlign: 'center' }}>
-                                    🔍 Trouvez votre professionnel BTP
-                                </Typography>
 
-                                <Box component="form" onSubmit={handleSearch} sx={{ mb: 4 }}>
+
+                                <Box component="form" onSubmit={handleSearch} sx={{ mb: 5 }}>
                                     <Box sx={{
                                         display: 'flex',
                                         flexDirection: { xs: 'column', sm: 'row' },
@@ -126,7 +150,7 @@ const HomePage: React.FC = () => {
                                             InputProps={{
                                                 startAdornment: (
                                                     <SearchIcon sx={{
-                                                        color: '#f97316',
+                                                        color: '#e67e22',
                                                         mr: 2,
                                                         fontSize: 32,
                                                         filter: 'drop-shadow(0 2px 4px rgba(249,115,22,0.4))'
@@ -173,7 +197,7 @@ const HomePage: React.FC = () => {
                                                 height: '70px',
                                                 px: 6,
                                                 py: 3,
-                                                background: 'linear-gradient(135deg, #f97316 0%, #fb923c 100%)',
+                                                background: 'linear-gradient(135deg, #e67e22 0%, #f39c12 100%)',
                                                 color: 'white',
                                                 borderRadius: 6,
                                                 fontWeight: 700,
@@ -184,7 +208,7 @@ const HomePage: React.FC = () => {
                                                 minWidth: { xs: '100%', sm: '180px' },
                                                 backdropFilter: 'blur(10px)',
                                                 '&:hover': {
-                                                    background: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)',
+                                                    background: 'linear-gradient(135deg, #d35400 0%, #e67e22 100%)',
                                                     transform: 'translateY(-3px)',
                                                     boxShadow: '0 15px 35px rgba(249, 115, 22, 0.4)',
                                                     border: '2px solid rgba(255, 255, 255, 0.4)'
@@ -233,99 +257,6 @@ const HomePage: React.FC = () => {
                         </Card>
                     </Box>
 
-                    {/* Statistiques glassmorphisme */}
-                    <Box sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        gap: { xs: 2, md: 6 },
-                        flexWrap: 'wrap'
-                    }}>
-                        {[
-                            {
-                                icon: <BusinessIcon sx={{ fontSize: 80, color: '#fbbf24', filter: 'drop-shadow(0 6px 12px rgba(251,191,36,0.4))' }} />,
-                                value: '1000+',
-                                label: 'Entreprises'
-                            },
-                            {
-                                icon: <LocationIcon sx={{ fontSize: 80, color: '#fbbf24', filter: 'drop-shadow(0 6px 12px rgba(251,191,36,0.4))' }} />,
-                                value: '14',
-                                label: 'Régions'
-                            },
-                            {
-                                icon: <StarIcon sx={{ fontSize: 80, color: '#fbbf24', filter: 'drop-shadow(0 6px 12px rgba(251,191,36,0.4))' }} />,
-                                value: '4.8/5',
-                                label: 'Satisfaction'
-                            }
-                        ].map((stat, index) => (
-                            <Box
-                                key={index}
-                                sx={{
-                                    background: 'rgba(255, 255, 255, 0.15)',
-                                    backdropFilter: 'blur(30px)',
-                                    borderRadius: 4,
-                                    p: 4,
-                                    textAlign: 'center',
-                                    border: '2px solid rgba(255, 255, 255, 0.2)',
-                                    minWidth: 303,
-                                    minHeight: 140,
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                                    cursor: 'pointer',
-                                    position: 'relative',
-                                    overflow: 'hidden',
-                                    '&::before': {
-                                        content: '""',
-                                        position: 'absolute',
-                                        top: 0,
-                                        left: 0,
-                                        right: 0,
-                                        height: '2px',
-                                        background: 'linear-gradient(90deg, #fbbf24, #f97316, #ea580c)',
-                                        opacity: 0,
-                                        transition: 'opacity 0.3s ease'
-                                    },
-                                    '&:hover': {
-                                        background: 'rgba(255, 255, 255, 0.25)',
-                                        transform: 'translateY(-8px) scale(1.02)',
-                                        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.25)',
-                                        border: '2px solid rgba(255, 255, 255, 0.4)',
-                                        '&::before': {
-                                            opacity: 1
-                                        }
-                                    }
-                                }}
-                            >
-                                <Box sx={{ mb: 2 }}>
-                                    {stat.icon}
-                                </Box>
-                                <Typography
-                                    variant="h4"
-                                    sx={{
-                                        fontWeight: 900,
-                                        color: '#fbbf24',
-                                        textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
-                                        filter: 'drop-shadow(0 2px 4px rgba(251,191,36,0.3))',
-                                        mb: 1
-                                    }}
-                                >
-                                    {stat.value}
-                                </Typography>
-                                <Typography
-                                    variant="body1"
-                                    sx={{
-                                        color: 'rgba(255, 255, 255, 0.9)',
-                                        fontWeight: 600,
-                                        textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
-                                    }}
-                                >
-                                    {stat.label}
-                                </Typography>
-                            </Box>
-                        ))}
-                    </Box>
                 </Container>
             </Box>
 
@@ -342,7 +273,7 @@ const HomePage: React.FC = () => {
                             sx={{
                                 fontWeight: 800,
                                 mb: 3,
-                                background: 'linear-gradient(45deg, #f97316 0%, #fb923c 50%, #ea580c 100%)',
+                                background: 'linear-gradient(45deg, #e67e22 0%, #f39c12 50%, #d35400 100%)',
                                 backgroundClip: 'text',
                                 WebkitBackgroundClip: 'text',
                                 WebkitTextFillColor: 'transparent',
@@ -361,62 +292,9 @@ const HomePage: React.FC = () => {
                                 textShadow: 'none'
                             }}
                         >
-                            Rejoignez notre annuaire et développez votre activité avec +1000 professionnels du Sénégal 🇸🇳
+                            Rejoignez notre annuaire et développez votre activité avec +1000 professionnels
                         </Typography>
 
-                        <Box sx={{ display: 'flex', gap: 3, justifyContent: 'center', flexWrap: 'wrap', mb: 8 }}>
-                            <Button
-                                variant="contained"
-                                size="large"
-                                onClick={() => navigate('/auth/register')}
-                                sx={{
-                                    background: 'linear-gradient(135deg, #f97316 0%, #fb923c 100%)',
-                                    color: 'white',
-                                    borderRadius: 4,
-                                    fontWeight: 700,
-                                    fontSize: '1.4rem',
-                                    px: 8,
-                                    py: 4,
-                                    textTransform: 'none',
-                                    border: '2px solid rgba(255, 255, 255, 0.3)',
-                                    boxShadow: '0 6px 20px rgba(249, 115, 22, 0.3)',
-                                    minHeight: '70px',
-                                    '&:hover': {
-                                        background: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)',
-                                        transform: 'translateY(-3px)',
-                                        boxShadow: '0 12px 30px rgba(249, 115, 22, 0.4)'
-                                    }
-                                }}
-                            >
-                                📝 Inscrire mon entreprise
-                            </Button>
-                            <Button
-                                variant="outlined"
-                                size="large"
-                                onClick={() => navigate('/contact')}
-                                sx={{
-                                    color: '#f97316',
-                                    borderColor: '#f97316',
-                                    borderRadius: 4,
-                                    fontWeight: 600,
-                                    fontSize: '1.4rem',
-                                    px: 8,
-                                    py: 4,
-                                    textTransform: 'none',
-                                    backgroundColor: 'rgba(249, 115, 22, 0.05)',
-                                    backdropFilter: 'blur(10px)',
-                                    minHeight: '70px',
-                                    borderWidth: '2px',
-                                    '&:hover': {
-                                        backgroundColor: 'rgba(249, 115, 22, 0.1)',
-                                        transform: 'translateY(-3px)',
-                                        borderWidth: '2px'
-                                    }
-                                }}
-                            >
-                                📞 Nous contacter
-                            </Button>
-                        </Box>
                     </Box>
 
                     {/* Cartes d'avantages */}
@@ -431,12 +309,12 @@ const HomePage: React.FC = () => {
                             {
                                 icon: '📈',
                                 title: 'Visibilité',
-                                desc: 'Augmentez votre visibilité auprès de milliers de clients potentiels au Sénégal'
+                                desc: 'Augmentez votre visibilité auprès de milliers de clients potentiels'
                             },
                             {
                                 icon: '🎯',
                                 title: 'Ciblage',
-                                desc: 'Atteignez votre clientèle locale grâce à notre système de géolocalisation'
+                                desc: 'Atteignez votre clientèle cible grâce à notre système de recherche avancée'
                             },
                             {
                                 icon: '🤝',
@@ -464,7 +342,7 @@ const HomePage: React.FC = () => {
                                 <Typography variant="h4" sx={{ mb: 2 }}>
                                     {advantage.icon}
                                 </Typography>
-                                <Typography variant="h6" sx={{ fontWeight: 600, color: '#f97316', mb: 2 }}>
+                                <Typography variant="h6" sx={{ fontWeight: 600, color: '#e67e22', mb: 2 }}>
                                     {advantage.title}
                                 </Typography>
                                 <Typography variant="body2" sx={{ color: 'rgba(31, 41, 55, 0.8)', lineHeight: 1.6 }}>
@@ -488,7 +366,7 @@ const HomePage: React.FC = () => {
                             sx={{
                                 fontWeight: 800,
                                 mb: 3,
-                                background: 'linear-gradient(45deg, #f97316 0%, #fb923c 50%, #ea580c 100%)',
+                                background: 'linear-gradient(45deg, #e67e22 0%, #f39c12 50%, #d35400 100%)',
                                 backgroundClip: 'text',
                                 WebkitBackgroundClip: 'text',
                                 WebkitTextFillColor: 'transparent'
@@ -556,7 +434,7 @@ const HomePage: React.FC = () => {
                             <CardContent sx={{ p: 4, backgroundColor: 'white' }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                                     <Box sx={{
-                                        background: '#f97316',
+                                        background: '#e67e22',
                                         color: 'white',
                                         px: 2,
                                         py: 0.5,
@@ -605,39 +483,7 @@ const HomePage: React.FC = () => {
                                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                         <PhoneIcon sx={{ fontSize: 16, color: '#6b7280', mr: 1 }} />
                                         <Typography variant="body2" sx={{ color: '#6b7280', fontSize: '0.8rem', fontWeight: 600 }}>
-                                            (+221) 77 691 20 76
-                                        </Typography>
-                                    </Box>
-                                    <Box
-                                        sx={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            cursor: 'pointer',
-                                            transition: 'all 0.3s ease',
-                                            '&:hover': {
-                                                transform: 'scale(1.05)',
-                                                '& .location-icon': {
-                                                    color: '#f97316'
-                                                },
-                                                '& .location-text': {
-                                                    color: '#f97316'
-                                                }
-                                            },
-                                            '&:active': {
-                                                transform: 'scale(0.95)',
-                                                '& .location-icon': {
-                                                    color: '#ea580c'
-                                                },
-                                                '& .location-text': {
-                                                    color: '#ea580c'
-                                                }
-                                            }
-                                        }}
-                                        onClick={() => navigate('/resultats?ville=dakar')}
-                                    >
-                                        <LocationIcon className="location-icon" sx={{ fontSize: 16, color: '#6b7280', mr: 1, transition: 'color 0.3s ease' }} />
-                                        <Typography className="location-text" variant="body2" sx={{ color: '#6b7280', fontSize: '0.8rem', fontWeight: 600, transition: 'color 0.3s ease' }}>
-                                            Dakar
+                                            +221774424223
                                         </Typography>
                                     </Box>
                                 </Box>
@@ -646,9 +492,10 @@ const HomePage: React.FC = () => {
                                     variant="outlined"
                                     size="small"
                                     startIcon={<PlaceIcon />}
+                                    onClick={() => handleOpenMap('EMAS CONSTRUCTION')}
                                     sx={{
-                                        borderColor: '#f97316',
-                                        color: '#f97316',
+                                        borderColor: '#e67e22',
+                                        color: '#e67e22',
                                         borderRadius: 2,
                                         px: 3,
                                         py: 1.5,
@@ -659,9 +506,9 @@ const HomePage: React.FC = () => {
                                         boxShadow: '0 2px 8px rgba(249, 115, 22, 0.1)',
                                         transition: 'all 0.3s ease',
                                         '&:hover': {
-                                            backgroundColor: '#f97316',
+                                            backgroundColor: '#e67e22',
                                             color: 'white',
-                                            borderColor: '#f97316',
+                                            borderColor: '#e67e22',
                                             transform: 'translateY(-2px)',
                                             boxShadow: '0 4px 12px rgba(249, 115, 22, 0.3)'
                                         }
@@ -760,39 +607,7 @@ const HomePage: React.FC = () => {
                                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                         <PhoneIcon sx={{ fontSize: 16, color: '#6b7280', mr: 1 }} />
                                         <Typography variant="body2" sx={{ color: '#6b7280', fontSize: '0.8rem', fontWeight: 600 }}>
-                                            +221 33 839 88 60
-                                        </Typography>
-                                    </Box>
-                                    <Box
-                                        sx={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            cursor: 'pointer',
-                                            transition: 'all 0.3s ease',
-                                            '&:hover': {
-                                                transform: 'scale(1.05)',
-                                                '& .location-icon': {
-                                                    color: '#f97316'
-                                                },
-                                                '& .location-text': {
-                                                    color: '#f97316'
-                                                }
-                                            },
-                                            '&:active': {
-                                                transform: 'scale(0.95)',
-                                                '& .location-icon': {
-                                                    color: '#ea580c'
-                                                },
-                                                '& .location-text': {
-                                                    color: '#ea580c'
-                                                }
-                                            }
-                                        }}
-                                        onClick={() => navigate('/resultats?ville=thies')}
-                                    >
-                                        <LocationIcon className="location-icon" sx={{ fontSize: 16, color: '#6b7280', mr: 1, transition: 'color 0.3s ease' }} />
-                                        <Typography className="location-text" variant="body2" sx={{ color: '#6b7280', fontSize: '0.8rem', fontWeight: 600, transition: 'color 0.3s ease' }}>
-                                            Thiés
+                                            +221774424223
                                         </Typography>
                                     </Box>
                                 </Box>
@@ -801,9 +616,10 @@ const HomePage: React.FC = () => {
                                     variant="outlined"
                                     size="small"
                                     startIcon={<PlaceIcon />}
+                                    onClick={() => handleOpenMap('EMAS CONSTRUCTION')}
                                     sx={{
-                                        borderColor: '#f97316',
-                                        color: '#f97316',
+                                        borderColor: '#e67e22',
+                                        color: '#e67e22',
                                         borderRadius: 2,
                                         px: 3,
                                         py: 1.5,
@@ -814,9 +630,9 @@ const HomePage: React.FC = () => {
                                         boxShadow: '0 2px 8px rgba(249, 115, 22, 0.1)',
                                         transition: 'all 0.3s ease',
                                         '&:hover': {
-                                            backgroundColor: '#f97316',
+                                            backgroundColor: '#e67e22',
                                             color: 'white',
-                                            borderColor: '#f97316',
+                                            borderColor: '#e67e22',
                                             transform: 'translateY(-2px)',
                                             boxShadow: '0 4px 12px rgba(249, 115, 22, 0.3)'
                                         }
@@ -869,7 +685,7 @@ const HomePage: React.FC = () => {
                                     justifyContent: 'center',
                                     boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)'
                                 }}>
-                                    <FavoriteIcon sx={{ color: '#f97316', fontSize: 18 }} />
+                                    <FavoriteIcon sx={{ color: '#e67e22', fontSize: 18 }} />
                                 </Box> */}
                             </Box>
 
@@ -926,39 +742,7 @@ const HomePage: React.FC = () => {
                                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                         <PhoneIcon sx={{ fontSize: 16, color: '#6b7280', mr: 1 }} />
                                         <Typography variant="body2" sx={{ color: '#6b7280', fontSize: '0.8rem', fontWeight: 600 }}>
-                                            +221 77 747 51 51
-                                        </Typography>
-                                    </Box>
-                                    <Box
-                                        sx={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            cursor: 'pointer',
-                                            transition: 'all 0.3s ease',
-                                            '&:hover': {
-                                                transform: 'scale(1.05)',
-                                                '& .location-icon': {
-                                                    color: '#f97316'
-                                                },
-                                                '& .location-text': {
-                                                    color: '#f97316'
-                                                }
-                                            },
-                                            '&:active': {
-                                                transform: 'scale(0.95)',
-                                                '& .location-icon': {
-                                                    color: '#ea580c'
-                                                },
-                                                '& .location-text': {
-                                                    color: '#ea580c'
-                                                }
-                                            }
-                                        }}
-                                        onClick={() => navigate('/resultats?ville=dakar')}
-                                    >
-                                        <LocationIcon className="location-icon" sx={{ fontSize: 16, color: '#6b7280', mr: 1, transition: 'color 0.3s ease' }} />
-                                        <Typography className="location-text" variant="body2" sx={{ color: '#6b7280', fontSize: '0.8rem', fontWeight: 600, transition: 'color 0.3s ease' }}>
-                                            Dakar
+                                            +221774424223
                                         </Typography>
                                     </Box>
 
@@ -968,9 +752,10 @@ const HomePage: React.FC = () => {
                                     variant="outlined"
                                     size="small"
                                     startIcon={<PlaceIcon />}
+                                    onClick={() => handleOpenMap('EMAS CONSTRUCTION')}
                                     sx={{
-                                        borderColor: '#f97316',
-                                        color: '#f97316',
+                                        borderColor: '#e67e22',
+                                        color: '#e67e22',
                                         borderRadius: 2,
                                         px: 3,
                                         py: 1.5,
@@ -981,9 +766,9 @@ const HomePage: React.FC = () => {
                                         boxShadow: '0 2px 8px rgba(249, 115, 22, 0.1)',
                                         transition: 'all 0.3s ease',
                                         '&:hover': {
-                                            backgroundColor: '#f97316',
+                                            backgroundColor: '#e67e22',
                                             color: 'white',
-                                            borderColor: '#f97316',
+                                            borderColor: '#e67e22',
                                             transform: 'translateY(-2px)',
                                             boxShadow: '0 4px 12px rgba(249, 115, 22, 0.3)'
                                         }
@@ -1032,7 +817,7 @@ const HomePage: React.FC = () => {
                             <CardContent sx={{ p: 4, backgroundColor: 'white' }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                                     <Box sx={{
-                                        background: '#f97316',
+                                        background: '#e67e22',
                                         color: 'white',
                                         px: 2,
                                         py: 0.5,
@@ -1079,39 +864,7 @@ const HomePage: React.FC = () => {
                                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                         <PhoneIcon sx={{ fontSize: 16, color: '#6b7280', mr: 1 }} />
                                         <Typography variant="body2" sx={{ color: '#6b7280', fontSize: '0.8rem', fontWeight: 600 }}>
-                                            (+221) 77 123 45 67
-                                        </Typography>
-                                    </Box>
-                                    <Box
-                                        sx={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            cursor: 'pointer',
-                                            transition: 'all 0.3s ease',
-                                            '&:hover': {
-                                                transform: 'scale(1.05)',
-                                                '& .location-icon': {
-                                                    color: '#f97316'
-                                                },
-                                                '& .location-text': {
-                                                    color: '#f97316'
-                                                }
-                                            },
-                                            '&:active': {
-                                                transform: 'scale(0.95)',
-                                                '& .location-icon': {
-                                                    color: '#ea580c'
-                                                },
-                                                '& .location-text': {
-                                                    color: '#ea580c'
-                                                }
-                                            }
-                                        }}
-                                        onClick={() => navigate('/resultats?ville=dakar')}
-                                    >
-                                        <LocationIcon className="location-icon" sx={{ fontSize: 16, color: '#6b7280', mr: 1, transition: 'color 0.3s ease' }} />
-                                        <Typography className="location-text" variant="body2" sx={{ color: '#6b7280', fontSize: '0.8rem', fontWeight: 600, transition: 'color 0.3s ease' }}>
-                                            Dakar
+                                            +221774424223
                                         </Typography>
                                     </Box>
                                 </Box>
@@ -1120,9 +873,10 @@ const HomePage: React.FC = () => {
                                     variant="outlined"
                                     size="small"
                                     startIcon={<PlaceIcon />}
+                                    onClick={() => handleOpenMap('EMAS CONSTRUCTION')}
                                     sx={{
-                                        borderColor: '#f97316',
-                                        color: '#f97316',
+                                        borderColor: '#e67e22',
+                                        color: '#e67e22',
                                         borderRadius: 2,
                                         px: 3,
                                         py: 1.5,
@@ -1133,9 +887,9 @@ const HomePage: React.FC = () => {
                                         boxShadow: '0 2px 8px rgba(249, 115, 22, 0.1)',
                                         transition: 'all 0.3s ease',
                                         '&:hover': {
-                                            backgroundColor: '#f97316',
+                                            backgroundColor: '#e67e22',
                                             color: 'white',
-                                            borderColor: '#f97316',
+                                            borderColor: '#e67e22',
                                             transform: 'translateY(-2px)',
                                             boxShadow: '0 4px 12px rgba(249, 115, 22, 0.3)'
                                         }
@@ -1184,7 +938,7 @@ const HomePage: React.FC = () => {
                             <CardContent sx={{ p: 4, backgroundColor: 'white' }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                                     <Box sx={{
-                                        background: '#f97316',
+                                        background: '#e67e22',
                                         color: 'white',
                                         px: 2,
                                         py: 0.5,
@@ -1231,39 +985,7 @@ const HomePage: React.FC = () => {
                                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                         <PhoneIcon sx={{ fontSize: 16, color: '#6b7280', mr: 1 }} />
                                         <Typography variant="body2" sx={{ color: '#6b7280', fontSize: '0.8rem', fontWeight: 600 }}>
-                                            (+221) 77 234 56 78
-                                        </Typography>
-                                    </Box>
-                                    <Box
-                                        sx={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            cursor: 'pointer',
-                                            transition: 'all 0.3s ease',
-                                            '&:hover': {
-                                                transform: 'scale(1.05)',
-                                                '& .location-icon': {
-                                                    color: '#f97316'
-                                                },
-                                                '& .location-text': {
-                                                    color: '#f97316'
-                                                }
-                                            },
-                                            '&:active': {
-                                                transform: 'scale(0.95)',
-                                                '& .location-icon': {
-                                                    color: '#ea580c'
-                                                },
-                                                '& .location-text': {
-                                                    color: '#ea580c'
-                                                }
-                                            }
-                                        }}
-                                        onClick={() => navigate('/resultats?ville=dakar')}
-                                    >
-                                        <LocationIcon className="location-icon" sx={{ fontSize: 16, color: '#6b7280', mr: 1, transition: 'color 0.3s ease' }} />
-                                        <Typography className="location-text" variant="body2" sx={{ color: '#6b7280', fontSize: '0.8rem', fontWeight: 600, transition: 'color 0.3s ease' }}>
-                                            Dakar
+                                            +221774424223
                                         </Typography>
                                     </Box>
                                 </Box>
@@ -1272,9 +994,10 @@ const HomePage: React.FC = () => {
                                     variant="outlined"
                                     size="small"
                                     startIcon={<PlaceIcon />}
+                                    onClick={() => handleOpenMap('EMAS CONSTRUCTION')}
                                     sx={{
-                                        borderColor: '#f97316',
-                                        color: '#f97316',
+                                        borderColor: '#e67e22',
+                                        color: '#e67e22',
                                         borderRadius: 2,
                                         px: 3,
                                         py: 1.5,
@@ -1285,9 +1008,9 @@ const HomePage: React.FC = () => {
                                         boxShadow: '0 2px 8px rgba(249, 115, 22, 0.1)',
                                         transition: 'all 0.3s ease',
                                         '&:hover': {
-                                            backgroundColor: '#f97316',
+                                            backgroundColor: '#e67e22',
                                             color: 'white',
-                                            borderColor: '#f97316',
+                                            borderColor: '#e67e22',
                                             transform: 'translateY(-2px)',
                                             boxShadow: '0 4px 12px rgba(249, 115, 22, 0.3)'
                                         }
@@ -1383,39 +1106,7 @@ const HomePage: React.FC = () => {
                                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                         <PhoneIcon sx={{ fontSize: 16, color: '#6b7280', mr: 1 }} />
                                         <Typography variant="body2" sx={{ color: '#6b7280', fontSize: '0.8rem', fontWeight: 600 }}>
-                                            (+221) 77 345 67 89
-                                        </Typography>
-                                    </Box>
-                                    <Box
-                                        sx={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            cursor: 'pointer',
-                                            transition: 'all 0.3s ease',
-                                            '&:hover': {
-                                                transform: 'scale(1.05)',
-                                                '& .location-icon': {
-                                                    color: '#f97316'
-                                                },
-                                                '& .location-text': {
-                                                    color: '#f97316'
-                                                }
-                                            },
-                                            '&:active': {
-                                                transform: 'scale(0.95)',
-                                                '& .location-icon': {
-                                                    color: '#ea580c'
-                                                },
-                                                '& .location-text': {
-                                                    color: '#ea580c'
-                                                }
-                                            }
-                                        }}
-                                        onClick={() => navigate('/resultats?ville=dakar')}
-                                    >
-                                        <LocationIcon className="location-icon" sx={{ fontSize: 16, color: '#6b7280', mr: 1, transition: 'color 0.3s ease' }} />
-                                        <Typography className="location-text" variant="body2" sx={{ color: '#6b7280', fontSize: '0.8rem', fontWeight: 600, transition: 'color 0.3s ease' }}>
-                                            Dakar
+                                            +221774424223
                                         </Typography>
                                     </Box>
                                 </Box>
@@ -1424,9 +1115,10 @@ const HomePage: React.FC = () => {
                                     variant="outlined"
                                     size="small"
                                     startIcon={<PlaceIcon />}
+                                    onClick={() => handleOpenMap('EMAS CONSTRUCTION')}
                                     sx={{
-                                        borderColor: '#f97316',
-                                        color: '#f97316',
+                                        borderColor: '#e67e22',
+                                        color: '#e67e22',
                                         borderRadius: 2,
                                         px: 3,
                                         py: 1.5,
@@ -1437,9 +1129,9 @@ const HomePage: React.FC = () => {
                                         boxShadow: '0 2px 8px rgba(249, 115, 22, 0.1)',
                                         transition: 'all 0.3s ease',
                                         '&:hover': {
-                                            backgroundColor: '#f97316',
+                                            backgroundColor: '#e67e22',
                                             color: 'white',
-                                            borderColor: '#f97316',
+                                            borderColor: '#e67e22',
                                             transform: 'translateY(-2px)',
                                             boxShadow: '0 4px 12px rgba(249, 115, 22, 0.3)'
                                         }
@@ -1485,7 +1177,7 @@ const HomePage: React.FC = () => {
                             maxWidth: '600px'
                         }}>
                             <Typography variant="h4" sx={{
-                                color: '#1e40af',
+                                color: '#e67e22',
                                 fontWeight: 700,
                                 mb: 2
                             }}>
@@ -1502,13 +1194,98 @@ const HomePage: React.FC = () => {
                 </Container>
             </Box>
 
+            {/* Section Statistiques */}
+            <Box sx={{
+                backgroundColor: '#ffff',
+                py: 7
+            }}>
+                <Container maxWidth="lg">
+                    <Box sx={{ textAlign: 'center', mb: 6 }}>
+                        <Typography variant="h3" sx={{
+                            fontWeight: 700,
+                            color: '#e67e22',
+                            mb: 2
+                        }}>
+                            Nos Statistiques
+                        </Typography>
+                        <Typography variant="h6" sx={{
+                            color: 'rgba(9, 8, 8, 0.7)',
+                            maxWidth: '600px',
+                            mx: 'auto'
+                        }}>
+                            Des chiffres qui témoignent de notre impact dans le secteur BTP
+                        </Typography>
+                    </Box>
+
+                    <Box sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        gap: { xs: 3, md: 8 },
+                        flexWrap: 'wrap'
+                    }}>
+                        {[
+                            {
+                                icon: <BusinessIcon sx={{ fontSize: 60, color: '#e67e22' }} />,
+                                value: '1000+',
+                                label: 'Entreprises'
+                            },
+                            {
+                                icon: <LocationIcon sx={{ fontSize: 60, color: '#e67e22' }} />,
+                                value: '14',
+                                label: 'Régions'
+                            },
+                            {
+                                icon: <StarIcon sx={{ fontSize: 60, color: '#e67e22' }} />,
+                                value: '4.8/5',
+                                label: 'Satisfaction'
+                            }
+                        ].map((stat, index) => (
+                            <Box
+                                key={index}
+                                sx={{
+                                    background: 'linear-gradient(135deg,rgb(244, 216, 196) 0%,rgb(238, 216, 180) 100%)',
+                                    borderRadius: 2,
+                                    p: 4,
+                                    textAlign: 'center',
+                                    minWidth: 300,
+                                    border: '1px solid #e2e8f0',
+                                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
+                                    transition: 'all 0.3s ease',
+                                    '&:hover': {
+                                        transform: 'translateY(-4px)',
+                                        boxShadow: '0 8px 25px rgba(0, 0, 0, 0.1)'
+                                    }
+                                }}
+                            >
+                                <Box sx={{ mb: 2 }}>
+                                    {stat.icon}
+                                </Box>
+                                <Typography variant="h3" sx={{
+                                    fontWeight: 900,
+                                    color: '#e67e22',
+                                    mb: 1
+                                }}>
+                                    {stat.value}
+                                </Typography>
+                                <Typography variant="h6" sx={{
+                                    color: '#64748b',
+                                    fontWeight: 600
+                                }}>
+                                    {stat.label}
+                                </Typography>
+                            </Box>
+                        ))}
+                    </Box>
+                </Container>
+            </Box>
+
             {/* Section Actualités BTP */}
             <Box sx={{ py: 8, backgroundColor: 'white' }}>
                 <Container maxWidth="lg">
                     {/* Titre de la section */}
                     <Box sx={{ textAlign: 'center', mb: 6 }}>
                         <Typography variant="h3" sx={{
-                            color: '#1e40af',
+                            color: '#e67e22',
                             fontWeight: 700,
                             mb: 2
                         }}>
@@ -1610,7 +1387,7 @@ const HomePage: React.FC = () => {
                                         Découvrez les dernières innovations dans le secteur du BTP au Sénégal
                                     </Typography>
                                     <Typography variant="body2" sx={{
-                                        color: '#f97316',
+                                        color: '#e67e22',
                                         fontWeight: 600,
                                         fontSize: '0.8rem'
                                     }}>
@@ -1753,7 +1530,7 @@ const HomePage: React.FC = () => {
                                         Partenariats stratégiques dans le secteur immobilier
                                     </Typography>
                                     <Typography variant="body2" sx={{
-                                        color: '#f97316',
+                                        color: '#e67e22',
                                         fontWeight: 600,
                                         fontSize: '0.8rem'
                                     }}>
@@ -1896,7 +1673,7 @@ const HomePage: React.FC = () => {
                                         Solutions d'ascenseurs personnalisées pour tous vos projets
                                     </Typography>
                                     <Typography variant="body2" sx={{
-                                        color: '#f97316',
+                                        color: '#e67e22',
                                         fontWeight: 600,
                                         fontSize: '0.8rem'
                                     }}>
@@ -2039,7 +1816,7 @@ const HomePage: React.FC = () => {
                                         Notre engagement pour votre réussite
                                     </Typography>
                                     <Typography variant="body2" sx={{
-                                        color: '#f97316',
+                                        color: '#e67e22',
                                         fontWeight: 600,
                                         fontSize: '0.8rem'
                                     }}>
@@ -2182,7 +1959,7 @@ const HomePage: React.FC = () => {
                                         Découvrez les projets les plus avancés du secteur
                                     </Typography>
                                     <Typography variant="body2" sx={{
-                                        color: '#f97316',
+                                        color: '#e67e22',
                                         fontWeight: 600,
                                         fontSize: '0.8rem'
                                     }}>
@@ -2296,7 +2073,7 @@ const HomePage: React.FC = () => {
                                     variant="contained"
                                     size="large"
                                     sx={{
-                                        backgroundColor: '#f97316',
+                                        backgroundColor: '#e67e22',
                                         color: 'white',
                                         px: 4,
                                         py: 2,
@@ -2306,7 +2083,7 @@ const HomePage: React.FC = () => {
                                         textTransform: 'none',
                                         boxShadow: '0 4px 20px rgba(249, 115, 22, 0.3)',
                                         '&:hover': {
-                                            backgroundColor: '#ea580c',
+                                            backgroundColor: '#d35400',
                                             transform: 'translateY(-2px)',
                                             boxShadow: '0 6px 25px rgba(249, 115, 22, 0.4)'
                                         }
@@ -2376,6 +2153,116 @@ const HomePage: React.FC = () => {
           }
         }
       `}</style>
+
+            {/* Modal Carte */}
+            <Dialog
+                open={mapOpen}
+                onClose={() => setMapOpen(false)}
+                maxWidth="md"
+                fullWidth
+                sx={{
+                    '& .MuiDialog-paper': {
+                        borderRadius: 3,
+                        overflow: 'hidden'
+                    }
+                }}
+            >
+                <DialogTitle sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    backgroundColor: '#e67e22',
+                    color: 'white',
+                    py: 2
+                }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <LocationIcon />
+                        <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                            Localisation - {selectedCompany}
+                        </Typography>
+                    </Box>
+                    <IconButton
+                        onClick={() => setMapOpen(false)}
+                        sx={{ color: 'white' }}
+                    >
+                        <CloseIcon />
+                    </IconButton>
+                </DialogTitle>
+                <DialogContent sx={{ p: 0, height: '400px' }}>
+                    <Box sx={{
+                        width: '100%',
+                        height: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: '#f5f5f5',
+                        position: 'relative'
+                    }}>
+                        {/* Carte simulée */}
+                        <Box sx={{
+                            width: '100%',
+                            height: '100%',
+                            background: 'linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%)',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            position: 'relative',
+                            '&::before': {
+                                content: '""',
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                width: '20px',
+                                height: '20px',
+                                backgroundColor: '#e67e22',
+                                borderRadius: '50%',
+                                border: '3px solid white',
+                                boxShadow: '0 0 0 3px rgba(249, 115, 22, 0.3)',
+                                animation: 'pulse 2s infinite'
+                            }
+                        }}>
+                            <LocationIcon sx={{ fontSize: 60, color: '#e67e22', mb: 2 }} />
+                            <Typography variant="h6" sx={{ color: '#1976d2', fontWeight: 600, mb: 1 }}>
+                                {selectedCompany}
+                            </Typography>
+                            <Typography variant="body2" sx={{ color: '#666', textAlign: 'center', maxWidth: '300px' }}>
+                                Adresse principale de l'entreprise
+                            </Typography>
+                            <Typography variant="caption" sx={{ color: '#999', mt: 2 }}>
+                                Cliquez sur "Ouvrir dans Google Maps" pour voir la localisation exacte
+                            </Typography>
+                        </Box>
+                    </Box>
+                </DialogContent>
+                <DialogActions sx={{ p: 3, backgroundColor: '#fafafa' }}>
+                    <Button
+                        onClick={() => setMapOpen(false)}
+                        variant="outlined"
+                        sx={{ mr: 1 }}
+                    >
+                        Fermer
+                    </Button>
+                    <Button
+                        variant="contained"
+                        startIcon={<LocationIcon />}
+                        sx={{
+                            backgroundColor: '#e67e22',
+                            '&:hover': {
+                                backgroundColor: '#d35400'
+                            }
+                        }}
+                        onClick={() => {
+                            // Ouvrir Google Maps avec l'adresse
+                            window.open('https://maps.google.com', '_blank')
+                        }}
+                    >
+                        Ouvrir dans Google Maps
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </PageTransition>
     )
 }
