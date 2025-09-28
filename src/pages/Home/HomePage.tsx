@@ -233,9 +233,8 @@ const HomePage: React.FC = () => {
                                                 component="button"
                                                 onClick={() => setSearchQuery(tag)}
                                                 sx={{
-                                                    background: 'rgba(255, 255, 255, 0.2)',
-                                                    backdropFilter: 'blur(10px)',
-                                                    border: '1px solid rgba(255, 255, 255, 0.3)',
+                                                    background: 'linear-gradient(135deg,rgb(244, 125, 41) 0%,rgb(236, 107, 38) 100%)',
+                                                    border: '1px solid #f97316',
                                                     borderRadius: 2,
                                                     color: 'white',
                                                     px: 2,
@@ -243,9 +242,12 @@ const HomePage: React.FC = () => {
                                                     fontSize: '0.8rem',
                                                     cursor: 'pointer',
                                                     transition: 'all 0.3s ease',
+                                                    fontWeight: 600,
+                                                    boxShadow: '0 2px 8px rgba(249, 115, 22, 0.3)',
                                                     '&:hover': {
-                                                        background: 'rgba(255, 255, 255, 0.3)',
-                                                        transform: 'translateY(-1px)'
+                                                        background: 'linear-gradient(135deg,rgb(237, 102, 29) 0%, #dc2626 100%)',
+                                                        transform: 'translateY(-2px)',
+                                                        boxShadow: '0 4px 12px rgba(249, 115, 22, 0.4)'
                                                     }
                                                 }}
                                             >
