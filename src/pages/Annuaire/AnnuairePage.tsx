@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     Box,
     Container,
@@ -20,64 +20,112 @@ import {
     Phone as PhoneIcon,
     FilterList as FilterIcon
 } from '@mui/icons-material'
+import { supabase } from '../../lib/supabase'
 
-const DirectoryPage: React.FC = () => {
+interface Enterprise {
+    id: string
+    name: string
+    description: string
+    category: string
+    address?: string
+    phone: string
+    email?: string
+    image_url?: string
+    is_active: boolean
+    created_at: string
+    rating?: number
+    reviews?: number
+    services?: string[]
+    verified?: boolean
+}
+
+const AnnuairePage: React.FC = () => {
+    const [enterprises, setEnterprises] = useState<Enterprise[]>([])
+    const [filteredEnterprises, setFilteredEnterprises] = useState<Enterprise[]>([])
+    const [loading, setLoading] = useState(false)
     const [searchQuery, setSearchQuery] = useState('')
     const [selectedCategory, setSelectedCategory] = useState('')
     const [selectedCity, setSelectedCity] = useState('')
     const [showFilters, setShowFilters] = useState(false)
 
+    const categories = [
+        'Entrepreneur général',
+        'Spécialisé maçonnerie',
+        'Spécialisé électricité',
+        'Spécialisé plomberie',
+        'Spécialisé menuiserie',
+        'Spécialisé peinture',
+        'Spécialisé carrelage',
+        'Architecte',
+        'Bureau d\'études',
+        'Fournisseur matériaux',
+        'Autre'
+    ]
+    const cities = ['Dakar', 'Thiès', 'Saint-Louis', 'Kaolack', 'Ziguinchor']
+
+    useEffect(() => {
+        loadEnterprises()
+    }, [])
+
+    useEffect(() => {
+        filterEnterprises()
+    }, [enterprises, searchQuery, selectedCategory, selectedCity])
+
+    const loadEnterprises = async () => {
+        try {
+            setLoading(true)
+            const { data, error } = await supabase
+                .from('enterprises')
+                .select('*')
+                .eq('is_active', true)
+                .order('created_at', { ascending: false })
+
+            if (error) {
+                console.error('Error loading enterprises:', error)
+            } else {
+                // Ajouter des données mockées pour le design
+                const enterprisesWithMockData = (data || []).map(enterprise => ({
+                    ...enterprise,
+                    rating: 4.5 + Math.random() * 0.5,
+                    reviews: Math.floor(Math.random() * 50) + 10,
+                    services: ['Service 1', 'Service 2', 'Service 3'],
+                    verified: Math.random() > 0.3
+                }))
+                setEnterprises(enterprisesWithMockData)
+            }
+        } catch (err) {
+            console.error('Error in loadEnterprises:', err)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const filterEnterprises = () => {
+        let filtered = enterprises
+
+        if (searchQuery) {
+            filtered = filtered.filter(enterprise =>
+                enterprise.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                enterprise.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                enterprise.category.toLowerCase().includes(searchQuery.toLowerCase())
+            )
+        }
+
+        if (selectedCategory) {
+            filtered = filtered.filter(enterprise =>
+                enterprise.category === selectedCategory
+            )
+        }
+
+        setFilteredEnterprises(filtered)
+    }
+
     const handleFilter = () => {
-        // Logique de filtrage - pour l'instant on affiche juste les filtres
         setShowFilters(!showFilters)
         console.log('Recherche:', searchQuery)
         console.log('Catégorie:', selectedCategory)
         console.log('Ville:', selectedCity)
     }
-
-    // Données mockées pour la démo
-    const enterprises = [
-        {
-            id: 1,
-            name: 'BTP Excellence Dakar',
-            category: 'Construction générale',
-            city: 'Dakar',
-            rating: 4.8,
-            reviews: 45,
-            phone: '+221774424223',
-            description: 'Spécialiste en construction résidentielle et commerciale depuis 15 ans.',
-            services: ['Maçonnerie', 'Béton armé', 'Rénovation'],
-            verified: true
-        },
-        {
-            id: 2,
-            name: 'Plomberie Pro Sénégal',
-            category: 'Plomberie',
-            city: 'Thiès',
-            rating: 4.6,
-            reviews: 32,
-            phone: '+221774424223',
-            description: 'Installation et réparation de plomberie pour particuliers et entreprises.',
-            services: ['Installation', 'Réparation', 'Urgences 24h'],
-            verified: true
-        },
-        {
-            id: 3,
-            name: 'Électricité Moderne',
-            category: 'Électricité',
-            city: 'Dakar',
-            rating: 4.7,
-            reviews: 28,
-            phone: '+221774424223',
-            description: 'Solutions électriques complètes pour tous types de bâtiments.',
-            services: ['Installation électrique', 'Dépannage', 'Éclairage'],
-            verified: false
-        }
-    ]
-
-    const categories = ['Construction générale', 'Plomberie', 'Électricité', 'Peinture', 'Carrelage']
-    const cities = ['Dakar', 'Thiès', 'Saint-Louis', 'Kaolack', 'Ziguinchor']
-
 
     return (
         <Box sx={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
@@ -265,7 +313,7 @@ const DirectoryPage: React.FC = () => {
                                         <option value="2">2+ étoiles</option>
                                     </TextField>
                                 </Grid>
-                                <Grid xs={12} md={4}>
+                                <Grid item xs={12} md={4}>
                                     <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
                                         Statut
                                     </Typography>
@@ -281,7 +329,7 @@ const DirectoryPage: React.FC = () => {
                                         <option value="new">Nouvelles entreprises</option>
                                     </TextField>
                                 </Grid>
-                                <Grid xs={12} md={4}>
+                                <Grid item xs={12} md={4}>
                                     <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
                                         Services
                                     </Typography>
@@ -328,7 +376,7 @@ const DirectoryPage: React.FC = () => {
             <Container maxWidth="lg" sx={{ py: 6 }}>
                 <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Typography variant="h5" sx={{ fontWeight: 600, color: '#1f2937' }}>
-                        {enterprises.length} entreprises trouvées
+                        {filteredEnterprises.length} entreprises trouvées
                     </Typography>
                     <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
                         {['Vérifiées', 'Mieux notées', 'À proximité'].map((filter) => (
@@ -349,7 +397,7 @@ const DirectoryPage: React.FC = () => {
                 </Box>
 
                 <Grid container spacing={3}>
-                    {enterprises.map((enterprise) => (
+                    {filteredEnterprises.map((enterprise) => (
                         <Grid item xs={12} md={6} lg={4} key={enterprise.id}>
                             <Card sx={{
                                 height: '100%',
@@ -391,9 +439,9 @@ const DirectoryPage: React.FC = () => {
                                                 {enterprise.category}
                                             </Typography>
                                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                                                <Rating value={enterprise.rating} precision={0.1} size="small" readOnly />
+                                                <Rating value={enterprise.rating || 4.5} precision={0.1} size="small" readOnly />
                                                 <Typography variant="body2" color="text.secondary">
-                                                    {enterprise.rating} ({enterprise.reviews} avis)
+                                                    {enterprise.rating?.toFixed(1)} ({enterprise.reviews} avis)
                                                 </Typography>
                                             </Box>
                                         </Box>
@@ -405,7 +453,7 @@ const DirectoryPage: React.FC = () => {
 
                                     <Box sx={{ mb: 2 }}>
                                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                                            {enterprise.services.map((service, index) => (
+                                            {enterprise.services?.map((service, index) => (
                                                 <Chip
                                                     key={index}
                                                     label={service}
@@ -421,7 +469,7 @@ const DirectoryPage: React.FC = () => {
 
                                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
                                         <LocationIcon sx={{ color: '#f97316', fontSize: 18 }} />
-                                        <Typography variant="body2">{enterprise.city}</Typography>
+                                        <Typography variant="body2">{enterprise.address || 'Dakar'}</Typography>
                                     </Box>
 
                                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 3 }}>
@@ -433,7 +481,7 @@ const DirectoryPage: React.FC = () => {
                                         <Button
                                             variant="contained"
                                             size="medium"
-                                            onClick={() => window.open('https://wa.me/221774424223', '_blank')}
+                                            onClick={() => window.open(`https://wa.me/${enterprise.phone.replace(/\D/g, '')}`, '_blank')}
                                             sx={{
                                                 background: 'linear-gradient(135deg, #e67e22 0%, #f39c12 100%)',
                                                 color: 'white',
@@ -477,4 +525,4 @@ const DirectoryPage: React.FC = () => {
     )
 }
 
-export default DirectoryPage
+export default AnnuairePage

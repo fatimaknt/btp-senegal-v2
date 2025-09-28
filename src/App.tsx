@@ -3,13 +3,13 @@ import { ThemeProvider, createTheme, CssBaseline } from '@mui/material'
 import Router from './Router'
 
 // Thème BTP professionnel - Orange et Blanc avec accents Sénégal
-// Test HMR - Modification du thème - Version 2
+// Test HMR - Modification du thème - Version 3 - HMR Test
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#e67e22', // Orange plus doux (couleur principale)
-      light: '#f39c12',
-      dark: '#d35400',
+      main: '#f97316', // Orange BTP vif (couleur principale) - HMR Test
+      light: '#fb923c',
+      dark: '#ea580c',
     },
     secondary: {
       main: '#1e293b', // Gris foncé professionnel
@@ -54,11 +54,12 @@ const theme = createTheme({
     },
   },
   shape: {
-    borderRadius: 12,
+    borderRadius: 16, // HMR Test - Border radius augmenté
   },
 })
 
 function App() {
+  // HMR Test - Fonction App modifiée
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

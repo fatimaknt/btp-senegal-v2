@@ -1,106 +1,225 @@
 import { useState, useEffect } from 'react'
+import { User, Session } from '@supabase/supabase-js'
 import { supabase } from '../lib/supabase'
-import type { AuthState, LoginCredentials, RegisterData } from '../types/user'
 
-export function useAuth() {
-    const [authState, setAuthState] = useState<AuthState>({
-        user: null,
-        isLoading: true,
-        isAuthenticated: false
-    })
+export interface UserProfile {
+    id: string
+    email: string
+    full_name: string | null
+    role: 'admin' | 'user'
+    avatar_url: string | null
+}
+
+export const useAuth = () => {
+    const [user, setUser] = useState<User | null>(null)
+    const [profile, setProfile] = useState<UserProfile | null>(null)
+    const [loading, setLoading] = useState(true)
+    const [session, setSession] = useState<Session | null>(null)
 
     useEffect(() => {
-        const { data: { subscription } } = supabase.auth.onAuthStateChange(
-            async (_event, session) => {
-                if (session?.user) {
-                    const { data: profile } = await supabase
-                        .from('profiles')
-                        .select('*')
-                        .eq('id', session.user.id)
-                        .single()
+        // Récupérer la session depuis localStorage d'abord
+        const getSession = async () => {
+            try {
+                // Vérifier localStorage d'abord
+                const storedSession = localStorage.getItem('supabase_session')
+                const storedUser = localStorage.getItem('supabase_user')
 
-                    setAuthState({
-                        user: profile ? {
-                            id: session.user.id,
-                            email: session.user.email!,
-                            name: profile.name || session.user.email!,
-                            avatar_url: profile.avatar_url,
-                            role: profile.role || 'user',
-                            created_at: session.user.created_at,
-                            updated_at: profile.updated_at || session.user.created_at
-                        } : null,
-                        isLoading: false,
-                        isAuthenticated: !!session.user
-                    })
-                } else {
-                    setAuthState({
-                        user: null,
-                        isLoading: false,
-                        isAuthenticated: false
-                    })
+                if (storedSession && storedUser) {
+                    const sessionData = JSON.parse(storedSession)
+                    const userData = JSON.parse(storedUser)
+
+                    setSession(sessionData)
+                    setUser(userData)
+
+                    if (userData) {
+                        await fetchUserProfile(userData.id)
+                    }
+                    setLoading(false)
+                    return
                 }
+
+                // Sinon, essayer Supabase
+                const { data: { session } } = await supabase.auth.getSession()
+                setSession(session)
+                setUser(session?.user ?? null)
+
+                if (session?.user) {
+                    await fetchUserProfile(session.user.id)
+                }
+                setLoading(false)
+            } catch (error) {
+                console.error('Error getting session:', error)
+                setLoading(false)
+            }
+        }
+
+        getSession()
+
+        // Écouter les changements d'authentification
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(
+            async (event, session) => {
+                setSession(session)
+                setUser(session?.user ?? null)
+
+                if (session?.user) {
+                    await fetchUserProfile(session.user.id)
+                } else {
+                    setProfile(null)
+                }
+                setLoading(false)
             }
         )
 
         return () => subscription.unsubscribe()
     }, [])
 
-    const signIn = async (credentials: LoginCredentials) => {
-        const { data, error } = await supabase.auth.signInWithPassword(credentials)
-        if (error) throw error
-        return data
+    const fetchUserProfile = async (userId: string) => {
+        try {
+            console.log('Fetching profile for user:', userId)
+            const { data, error } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('id', userId)
+                .single()
+
+            if (error) {
+                console.error('Error fetching profile:', error)
+                return
+            }
+
+            console.log('Profile fetched successfully:', data)
+            setProfile(data)
+        } catch (error) {
+            console.error('Error fetching profile:', error)
+        }
     }
 
-    const signUp = async (userData: RegisterData) => {
-        const { data, error } = await supabase.auth.signUp({
-            email: userData.email,
-            password: userData.password,
-            options: {
-                data: {
-                    name: userData.name,
-                    role: userData.role || 'user'
+    const signUp = async (email: string, password: string, fullName: string) => {
+        try {
+            const { data, error } = await supabase.auth.signUp({
+                email,
+                password,
+                options: {
+                    data: {
+                        full_name: fullName
+                    }
+                }
+            })
+
+            if (error) throw error
+
+            // Créer le profil utilisateur
+            if (data.user) {
+                const { error: profileError } = await supabase
+                    .from('profiles')
+                    .insert({
+                        id: data.user.id,
+                        email: data.user.email!,
+                        full_name: fullName,
+                        role: 'user'
+                    })
+
+                if (profileError) {
+                    console.error('Error creating profile:', profileError)
                 }
             }
-        })
-        if (error) throw error
-        return data
+
+            // Vérifier si l'email doit être confirmé
+            if (data.user && !data.user.email_confirmed_at) {
+                return {
+                    data: {
+                        ...data,
+                        message: 'Veuillez vérifier votre email et cliquer sur le lien de confirmation.'
+                    },
+                    error: null
+                }
+            }
+
+            return { data, error: null }
+        } catch (error) {
+            return { data: null, error }
+        }
+    }
+
+    const signIn = async (email: string, password: string) => {
+        try {
+            // Utiliser l'API REST directement
+            const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+                    'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                })
+            })
+
+            if (!response.ok) {
+                const errorData = await response.json()
+                console.error('Error signing in:', errorData)
+                return { data: null, error: { message: errorData.error_description || 'Login failed' } }
+            }
+
+            const data = await response.json()
+            console.log('Login successful:', data)
+
+            // Mettre à jour la session avec la structure correcte
+            const sessionData = {
+                access_token: data.access_token,
+                token_type: data.token_type,
+                expires_in: data.expires_in,
+                expires_at: data.expires_at,
+                refresh_token: data.refresh_token,
+                user: data.user
+            }
+
+            setSession(sessionData)
+            setUser(data.user)
+
+            // Persister la session dans localStorage
+            localStorage.setItem('supabase_session', JSON.stringify(sessionData))
+            localStorage.setItem('supabase_user', JSON.stringify(data.user))
+
+            if (data.user) {
+                await fetchUserProfile(data.user.id)
+            }
+
+            return { data, error: null }
+        } catch (error) {
+            console.error('Error signing in:', error)
+            return { data: null, error }
+        }
     }
 
     const signOut = async () => {
-        const { error } = await supabase.auth.signOut()
-        if (error) throw error
+        try {
+            const { error } = await supabase.auth.signOut()
+            if (error) throw error
+        } catch (error) {
+            console.error('Error signing out:', error)
+        }
     }
 
-    const updateProfile = async (updates: Partial<{
-        name: string
-        avatar_url: string
-        phone: string
-        address: string
-        city: string
-    }>) => {
-        if (!authState.user) throw new Error('Not authenticated')
-
-        const { error } = await supabase
-            .from('profiles')
-            .update(updates)
-            .eq('id', authState.user.id)
-
-        if (error) throw error
+    const isAdmin = () => {
+        return profile?.role === 'admin'
     }
 
-    const resetPassword = async (email: string) => {
-        const { error } = await supabase.auth.resetPasswordForEmail(email, {
-            redirectTo: `${window.location.origin}/reset-password`
-        })
-        if (error) throw error
+    const isAuthenticated = () => {
+        return !!user && !!profile
     }
 
     return {
-        ...authState,
-        signIn,
+        user,
+        profile,
+        session,
+        loading,
         signUp,
+        signIn,
         signOut,
-        updateProfile,
-        resetPassword
+        isAdmin,
+        isAuthenticated
     }
 }

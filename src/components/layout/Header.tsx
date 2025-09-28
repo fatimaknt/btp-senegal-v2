@@ -40,8 +40,8 @@ const Header: React.FC = () => {
   const navigation = [
     { name: 'Accueil', href: '/', icon: <HomeIcon /> },
     { name: 'Annuaire', href: '/annuaire', icon: <BusinessIcon /> },
+    { name: 'Actualités', href: '/actualites', icon: <ArticleIcon /> },
     { name: 'Services', href: '/services', icon: <BuildIcon /> },
-    { name: 'Actualité', href: '/blog', icon: <ArticleIcon /> },
     { name: 'À propos', href: '/about', icon: <InfoIcon /> },
     { name: 'Contact', href: '/contact', icon: <ContactIcon /> }
   ]

@@ -5,7 +5,6 @@ import Footer from './components/layout/Footer'
 
 // Pages imports
 import HomePage from './pages/Home/HomePage'
-import DirectoryPage from './pages/Directory/DirectoryPage'
 import EnterprisePage from './pages/Enterprise/EnterprisePage'
 import BlogPage from './pages/Blog/BlogPage'
 import ArticlePage from './pages/Blog/ArticlePage'
@@ -14,6 +13,9 @@ import Register from './pages/Auth/Register'
 import ResultsPage from './pages/Results/ResultsPage'
 import CompanyProfilePage from './pages/CompanyProfile/CompanyProfilePage'
 import ServicesPage from './pages/Services/ServicesPage'
+import AdminPage from './pages/Admin/AdminPage'
+import AnnuairePage from './pages/Annuaire/AnnuairePage'
+import NewsPage from './pages/News/NewsPage'
 
 const Router: React.FC = () => {
     return (
@@ -25,7 +27,8 @@ const Router: React.FC = () => {
                     <Route path="/" element={<HomePage />} />
 
                     {/* Pages principales */}
-                    <Route path="/annuaire" element={<DirectoryPage />} />
+                    <Route path="/annuaire" element={<AnnuairePage />} />
+                    <Route path="/actualites" element={<NewsPage />} />
                     <Route path="/resultats" element={<ResultsPage />} />
                     <Route path="/entreprise/:companyId" element={<CompanyProfilePage />} />
                     <Route path="/services" element={<ServicesPage />} />
@@ -38,6 +41,9 @@ const Router: React.FC = () => {
                     {/* Authentification */}
                     <Route path="/auth/login" element={<Login />} />
                     <Route path="/auth/register" element={<Register />} />
+
+                    {/* Administration */}
+                    <Route path="/admin" element={<AdminPage />} />
 
                     {/* Pages statiques */}
                     <Route path="/contact" element={<ContactPage />} />

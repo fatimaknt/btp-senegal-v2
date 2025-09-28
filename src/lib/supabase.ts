@@ -18,6 +18,129 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
 export type Database = {
     public: {
         Tables: {
+            // Table des utilisateurs avec rôles
+            profiles: {
+                Row: {
+                    id: string
+                    email: string
+                    full_name: string | null
+                    role: 'admin' | 'user'
+                    avatar_url: string | null
+                    created_at: string
+                    updated_at: string
+                }
+                Insert: {
+                    id: string
+                    email: string
+                    full_name?: string | null
+                    role?: 'admin' | 'user'
+                    avatar_url?: string | null
+                    created_at?: string
+                    updated_at?: string
+                }
+                Update: {
+                    id?: string
+                    email?: string
+                    full_name?: string | null
+                    role?: 'admin' | 'user'
+                    avatar_url?: string | null
+                    created_at?: string
+                    updated_at?: string
+                }
+            }
+            // Table des publicités
+            advertisements: {
+                Row: {
+                    id: string
+                    title: string
+                    description: string
+                    company: string
+                    category: string
+                    location: string
+                    phone: string
+                    rating: number
+                    reviews: number
+                    featured: boolean
+                    discount: string | null
+                    price: string | null
+                    image_url: string | null
+                    is_active: boolean
+                    created_at: string
+                    updated_at: string
+                }
+                Insert: {
+                    id?: string
+                    title: string
+                    description: string
+                    company: string
+                    category: string
+                    location: string
+                    phone: string
+                    rating?: number
+                    reviews?: number
+                    featured?: boolean
+                    discount?: string | null
+                    price?: string | null
+                    image_url?: string | null
+                    is_active?: boolean
+                    created_at?: string
+                    updated_at?: string
+                }
+                Update: {
+                    id?: string
+                    title?: string
+                    description?: string
+                    company?: string
+                    category?: string
+                    location?: string
+                    phone?: string
+                    rating?: number
+                    reviews?: number
+                    featured?: boolean
+                    discount?: string | null
+                    price?: string | null
+                    image_url?: string | null
+                    is_active?: boolean
+                    created_at?: string
+                    updated_at?: string
+                }
+            }
+            // Table des services
+            services: {
+                Row: {
+                    id: string
+                    name: string
+                    description: string
+                    category: string
+                    price: string | null
+                    duration: string | null
+                    is_active: boolean
+                    created_at: string
+                    updated_at: string
+                }
+                Insert: {
+                    id?: string
+                    name: string
+                    description: string
+                    category: string
+                    price?: string | null
+                    duration?: string | null
+                    is_active?: boolean
+                    created_at?: string
+                    updated_at?: string
+                }
+                Update: {
+                    id?: string
+                    name?: string
+                    description?: string
+                    category?: string
+                    price?: string | null
+                    duration?: string | null
+                    is_active?: boolean
+                    created_at?: string
+                    updated_at?: string
+                }
+            }
             categories: {
                 Row: {
                     id: string

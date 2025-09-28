@@ -25,6 +25,7 @@ import {
     Close as CloseIcon
 } from '@mui/icons-material'
 import PageTransition from '../../components/animations/PageTransition'
+import AdSection from '../../components/ads/AdSection'
 
 const HomePage: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('')
@@ -36,8 +37,6 @@ const HomePage: React.FC = () => {
         e.preventDefault()
         const params = new URLSearchParams()
         if (searchQuery.trim()) params.set('search', searchQuery.trim())
-        if (selectedCategory) params.set('category', selectedCategory)
-        if (selectedCity) params.set('city', selectedCity)
         navigate(`/annuaire?${params.toString()}`)
     }
 
@@ -45,6 +44,8 @@ const HomePage: React.FC = () => {
         setSelectedCompany(companyName)
         setMapOpen(true)
     }
+
+    // Les données publicitaires sont maintenant chargées depuis Supabase dans AdSection
 
     return (
         <PageTransition>
@@ -353,6 +354,16 @@ const HomePage: React.FC = () => {
                     </Box>
                 </Container>
             </Box>
+
+            {/* Section Publicités */}
+            <Container maxWidth="lg" sx={{ py: 6 }}>
+                <AdSection
+                    title="Publicités Spécialisées BTP"
+                    maxAds={3}
+                    showTitle={true}
+                />
+            </Container>
+
 
             {/* Section Entreprises Partenaires */}
             <Box sx={{

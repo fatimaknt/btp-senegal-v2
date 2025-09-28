@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../hooks/useAuth'
 import {
     Box,
     Container,
@@ -43,6 +44,7 @@ const Register: React.FC = () => {
     const [showError, setShowError] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
     const navigate = useNavigate()
+    const { signUp } = useAuth()
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -58,11 +60,13 @@ const Register: React.FC = () => {
         }
 
         try {
-            // Simulation d'inscription - remplacez par votre vraie logique
-            await new Promise(resolve => setTimeout(resolve, 2000))
+            const { data, error } = await signUp(formData.email, formData.password, formData.ownerName)
 
-            // Ici vous pouvez ajouter votre logique d'inscription
-            // Par exemple : await signUp(formData)
+            if (error) {
+                setErrorMessage(error.message)
+                setShowError(true)
+                return
+            }
 
             setShowSuccess(true)
             setTimeout(() => {

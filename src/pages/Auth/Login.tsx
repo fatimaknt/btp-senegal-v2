@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../hooks/useAuth'
 import {
     Box,
     Container,
@@ -33,6 +34,7 @@ const Login: React.FC = () => {
     const [showError, setShowError] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
     const navigate = useNavigate()
+    const { signIn, isAuthenticated, isAdmin } = useAuth()
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -40,14 +42,20 @@ const Login: React.FC = () => {
         setShowError(false)
 
         try {
-            // Simulation d'authentification - remplacez par votre vraie logique
-            await new Promise(resolve => setTimeout(resolve, 1500))
+            const { data, error } = await signIn(email, password)
 
-            // Ici vous pouvez ajouter votre logique d'authentification
-            // Par exemple : await signIn({ email, password })
+            if (error) {
+                setErrorMessage(error.message)
+                setShowError(true)
+                return
+            }
 
             // Redirection après connexion réussie
-            navigate('/dashboard')
+            if (isAdmin()) {
+                navigate('/admin')
+            } else {
+                navigate('/')
+            }
         } catch (error) {
             setErrorMessage('Email ou mot de passe incorrect')
             setShowError(true)
