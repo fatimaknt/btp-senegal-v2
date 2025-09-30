@@ -90,14 +90,14 @@ const AnnuairePage = () => {
         console.log('Ville:', selectedCity);
     };
     return (_jsxs(Box, { sx: { backgroundColor: '#f8fafc', minHeight: '100vh' }, children: [_jsx(Box, { sx: {
-                    backgroundColor: '#f97316',
+                    backgroundColor: '#fb923c',
                     color: 'white',
                     py: 8
                 }, children: _jsxs(Container, { maxWidth: "lg", children: [_jsx(Typography, { variant: "h3", sx: {
                                 fontWeight: 800,
                                 textAlign: 'center',
                                 mb: 2,
-                                color: '#fbbf24',
+                                color: 'white',
                                 textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
                                 filter: 'drop-shadow(0 2px 4px rgba(251,191,36,0.3))',
                             }, children: "\uD83C\uDFE2 Annuaire des Entreprises BTP" }), _jsx(Typography, { variant: "h6", sx: { textAlign: 'center', mb: 6, opacity: 0.9 }, children: "Trouvez le professionnel parfait pour vos projets au S\u00E9n\u00E9gal \uD83C\uDDF8\uD83C\uDDF3" }), _jsx(Card, { sx: {
