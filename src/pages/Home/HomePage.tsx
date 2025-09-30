@@ -22,7 +22,10 @@ import {
     Phone as PhoneIcon,
     AccessTime as AccessTimeIcon,
     Place as PlaceIcon,
-    Close as CloseIcon
+    Close as CloseIcon,
+    Visibility as VisibilityIcon,
+    GpsFixed as TargetIcon,
+    Handshake as NetworkIcon
 } from '@mui/icons-material'
 import PageTransition from '../../components/animations/PageTransition'
 import AdSection from '../../components/ads/AdSection'
@@ -233,8 +236,9 @@ const HomePage: React.FC = () => {
                                                 component="button"
                                                 onClick={() => setSearchQuery(tag)}
                                                 sx={{
-                                                    background: 'linear-gradient(135deg,rgb(244, 125, 41) 0%,rgb(236, 107, 38) 100%)',
-                                                    border: '1px solid #f97316',
+                                                    background: 'rgba(249, 115, 22, 0.8)',
+                                                    backdropFilter: 'blur(10px)',
+                                                    border: '1px solid rgba(249, 115, 22, 0.9)',
                                                     borderRadius: 2,
                                                     color: 'white',
                                                     px: 2,
@@ -242,11 +246,9 @@ const HomePage: React.FC = () => {
                                                     fontSize: '0.8rem',
                                                     cursor: 'pointer',
                                                     transition: 'all 0.3s ease',
-                                                    fontWeight: 600,
-                                                    boxShadow: '0 2px 8px rgba(249, 115, 22, 0.3)',
                                                     '&:hover': {
-                                                        background: 'linear-gradient(135deg,rgb(237, 102, 29) 0%, #dc2626 100%)',
-                                                        transform: 'translateY(-2px)',
+                                                        background: 'rgba(249, 115, 22, 1)',
+                                                        transform: 'translateY(-1px)',
                                                         boxShadow: '0 4px 12px rgba(249, 115, 22, 0.4)'
                                                     }
                                                 }}
@@ -304,23 +306,23 @@ const HomePage: React.FC = () => {
                     <Box sx={{
                         display: 'grid',
                         gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
-                        gap: 3,
-                        maxWidth: '800px',
+                        gap: 4,
+                        maxWidth: '1200px',
                         mx: 'auto'
                     }}>
                         {[
                             {
-                                icon: '📈',
+                                icon: VisibilityIcon,
                                 title: 'Visibilité',
                                 desc: 'Augmentez votre visibilité auprès de milliers de clients potentiels'
                             },
                             {
-                                icon: '🎯',
+                                icon: TargetIcon,
                                 title: 'Ciblage',
                                 desc: 'Atteignez votre clientèle cible grâce à notre système de recherche avancée'
                             },
                             {
-                                icon: '🤝',
+                                icon: NetworkIcon,
                                 title: 'Réseau',
                                 desc: 'Développez votre réseau professionnel avec d\'autres entreprises du BTP'
                             }
@@ -330,9 +332,10 @@ const HomePage: React.FC = () => {
                                 sx={{
                                     background: 'rgba(249, 115, 22, 0.05)',
                                     border: '2px solid rgba(249, 115, 22, 0.2)',
-                                    borderRadius: 3,
-                                    p: 3,
+                                    borderRadius: 1,
+                                    p: 4,
                                     textAlign: 'center',
+                                    minHeight: '200px',
                                     transition: 'all 0.3s ease',
                                     '&:hover': {
                                         background: 'rgba(249, 115, 22, 0.1)',
@@ -342,13 +345,13 @@ const HomePage: React.FC = () => {
                                     }
                                 }}
                             >
-                                <Typography variant="h4" sx={{ mb: 2 }}>
-                                    {advantage.icon}
-                                </Typography>
-                                <Typography variant="h6" sx={{ fontWeight: 600, color: '#e67e22', mb: 2 }}>
+                                <Box sx={{ mb: 3, display: 'flex', justifyContent: 'center' }}>
+                                    <advantage.icon sx={{ fontSize: '4rem', color: '#f97316' }} />
+                                </Box>
+                                <Typography variant="h5" sx={{ fontWeight: 600, color: '#e67e22', mb: 2 }}>
                                     {advantage.title}
                                 </Typography>
-                                <Typography variant="body2" sx={{ color: 'rgba(31, 41, 55, 0.8)', lineHeight: 1.6 }}>
+                                <Typography variant="body1" sx={{ color: 'rgba(31, 41, 55, 0.8)', lineHeight: 1.6 }}>
                                     {advantage.desc}
                                 </Typography>
                             </Card>

@@ -1,5 +1,7 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
+import { Box, Typography, Container } from '@mui/material'
+import { Construction as ConstructionIcon, GpsFixed as TargetIcon, Handshake as NetworkIcon } from '@mui/icons-material'
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 
@@ -18,6 +20,8 @@ import AnnuairePage from './pages/Annuaire/AnnuairePage'
 import NewsPage from './pages/News/NewsPage'
 
 const Router: React.FC = () => {
+    console.log('Router loaded, current path:', window.location.pathname)
+
     return (
         <>
             <Header />
@@ -37,6 +41,9 @@ const Router: React.FC = () => {
                     {/* Blog */}
                     <Route path="/blog" element={<BlogPage />} />
                     <Route path="/blog/:slug" element={<ArticlePage />} />
+
+                    {/* Articles d'actualités */}
+                    <Route path="/article/:id" element={<ArticlePage />} />
 
                     {/* Authentification */}
                     <Route path="/auth/login" element={<Login />} />
@@ -118,18 +125,21 @@ const AboutPage: React.FC = () => (
         padding: '4rem 1rem'
     }}>
         <div style={{ textAlign: 'center', maxWidth: '800px' }}>
-            <h1 style={{
-                fontSize: '3rem',
-                fontWeight: 800,
-                color: '#f97316',
-                marginBottom: '1rem',
-                background: 'linear-gradient(45deg, #f97316 0%, #fb923c 50%, #ea580c 100%)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
-            }}>
-                🏗️ À propos
-            </h1>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', marginBottom: '1rem' }}>
+                <ConstructionIcon sx={{ fontSize: '3rem', color: '#f97316' }} />
+                <h1 style={{
+                    fontSize: '3rem',
+                    fontWeight: 800,
+                    color: '#f97316',
+                    background: 'linear-gradient(45deg, #f97316 0%, #fb923c 50%, #ea580c 100%)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    margin: 0
+                }}>
+                    À propos
+                </h1>
+            </div>
             <div style={{
                 padding: '3rem',
                 backgroundColor: 'white',
@@ -158,14 +168,18 @@ const AboutPage: React.FC = () => (
                 </p>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem' }}>
                     <div style={{ textAlign: 'center' }}>
-                        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🎯</div>
+                        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
+                            <TargetIcon sx={{ fontSize: '3rem', color: '#f97316' }} />
+                        </div>
                         <h3 style={{ color: '#f97316', marginBottom: '0.5rem' }}>Notre Vision</h3>
                         <p style={{ color: '#6b7280', fontSize: '0.9rem' }}>
                             Être la référence BTP au Sénégal
                         </p>
                     </div>
                     <div style={{ textAlign: 'center' }}>
-                        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🤝</div>
+                        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
+                            <NetworkIcon sx={{ fontSize: '3rem', color: '#f97316' }} />
+                        </div>
                         <h3 style={{ color: '#f97316', marginBottom: '0.5rem' }}>Nos Valeurs</h3>
                         <p style={{ color: '#6b7280', fontSize: '0.9rem' }}>
                             Confiance, qualité et transparence

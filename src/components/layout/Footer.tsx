@@ -8,14 +8,15 @@ import {
 import {
     Email as EmailIcon,
     Phone as PhoneIcon,
-    LocationOn as LocationIcon,
     WhatsApp as WhatsAppIcon,
     Info as InfoIcon,
     ContactMail as ContactMailIcon,
-    Help as HelpIcon,
     Home as HomeIcon,
     DirectionsCar as CarIcon,
-    CalendarToday as CalendarIcon
+    CalendarToday as CalendarIcon,
+    Facebook as FacebookIcon,
+    Instagram as InstagramIcon,
+    YouTube as YouTubeIcon
 } from '@mui/icons-material'
 
 const Footer: React.FC = () => {
@@ -133,7 +134,7 @@ const Footer: React.FC = () => {
                             variant="contained"
                             startIcon={<WhatsAppIcon />}
                             component="a"
-                            href="https://wa.me/221770874619"
+                            href="https://wa.me/221774424223"
                             target="_blank"
                             rel="noopener noreferrer"
                             sx={{
@@ -158,6 +159,126 @@ const Footer: React.FC = () => {
                             WhatsApp
                         </Button>
                     </Box>
+
+                    {/* Réseaux sociaux Column */}
+                    <Box sx={{ flex: 1 }}>
+                        <Typography variant="h6" sx={{
+                            fontWeight: 600,
+                            mb: 4,
+                            color: 'white',
+                            fontSize: '1.2rem'
+                        }}>
+                            Suivez-nous
+                        </Typography>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                            {/* TikTok */}
+                            <Button
+                                variant="outlined"
+                                component="a"
+                                href="https://www.tiktok.com/@btp.senegal?_t=ZN-908XgGfcAha&_r=1"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                sx={{
+                                    color: 'white',
+                                    borderColor: 'rgba(255, 255, 255, 0.3)',
+                                    borderRadius: 2,
+                                    px: 2,
+                                    py: 1,
+                                    textTransform: 'none',
+                                    fontSize: '0.9rem',
+                                    justifyContent: 'flex-start',
+                                    '&:hover': {
+                                        borderColor: '#ff0050',
+                                        backgroundColor: 'rgba(255, 0, 80, 0.1)',
+                                        color: '#ff0050'
+                                    }
+                                }}
+                            >
+                                TikTok
+                            </Button>
+
+                            {/* Instagram */}
+                            <Button
+                                variant="outlined"
+                                component="a"
+                                href="https://www.instagram.com/btpsenegal?igsh=ZG1vN2hxeHZsd2E5&utm_source=qr"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                startIcon={<InstagramIcon />}
+                                sx={{
+                                    color: 'white',
+                                    borderColor: 'rgba(255, 255, 255, 0.3)',
+                                    borderRadius: 2,
+                                    px: 2,
+                                    py: 1,
+                                    textTransform: 'none',
+                                    fontSize: '0.9rem',
+                                    justifyContent: 'flex-start',
+                                    '&:hover': {
+                                        borderColor: '#E4405F',
+                                        backgroundColor: 'rgba(228, 64, 95, 0.1)',
+                                        color: '#E4405F'
+                                    }
+                                }}
+                            >
+                                Instagram
+                            </Button>
+
+                            {/* Facebook */}
+                            <Button
+                                variant="outlined"
+                                component="a"
+                                href="https://www.facebook.com/share/19wgqdw5yz/?mibextid=wwXIfr"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                startIcon={<FacebookIcon />}
+                                sx={{
+                                    color: 'white',
+                                    borderColor: 'rgba(255, 255, 255, 0.3)',
+                                    borderRadius: 2,
+                                    px: 2,
+                                    py: 1,
+                                    textTransform: 'none',
+                                    fontSize: '0.9rem',
+                                    justifyContent: 'flex-start',
+                                    '&:hover': {
+                                        borderColor: '#1877F2',
+                                        backgroundColor: 'rgba(24, 119, 242, 0.1)',
+                                        color: '#1877F2'
+                                    }
+                                }}
+                            >
+                                Facebook
+                            </Button>
+
+                            {/* YouTube */}
+                            <Button
+                                variant="outlined"
+                                component="a"
+                                href="https://youtube.com/@btpsenegaltv?si=s7SOBZfIO6Pezqwc"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                startIcon={<YouTubeIcon />}
+                                sx={{
+                                    color: 'white',
+                                    borderColor: 'rgba(255, 255, 255, 0.3)',
+                                    borderRadius: 2,
+                                    px: 2,
+                                    py: 1,
+                                    textTransform: 'none',
+                                    fontSize: '0.9rem',
+                                    justifyContent: 'flex-start',
+                                    '&:hover': {
+                                        borderColor: '#FF0000',
+                                        backgroundColor: 'rgba(255, 0, 0, 0.1)',
+                                        color: '#FF0000'
+                                    }
+                                }}
+                            >
+                                YouTube
+                            </Button>
+                        </Box>
+                    </Box>
                 </Box>
 
                 {/* Bottom Border */}
@@ -179,7 +300,7 @@ const Footer: React.FC = () => {
                         Développé par{' '}
                         <Typography
                             component="a"
-                            href="https://wa.me/221770874619"
+                            href="https://wa.me/221774424223"
                             target="_blank"
                             rel="noopener noreferrer"
                             sx={{

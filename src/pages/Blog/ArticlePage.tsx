@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import {
   Box,
@@ -14,89 +14,122 @@ import {
 import {
   ArrowBack as ArrowBackIcon,
   CalendarToday as CalendarIcon,
-  Person as PersonIcon,
   AccessTime as TimeIcon,
   Share as ShareIcon
 } from '@mui/icons-material'
 import PageTransition from '../../components/animations/PageTransition'
 
-const ArticlePage: React.FC = () => {
-  const { slug } = useParams()
+interface Article {
+  id: string
+  title: string
+  content: string
+  excerpt?: string
+  image_url?: string
+  category?: string
+  author?: string
+  created_at: string
+  read_time?: string
+}
 
-  // Données mockées pour l'article
-  const article = {
-    id: 1,
-    slug: 'tendances-construction-senegal-2024',
-    title: 'Les tendances de la construction au Sénégal en 2024',
-    excerpt: 'Découvrez les nouvelles tendances qui révolutionnent le secteur du BTP au Sénégal cette année.',
-    content: `
-      <h2>🏗️ Une révolution en marche</h2>
-      <p>Le secteur du BTP au Sénégal connaît une transformation majeure en 2024. Les nouvelles technologies, les matériaux innovants et les méthodes de construction durables redéfinissent les standards de l'industrie.</p>
-      
-      <h3>📊 Les chiffres clés</h3>
-      <ul>
-        <li><strong>+25%</strong> d'augmentation des projets utilisant des matériaux locaux</li>
-        <li><strong>60%</strong> des entreprises adoptent des technologies numériques</li>
-        <li><strong>15 000</strong> emplois créés dans le secteur cette année</li>
-      </ul>
-      
-      <h3>🌱 Construction durable</h3>
-      <p>L'éco-construction devient une priorité. Les entreprises sénégalaises intègrent de plus en plus de matériaux recyclés et de techniques respectueuses de l'environnement.</p>
-      
-      <blockquote style="border-left: 4px solid #f97316; padding-left: 20px; margin: 20px 0; font-style: italic; background: rgba(249, 115, 22, 0.05); padding: 20px;">
-        "L'avenir du BTP au Sénégal se construit aujourd'hui avec des solutions innovantes et durables." - Expert BTP
-      </blockquote>
-      
-      <h3>🔧 Technologies émergentes</h3>
-      <p>Les outils numériques transforment les chantiers :</p>
-      <ul>
-        <li>Modélisation 3D (BIM)</li>
-        <li>Drones pour la surveillance</li>
-        <li>Applications mobiles de gestion</li>
-        <li>Réalité augmentée pour la formation</li>
-      </ul>
-      
-      <h3>🎯 Perspectives d'avenir</h3>
-      <p>Le secteur du BTP sénégalais s'oriente vers une modernisation accélérée. Les investissements dans la formation et l'innovation technologique positionnent le pays comme un leader régional.</p>
-    `,
-    image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800',
-    author: 'Amadou Ba',
-    authorAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100',
-    date: '2024-01-20',
-    readTime: '5 min',
-    category: 'Tendances',
-    tags: ['Construction', 'Innovation', 'Sénégal', 'Technologie', 'Durabilité']
+const ArticlePage: React.FC = () => {
+  const { id } = useParams()
+  const [article, setArticle] = useState<Article | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  const loadArticle = useCallback(() => {
+    try {
+      setLoading(true)
+      const stored = localStorage.getItem('btp_articles')
+      console.log('Loading article with ID:', id)
+      console.log('Stored articles:', stored)
+
+      if (stored) {
+        const articles = JSON.parse(stored)
+        console.log('Parsed articles:', articles)
+        console.log('Looking for article with ID:', id)
+
+        // Chercher l'article par ID
+        const foundArticle = articles.find((art: Article) => art.id === id)
+        console.log('Found article:', foundArticle)
+
+        if (foundArticle) {
+          console.log('Article found:', foundArticle)
+          console.log('Article image_url:', foundArticle.image_url)
+          setArticle(foundArticle)
+        } else {
+          console.log('Article not found. Available IDs:', articles.map((art: Article) => art.id))
+        }
+      } else {
+        console.log('No articles found in localStorage')
+      }
+    } catch (error) {
+      console.error('Error loading article:', error)
+    } finally {
+      setLoading(false)
+    }
+  }, [id])
+
+  useEffect(() => {
+    loadArticle()
+  }, [loadArticle])
+
+  if (loading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <Typography>Chargement...</Typography>
+      </Box>
+    )
   }
 
-  const relatedArticles = [
-    {
-      id: 2,
-      slug: 'materiaux-construction-locaux',
-      title: 'Utiliser des matériaux de construction locaux',
-      image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=300'
-    },
-    {
-      id: 3,
-      slug: 'technologies-construction-moderne',
-      title: 'Technologies modernes dans la construction',
-      image: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=300'
-    }
-  ]
+  if (!article) {
+    return (
+      <Container maxWidth="md" sx={{ py: 8 }}>
+        <Box sx={{ textAlign: 'center' }}>
+          <Typography variant="h4" sx={{ mb: 2 }}>
+            Article non trouvé
+          </Typography>
+          <Typography variant="body1" sx={{ mb: 2 }}>
+            L'article avec l'ID "{id}" n'existe pas ou a été supprimé.
+          </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
+            Vérifiez la console pour plus de détails sur les articles disponibles.
+          </Typography>
+          <Button component={Link} to="/actualites" variant="contained">
+            Retour aux actualités
+          </Button>
+        </Box>
+      </Container>
+    )
+  }
+
+
 
   return (
     <PageTransition>
-      <Box sx={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
-        <Container maxWidth="md" sx={{ py: 4 }}>
+      <Box sx={{
+        backgroundColor: '#f8fafc',
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)'
+      }}>
+        <Container maxWidth="lg" sx={{ py: 6 }}>
           {/* Bouton retour */}
           <Button
             component={Link}
-            to="/blog"
+            to="/actualites"
             startIcon={<ArrowBackIcon />}
             sx={{
               mb: 4,
               color: '#f97316',
+              fontWeight: 600,
+              px: 3,
+              py: 1.5,
+              borderRadius: '8px',
+              border: '2px solid #f97316',
               '&:hover': {
-                backgroundColor: 'rgba(249, 115, 22, 0.1)'
+                backgroundColor: '#f97316',
+                color: 'white',
+                transform: 'translateY(-2px)',
+                boxShadow: '0 8px 16px rgba(249, 115, 22, 0.3)'
               }
             }}
           >
@@ -104,17 +137,28 @@ const ArticlePage: React.FC = () => {
           </Button>
 
           {/* Article principal */}
-          <Card sx={{ mb: 6 }}>
+          <Card sx={{
+            mb: 6,
+            borderRadius: '16px',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+            overflow: 'hidden',
+            border: '1px solid rgba(249, 115, 22, 0.1)'
+          }}>
             {/* Image de couverture */}
             <Box
               sx={{
-                height: 400,
-                backgroundImage: `url(${article.image})`,
+                height: 500,
+                backgroundImage: article.image_url && article.image_url.trim() !== ''
+                  ? `url(${article.image_url})`
+                  : 'linear-gradient(135deg, #f97316 0%, #fb923c 100%)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
                 position: 'relative',
                 display: 'flex',
-                alignItems: 'flex-end'
+                alignItems: 'flex-end',
+                borderRadius: '12px 12px 0 0',
+                overflow: 'hidden'
               }}
             >
               <Box
@@ -122,19 +166,40 @@ const ArticlePage: React.FC = () => {
                   background: 'linear-gradient(transparent, rgba(0,0,0,0.7))',
                   width: '100%',
                   p: 4,
-                  color: 'white'
+                  color: 'white',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  textAlign: 'center'
                 }}
               >
+                {(!article.image_url || article.image_url.trim() === '') && (
+                  <Box sx={{ mb: 3 }}>
+                    <Typography variant="h1" sx={{ fontSize: '4rem', mb: 2 }}>
+                      📰
+                    </Typography>
+                    <Typography variant="h6" sx={{ opacity: 0.8, mb: 2 }}>
+                      Article d'actualité
+                    </Typography>
+                  </Box>
+                )}
                 <Chip
-                  label={article.category}
+                  label={article.category || 'Actualités'}
                   sx={{
-                    backgroundColor: '#f97316',
+                    backgroundColor: 'rgba(255,255,255,0.2)',
                     color: 'white',
                     fontWeight: 600,
                     mb: 2
                   }}
                 />
-                <Typography variant="h3" sx={{ fontWeight: 800, mb: 2 }}>
+                <Typography variant="h2" sx={{
+                  fontWeight: 800,
+                  mb: 2,
+                  fontSize: { xs: '2rem', md: '3rem' },
+                  lineHeight: 1.2,
+                  textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
+                }}>
                   {article.title}
                 </Typography>
               </Box>
@@ -142,9 +207,21 @@ const ArticlePage: React.FC = () => {
 
             <CardContent sx={{ p: 4 }}>
               {/* Métadonnées */}
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 3, mb: 4, flexWrap: 'wrap' }}>
+              <Box sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 4,
+                mb: 6,
+                flexWrap: 'wrap',
+                p: 3,
+                backgroundColor: 'rgba(249, 115, 22, 0.05)',
+                borderRadius: '12px',
+                border: '1px solid rgba(249, 115, 22, 0.1)'
+              }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <Avatar src={article.authorAvatar} sx={{ width: 32, height: 32 }} />
+                  <Avatar sx={{ width: 32, height: 32, backgroundColor: '#f97316' }}>
+                    {article.author?.charAt(0) || 'A'}
+                  </Avatar>
                   <Box>
                     <Typography variant="body2" sx={{ fontWeight: 600 }}>
                       {article.author}
@@ -154,13 +231,13 @@ const ArticlePage: React.FC = () => {
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                   <CalendarIcon sx={{ fontSize: 16, color: '#6b7280' }} />
                   <Typography variant="body2" color="text.secondary">
-                    {new Date(article.date).toLocaleDateString('fr-FR')}
+                    {new Date(article.created_at).toLocaleDateString('fr-FR')}
                   </Typography>
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                   <TimeIcon sx={{ fontSize: 16, color: '#6b7280' }} />
                   <Typography variant="body2" color="text.secondary">
-                    {article.readTime}
+                    {article.read_time || '5 min'}
                   </Typography>
                 </Box>
                 <Button
@@ -207,29 +284,40 @@ const ArticlePage: React.FC = () => {
                   '& h3': {
                     color: '#374151',
                     fontWeight: 600,
-                    mt: 3,
+                    mt: 4,
                     mb: 2,
-                    fontSize: '1.4rem'
+                    fontSize: '1.6rem'
                   },
                   '& p': {
-                    lineHeight: 1.7,
-                    mb: 2,
-                    fontSize: '1.1rem'
+                    lineHeight: 1.8,
+                    mb: 3,
+                    fontSize: '1.2rem',
+                    textAlign: 'justify',
+                    color: '#4b5563'
                   },
                   '& ul': {
-                    pl: 3,
-                    mb: 2
+                    pl: 4,
+                    mb: 3
                   },
                   '& li': {
                     mb: 1,
-                    fontSize: '1.1rem'
+                    fontSize: '1.2rem',
+                    color: '#4b5563'
                   },
                   '& blockquote': {
-                    borderRadius: 1,
-                    fontSize: '1.1rem'
+                    borderRadius: '8px',
+                    fontSize: '1.3rem',
+                    borderLeft: '6px solid #f97316',
+                    pl: 4,
+                    py: 3,
+                    backgroundColor: 'rgba(249, 115, 22, 0.08)',
+                    fontStyle: 'italic',
+                    color: '#374151',
+                    mb: 4
                   },
                   '& strong': {
-                    color: '#f97316'
+                    color: '#f97316',
+                    fontWeight: 700
                   }
                 }}
                 dangerouslySetInnerHTML={{ __html: article.content }}
@@ -242,65 +330,28 @@ const ArticlePage: React.FC = () => {
                 <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
                   🏷️ Tags
                 </Typography>
-                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                  {article.tags.map((tag) => (
-                    <Chip
-                      key={tag}
-                      label={tag}
-                      variant="outlined"
-                      sx={{
-                        borderColor: '#f97316',
-                        color: '#f97316',
-                        '&:hover': {
-                          backgroundColor: 'rgba(249, 115, 22, 0.1)'
-                        }
-                      }}
-                    />
-                  ))}
+                <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+                  <Chip
+                    label={article.category || 'Actualités'}
+                    sx={{
+                      backgroundColor: '#f97316',
+                      color: 'white',
+                      fontWeight: 600,
+                      px: 2,
+                      py: 1,
+                      fontSize: '1rem',
+                      '&:hover': {
+                        backgroundColor: '#ea580c',
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 4px 8px rgba(249, 115, 22, 0.3)'
+                      }
+                    }}
+                  />
                 </Box>
               </Box>
             </CardContent>
           </Card>
 
-          {/* Articles connexes */}
-          <Card>
-            <CardContent sx={{ p: 4 }}>
-              <Typography variant="h5" sx={{ fontWeight: 600, mb: 3, color: '#f97316' }}>
-                📚 Articles connexes
-              </Typography>
-              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 3 }}>
-                {relatedArticles.map((relatedArticle) => (
-                  <Card
-                    key={relatedArticle.id}
-                    component={Link}
-                    to={`/blog/${relatedArticle.slug}`}
-                    sx={{
-                      textDecoration: 'none',
-                      transition: 'all 0.3s ease',
-                      '&:hover': {
-                        transform: 'translateY(-2px)',
-                        boxShadow: '0 8px 16px rgba(249, 115, 22, 0.15)'
-                      }
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        height: 150,
-                        backgroundImage: `url(${relatedArticle.image})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center'
-                      }}
-                    />
-                    <CardContent>
-                      <Typography variant="h6" sx={{ fontWeight: 600, color: '#374151' }}>
-                        {relatedArticle.title}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                ))}
-              </Box>
-            </CardContent>
-          </Card>
         </Container>
       </Box>
     </PageTransition>

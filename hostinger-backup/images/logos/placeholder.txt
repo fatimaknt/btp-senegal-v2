@@ -1,0 +1,9 @@
+Pour ajouter ton logo:
+
+1. Place ton fichier logo.jpeg ici : 
+   /Users/pro/btp/public/images/logos/logo.jpeg
+
+2. Puis change dans App.tsx :
+   src="/images/logos/logo.jpeg"
+
+Le logo doit être carré (ex: 100x100px) pour un meilleur rendu.

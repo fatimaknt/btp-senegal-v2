@@ -1,15 +1,15 @@
-import React from 'react'
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material'
+import { BrowserRouter } from 'react-router-dom'
 import Router from './Router'
 
 // Thème BTP professionnel - Orange et Blanc avec accents Sénégal
-// Test HMR - Modification du thème - Version 3 - HMR Test
+// Test HMR - Modification du thème - Version 4 - HMR Test Actif
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#f97316', // Orange BTP vif (couleur principale) - HMR Test
-      light: '#fb923c',
-      dark: '#ea580c',
+      main: '#e67e22', // Orange BTP modifié pour test HMR - Version 4
+      light: '#f39c12',
+      dark: '#d35400',
     },
     secondary: {
       main: '#1e293b', // Gris foncé professionnel
@@ -54,16 +54,20 @@ const theme = createTheme({
     },
   },
   shape: {
-    borderRadius: 16, // HMR Test - Border radius augmenté
+    borderRadius: 20, // HMR Test - Border radius encore plus arrondi - Version 4
   },
 })
 
 function App() {
-  // HMR Test - Fonction App modifiée
+  // HMR Test - Fonction App modifiée - Version 4 avec console.log
+  console.log('🚀 HMR Test - App.tsx modifié - Version 4')
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router />
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
     </ThemeProvider>
   )
 }

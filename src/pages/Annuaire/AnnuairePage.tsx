@@ -20,7 +20,7 @@ import {
     Phone as PhoneIcon,
     FilterList as FilterIcon
 } from '@mui/icons-material'
-import { supabase } from '../../lib/supabase'
+// import { supabase } from '../../lib/supabase'
 
 interface Enterprise {
     id: string
@@ -65,36 +65,51 @@ const AnnuairePage: React.FC = () => {
 
     useEffect(() => {
         loadEnterprises()
+
+        // Écouter les mises à jour depuis l'admin
+        const handleEnterprisesUpdate = () => {
+            loadEnterprises()
+        }
+
+        window.addEventListener('enterprisesUpdated', handleEnterprisesUpdate)
+
+        return () => {
+            window.removeEventListener('enterprisesUpdated', handleEnterprisesUpdate)
+        }
     }, [])
 
     useEffect(() => {
         filterEnterprises()
     }, [enterprises, searchQuery, selectedCategory, selectedCity])
 
-    const loadEnterprises = async () => {
+    const loadEnterprises = () => {
         try {
             setLoading(true)
-            const { data, error } = await supabase
-                .from('enterprises')
-                .select('*')
-                .eq('is_active', true)
-                .order('created_at', { ascending: false })
+            const stored = localStorage.getItem('btp_enterprises')
+            if (stored) {
+                const enterprisesData = JSON.parse(stored)
+                // Filtrer seulement les entreprises actives
+                const activeEnterprises = enterprisesData.filter((enterprise: any) => enterprise.is_active)
 
-            if (error) {
-                console.error('Error loading enterprises:', error)
-            } else {
                 // Ajouter des données mockées pour le design
-                const enterprisesWithMockData = (data || []).map(enterprise => ({
+                const enterprisesWithMockData = activeEnterprises.map((enterprise: any) => ({
                     ...enterprise,
                     rating: 4.5 + Math.random() * 0.5,
                     reviews: Math.floor(Math.random() * 50) + 10,
                     services: ['Service 1', 'Service 2', 'Service 3'],
                     verified: Math.random() > 0.3
                 }))
+
                 setEnterprises(enterprisesWithMockData)
+                console.log('Loaded enterprises from localStorage:', enterprisesWithMockData)
+                console.log('Phone numbers:', enterprisesWithMockData.map(e => ({ name: e.name, phone: e.phone, contact_phone: e.contact_phone })))
+            } else {
+                setEnterprises([])
+                console.log('No enterprises found in localStorage')
             }
-        } catch (err) {
-            console.error('Error in loadEnterprises:', err)
+        } catch (error) {
+            console.error('Error loading enterprises:', error)
+            setEnterprises([])
         } finally {
             setLoading(false)
         }
@@ -474,7 +489,9 @@ const AnnuairePage: React.FC = () => {
 
                                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 3 }}>
                                         <PhoneIcon sx={{ color: '#f97316', fontSize: 18 }} />
-                                        <Typography variant="body2">{enterprise.phone}</Typography>
+                                        <Typography variant="body2">
+                                            {enterprise.phone || enterprise.contact_phone || 'Aucun numéro'}
+                                        </Typography>
                                     </Box>
 
                                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>

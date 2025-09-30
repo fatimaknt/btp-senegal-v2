@@ -57,7 +57,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({
                 .eq('is_published', true)
                 .order('created_at', { ascending: false })
                 .limit(maxNews)
-            
+
             if (error) {
                 console.error('Error loading news:', error)
             } else {
@@ -95,7 +95,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({
             <Grid container spacing={4}>
                 {displayNews.map((article) => (
                     <Grid item xs={12} md={6} lg={4} key={article.id}>
-                        <Paper 
+                        <Paper
                             elevation={2}
                             sx={{
                                 border: '1px solid #e5e7eb',
@@ -130,14 +130,14 @@ const NewsSection: React.FC<NewsSectionProps> = ({
                                 {/* En-tête avec icône et titre */}
                                 <Box sx={{ mb: 2 }}>
                                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                                        <ArticleIcon sx={{ 
-                                            fontSize: 24, 
+                                        <ArticleIcon sx={{
+                                            fontSize: 24,
                                             mr: 1.5,
                                             color: '#f97316'
                                         }} />
-                                        <Typography 
-                                            variant="h6" 
-                                            sx={{ 
+                                        <Typography
+                                            variant="h6"
+                                            sx={{
                                                 fontWeight: 700,
                                                 fontSize: '1.1rem',
                                                 lineHeight: 1.3,
@@ -147,7 +147,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({
                                             {article.title}
                                         </Typography>
                                     </Box>
-                                    
+
                                     {article.category && (
                                         <Chip
                                             label={article.category}
@@ -163,9 +163,9 @@ const NewsSection: React.FC<NewsSectionProps> = ({
                                 </Box>
 
                                 {/* Extrait ou contenu */}
-                                <Typography 
-                                    variant="body2" 
-                                    sx={{ 
+                                <Typography
+                                    variant="body2"
+                                    sx={{
                                         color: '#374151',
                                         lineHeight: 1.6,
                                         mb: 2,
@@ -191,7 +191,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({
                                         size="small"
                                         sx={{
                                             background: 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)',
-                                            '&:hover': { 
+                                            '&:hover': {
                                                 background: 'linear-gradient(135deg, #ea580c 0%, #dc2626 100%)',
                                                 transform: 'translateY(-1px)',
                                                 boxShadow: '0 4px 12px rgba(249, 115, 22, 0.4)'

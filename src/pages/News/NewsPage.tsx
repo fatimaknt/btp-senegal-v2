@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {
     Box,
     Container,
@@ -19,7 +19,7 @@ import {
     Person as PersonIcon,
     AccessTime as TimeIcon
 } from '@mui/icons-material'
-import { supabase } from '../../lib/supabase'
+// import { supabase } from '../../lib/supabase'
 import PageTransition from '../../components/animations/PageTransition'
 
 interface News {
@@ -36,6 +36,7 @@ interface News {
 }
 
 const NewsPage: React.FC = () => {
+    const navigate = useNavigate()
     const [news, setNews] = useState<News[]>([])
     const [filteredNews, setFilteredNews] = useState<News[]>([])
     const [loading, setLoading] = useState(false)
@@ -44,36 +45,58 @@ const NewsPage: React.FC = () => {
 
     const categories = ['all', 'Actualités', 'Réglementation', 'Technologie', 'Événements', 'Formation', 'Autre']
 
+    const handleReadArticle = (articleId: string) => {
+        console.log('handleReadArticle called with ID:', articleId)
+        console.log('Navigating to:', `/article/${articleId}`)
+        navigate(`/article/${articleId}`)
+    }
+
     useEffect(() => {
         loadNews()
+
+        // Écouter les mises à jour depuis l'admin
+        const handleArticlesUpdate = () => {
+            loadNews()
+        }
+
+        window.addEventListener('articlesUpdated', handleArticlesUpdate)
+
+        return () => {
+            window.removeEventListener('articlesUpdated', handleArticlesUpdate)
+        }
     }, [])
 
     useEffect(() => {
         filterNews()
     }, [news, searchTerm, selectedCategory])
 
-    const loadNews = async () => {
+    const loadNews = () => {
         try {
             setLoading(true)
-            const { data, error } = await supabase
-                .from('articles')
-                .select('*')
-                .eq('is_published', true)
-                .order('created_at', { ascending: false })
+            const stored = localStorage.getItem('btp_articles')
+            if (stored) {
+                const articlesData = JSON.parse(stored)
+                // Filtrer seulement les articles actifs
+                const activeArticles = articlesData.filter((article: any) => article.is_active)
 
-            if (error) {
-                console.error('Error loading news:', error)
-            } else {
                 // Ajouter des données mockées pour le design
-                const newsWithMockData = (data || []).map(article => ({
+                const newsWithMockData = activeArticles.map((article: any) => ({
                     ...article,
-                    author: 'Rédaction BTP',
-                    read_time: Math.floor(Math.random() * 5) + 3 + ' min'
+                    author: article.author || 'Rédaction BTP',
+                    read_time: Math.floor(Math.random() * 5) + 3 + ' min',
+                    is_published: article.is_active
                 }))
+
                 setNews(newsWithMockData)
+                console.log('Loaded articles from localStorage:', newsWithMockData)
+                console.log('Article IDs in NewsPage:', newsWithMockData.map(a => ({ id: a.id, title: a.title })))
+            } else {
+                setNews([])
+                console.log('No articles found in localStorage')
             }
-        } catch (err) {
-            console.error('Error in loadNews:', err)
+        } catch (error) {
+            console.error('Error loading articles:', error)
+            setNews([])
         } finally {
             setLoading(false)
         }
@@ -238,6 +261,10 @@ const NewsPage: React.FC = () => {
                                         <Button
                                             fullWidth
                                             variant="outlined"
+                                            onClick={() => {
+                                                console.log('Button clicked for article:', { id: article.id, title: article.title })
+                                                handleReadArticle(article.id)
+                                            }}
                                             sx={{
                                                 borderColor: '#e67e22',
                                                 color: '#e67e22',
