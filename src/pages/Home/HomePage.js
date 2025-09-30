@@ -27,7 +27,7 @@ const HomePage = () => {
             sx: {
                     background: `
                     linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
-                    url('/images.jpeg') center/cover
+                    url('/images/image.jpeg') center/cover
                 `,
                     color: 'white',
                 py: { xs: 20, md: 24 },
@@ -39,7 +39,7 @@ const HomePage = () => {
                         left: 0,
                         right: 0,
                         bottom: 0,
-                    background: 'url("/images.jpeg") center/cover',
+                    background: 'url("/images/image.jpeg") center/cover',
                     opacity: 0.4,
                         zIndex: -1
                     },
@@ -50,7 +50,7 @@ const HomePage = () => {
                         left: 0,
                         right: 0,
                         bottom: 0,
-                        background: 'linear-gradient(135deg, rgba(50, 30, 12, 0.2) 0%, rgba(109, 80, 37, 0.2) 50%, rgba(72, 37, 15, 0.2) 100%)',
+                    background: 'linear-gradient(135deg, rgba(78, 48, 21, 0.2) 0%, rgba(97, 69, 26, 0.2) 50%, rgba(96, 50, 21, 0.2) 100%)',
                         zIndex: -1
                     }
             }, children: _jsxs(Container, {
@@ -97,7 +97,7 @@ const HomePage = () => {
                                     }
                         }, children: _jsxs(CardContent, {
                             sx: { p: 2 }, children: [_jsx(Box, {
-                                component: "form", onSubmit: handleSearch, sx: { mb: -1 }, children: _jsxs(Box, {
+                                component: "form", onSubmit: handleSearch, sx: { mb: 2 }, children: _jsxs(Box, {
                                     sx: {
                                                     display: 'flex',
                                                     flexDirection: { xs: 'column', sm: 'row' },
@@ -115,7 +115,7 @@ const HomePage = () => {
                                             })),
                                                         }, sx: {
                                                             '& .MuiOutlinedInput-root': {
-                                                                height: '70px',
+                                                height: '50px',
                                                                 borderRadius: 6,
                                                                 backgroundColor: 'rgba(255, 255, 255, 0.95)',
                                                                 boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
@@ -146,7 +146,7 @@ const HomePage = () => {
                                         }
                                     }), _jsx(Button, {
                                         type: "submit", variant: "contained", sx: {
-                                                            height: '70px',
+                                            height: '50px',
                                                             px: 6,
                                                             py: 3,
                                                             background: 'linear-gradient(135deg, #e67e22 0%, #f39c12 100%)',
