@@ -262,8 +262,10 @@ const AnnuairePage = () => {
                                 sx: { mb: 2 }, children: _jsx(Box, {
                                     sx: { display: 'flex', flexWrap: 'wrap', gap: 0.5 }, children: enterprise.services?.map((service, index) => (_jsx(Chip, {
                                         label: service, size: "small", sx: {
-                                            backgroundColor: 'rgba(251, 146, 60, 0.1)',
-                                            color: 'white',
+                                            backgroundColor: 'rgba(233, 129, 43, 0.2)',
+                                            color: '#e67e22',
+                                            fontWeight: 600,
+                                            border: '1px solid rgba(237, 123, 24, 0.3)',
                                         }
                                     }, index)))
                                 })
