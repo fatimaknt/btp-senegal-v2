@@ -50,7 +50,7 @@ const HomePage = () => {
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    background: 'linear-gradient(135deg, rgba(78, 48, 21, 0.2) 0%, rgba(97, 69, 26, 0.2) 50%, rgba(96, 50, 21, 0.2) 100%)',
+                    background: 'linear-gradient(135deg, rgba(251, 146, 60, 0.3) 0%, rgba(253, 186, 116, 0.3) 50%, rgba(249, 115, 22, 0.3) 100%)',
                     zIndex: -1
                 }
             }, children: _jsxs(Container, {
@@ -59,7 +59,7 @@ const HomePage = () => {
                         variant: "h2", component: "h1", sx: {
                             fontWeight: 900,
                             mb: 3,
-                            color: '#e67e22',
+                            color: 'white',
                             textShadow: '3px 3px 6px rgba(0,0,0,0.5)',
                             letterSpacing: '-0.02em',
                             fontSize: { xs: '2.5rem', md: '4rem' }
@@ -96,12 +96,12 @@ const HomePage = () => {
                                 background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent)'
                             }
                         }, children: _jsxs(CardContent, {
-                            sx: { p: 1 }, children: [_jsx(Box, {
+                            sx: { p: 3 }, children: [_jsx(Box, {
                                 component: "form", onSubmit: handleSearch, sx: { mb: 2 }, children: _jsxs(Box, {
                                     sx: {
                                         display: 'flex',
                                         flexDirection: { xs: 'column', sm: 'row' },
-                                        gap: 4,
+                                        gap: 2,
                                         alignItems: 'stretch'
                                     }, children: [_jsx(TextField, {
                                         fullWidth: true, placeholder: "Service ou entreprise recherch\u00E9e...", value: searchQuery, onChange: (e) => setSearchQuery(e.target.value), InputProps: {
