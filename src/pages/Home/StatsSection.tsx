@@ -86,7 +86,7 @@ const StatsSection: React.FC = () => {
             scale: 1,
             transition: {
                 duration: 0.6,
-                ease: [0.04, 0.62, 0.23, 0.98]
+                ease: "easeOut"
             }
         }
     }
@@ -114,7 +114,7 @@ const StatsSection: React.FC = () => {
     }
 
     return (
-        <section className="py-20 bg-gray-50" ref={ref}>
+        <section className="py-20 bg-orange-50" ref={ref}>
             <div className="container mx-auto px-4">
                 {/* En-tête de section */}
                 <motion.div
@@ -183,8 +183,13 @@ const StatsSection: React.FC = () => {
                                 src="/images/testimonials/client-1.jpg"
                                 alt="Client satisfait"
                                 className="w-16 h-16 rounded-full object-cover"
+                                style={{
+                                    imageRendering: 'high-quality',
+                                    imageRendering: '-webkit-optimize-contrast',
+                                    imageRendering: 'crisp-edges'
+                                }}
                                 onError={(e) => {
-                                    e.currentTarget.src = `https://ui-avatars.com/api/?name=Amadou+Diallo&background=1e40af&color=fff`
+                                    e.currentTarget.src = `https://ui-avatars.com/api/?name=Amadou+Diallo&background=1e40af&color=fff&size=128`
                                 }}
                             />
                             <div className="text-left">

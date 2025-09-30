@@ -133,11 +133,8 @@ const NewsPage: React.FC = () => {
                             sx={{
                                 fontWeight: 800,
                                 mb: 2,
-                                background: 'linear-gradient(45deg, #ffffff 0%, #fbbf24 50%, #e67e22 100%)',
-                                backgroundClip: 'text',
-                                WebkitBackgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent',
-                                textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+                                color: 'white',
+                                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)'
                             }}
                         >
                             Actualités BTP Sénégal
