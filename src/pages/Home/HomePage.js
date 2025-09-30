@@ -96,12 +96,12 @@ const HomePage = () => {
                                 background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent)'
                             }
                         }, children: _jsxs(CardContent, {
-                            sx: { p: 2 }, children: [_jsx(Box, {
+                            sx: { p: 1 }, children: [_jsx(Box, {
                                 component: "form", onSubmit: handleSearch, sx: { mb: 2 }, children: _jsxs(Box, {
                                     sx: {
                                         display: 'flex',
                                         flexDirection: { xs: 'column', sm: 'row' },
-                                        gap: 3,
+                                        gap: 4,
                                         alignItems: 'stretch'
                                     }, children: [_jsx(TextField, {
                                         fullWidth: true, placeholder: "Service ou entreprise recherch\u00E9e...", value: searchQuery, onChange: (e) => setSearchQuery(e.target.value), InputProps: {
@@ -115,7 +115,7 @@ const HomePage = () => {
                                             })),
                                         }, sx: {
                                             '& .MuiOutlinedInput-root': {
-                                                height: '60px',
+                                                height: '50px',
                                                 borderRadius: '30px',
                                                 backgroundColor: 'rgba(255, 255, 255, 0.95)',
                                                 boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
@@ -146,7 +146,7 @@ const HomePage = () => {
                                         }
                                     }), _jsx(Button, {
                                         type: "submit", variant: "contained", sx: {
-                                            height: '60px',
+                                            height: '50px',
                                             px: 6,
                                             py: 3,
                                             background: 'linear-gradient(135deg, #e67e22 0%, #f39c12 100%)',
