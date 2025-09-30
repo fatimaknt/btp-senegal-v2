@@ -670,6 +670,78 @@ const HomePage = () => {
                                                             transform: 'translateY(-2px)',
                                                             boxShadow: '0 4px 12px rgba(249, 115, 22, 0.3)'
                                                         }
+                                                    }, children: "Afficher La Carte" })] })] }), _jsxs(Card, { sx: {
+                                        borderRadius: 2,
+                                        overflow: 'hidden',
+                                        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+                                        transition: 'all 0.3s ease',
+                                        '&:hover': {
+                                            transform: 'translateY(-4px)',
+                                            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.15)'
+                                        }
+                                    }, children: [_jsx(Box, { onClick: () => navigate('/entreprise/ebinka-group'), sx: {
+                                                height: 220,
+                                                backgroundImage: 'url(/entreprises/entreprise.jpeg)',
+                                                backgroundSize: 'cover',
+                                                backgroundPosition: 'center',
+                                                position: 'relative',
+                                                display: 'flex',
+                                                alignItems: 'flex-start',
+                                                justifyContent: 'flex-start',
+                                                p: 2,
+                                                cursor: 'pointer',
+                                                transition: 'all 0.3s ease',
+                                                '&:hover': {
+                                                    transform: 'scale(1.02)',
+                                                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)'
+                                                }
+                                            } }), _jsxs(CardContent, { sx: { p: 4, backgroundColor: 'white' }, children: [_jsx(Box, { sx: { display: 'flex', alignItems: 'center', mb: 2 }, children: _jsx(Box, { sx: {
+                                                            background: '#e67e22',
+                                                            color: 'white',
+                                                            px: 2,
+                                                            py: 0.5,
+                                                            borderRadius: 1,
+                                                            fontSize: '0.7rem',
+                                                            fontWeight: 600,
+                                                            textTransform: 'uppercase'
+                                                        }, children: "BTP" }) }), _jsxs(Box, { sx: {
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'space-between',
+                                                        mb: 2
+                                                    }, children: [_jsx(Typography, { variant: "h5", sx: {
+                                                                fontWeight: 600,
+                                                                color: '#1f2937',
+                                                                fontSize: '0.8rem'
+                                                            }, children: "EBINKA GROUP" }), _jsxs(Box, { sx: { display: 'flex', alignItems: 'center' }, children: [_jsx(AccessTimeIcon, { sx: { fontSize: 12, color: '#10b981', mr: 0.5 } }), _jsx(Typography, { variant: "body2", sx: {
+                                                                        color: '#10b981',
+                                                                        fontSize: '0.6rem',
+                                                                        fontWeight: 600
+                                                                    }, children: "Ouvert maintenant" })] })] }), _jsx(Typography, { variant: "body2", sx: { color: '#6b7280', fontSize: '0.75rem', mb: 2, lineHeight: 1.6 }, children: "VOTRE PARTENAIRE EN CONSTRUCTION" }), _jsx(Typography, { variant: "body2", sx: { color: '#6b7280', fontSize: '0.7rem', mb: 1.5, lineHeight: 1.4 }, children: "THIES NGINTH en face station total Thiès - Sénégal" }), _jsx(Box, { sx: {
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'space-between',
+                                                        mb: 2,
+                                                        gap: 2
+                                                    }, children: _jsxs(Box, { sx: { display: 'flex', alignItems: 'center' }, children: [_jsx(PhoneIcon, { sx: { fontSize: 16, color: '#6b7280', mr: 1 } }), _jsx(Typography, { variant: "body2", sx: { color: '#6b7280', fontSize: '0.8rem', fontWeight: 600 }, children: "+221 77 386 42 53" })] }) }), _jsx(Button, { variant: "outlined", size: "small", startIcon: _jsx(PlaceIcon, {}), onClick: () => handleOpenMap('EBINKA GROUP'), sx: {
+                                                        borderColor: '#e67e22',
+                                                        color: '#e67e22',
+                                                        borderRadius: 2,
+                                                        px: 3,
+                                                        py: 1.5,
+                                                        fontWeight: 700,
+                                                        fontSize: '0.8rem',
+                                                        textTransform: 'none',
+                                                        minWidth: '160px',
+                                                        boxShadow: '0 2px 8px rgba(249, 115, 22, 0.1)',
+                                                        transition: 'all 0.3s ease',
+                                                        '&:hover': {
+                                                            backgroundColor: '#e67e22',
+                                                            color: 'white',
+                                                            borderColor: '#e67e22',
+                                                            transform: 'translateY(-2px)',
+                                                            boxShadow: '0 4px 12px rgba(249, 115, 22, 0.3)'
+                                                        }
                                                     }, children: "Afficher La Carte" })] })] })] })] }) }), _jsx(Box, { sx: { py: 8, backgroundColor: '#f8fafc' }, children: _jsx(Container, { maxWidth: "lg", children: _jsxs(Box, { sx: {
                             display: 'flex',
                             flexDirection: 'column',
