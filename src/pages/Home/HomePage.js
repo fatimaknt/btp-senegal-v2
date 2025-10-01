@@ -1024,7 +1024,7 @@ const HomePage = () => {
                     }, children: [
                         {
                             icon: _jsx(BusinessIcon, { sx: { fontSize: 60, color: '#e67e22' } }),
-                            value: '1000+',
+                            value: '10000+',
                             label: 'Entreprises'
                         },
                         {
