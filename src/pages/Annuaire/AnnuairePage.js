@@ -2,6 +2,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState, useEffect } from 'react';
 import { Box, Container, Typography, TextField, Button, Card, CardContent, Grid, Chip, Avatar, Rating, InputAdornment } from '@mui/material';
 import { Search as SearchIcon, LocationOn as LocationIcon, Business as BusinessIcon, Phone as PhoneIcon, FilterList as FilterIcon } from '@mui/icons-material';
+import { allCompaniesData } from '../../data/companies';
 const AnnuairePage = () => {
     const [enterprises, setEnterprises] = useState([]);
     const [filteredEnterprises, setFilteredEnterprises] = useState([]);
@@ -41,27 +42,17 @@ const AnnuairePage = () => {
     const loadEnterprises = () => {
         try {
             setLoading(true);
-            const stored = localStorage.getItem('btp_enterprises');
-            if (stored) {
-                const enterprisesData = JSON.parse(stored);
-                // Filtrer seulement les entreprises actives
-                const activeEnterprises = enterprisesData.filter((enterprise) => enterprise.is_active);
-                // Ajouter des données mockées pour le design
-                const enterprisesWithMockData = activeEnterprises.map((enterprise) => ({
-                    ...enterprise,
-                    rating: 4.5 + Math.random() * 0.5,
-                    reviews: Math.floor(Math.random() * 50) + 10,
-                    services: ['Service 1', 'Service 2', 'Service 3'],
-                    verified: Math.random() > 0.3
-                }));
-                setEnterprises(enterprisesWithMockData);
-                console.log('Loaded enterprises from localStorage:', enterprisesWithMockData);
-                console.log('Phone numbers:', enterprisesWithMockData.map(e => ({ name: e.name, phone: e.phone, contact_phone: e.contact_phone })));
-            }
-            else {
-                setEnterprises([]);
-                console.log('No enterprises found in localStorage');
-            }
+            // Utiliser les données des entreprises depuis le fichier companies.js
+            const enterprisesWithMockData = allCompaniesData.map((enterprise) => ({
+                ...enterprise,
+                rating: enterprise.rating?.overall || 4.5,
+                reviews: enterprise.rating?.totalReviews || Math.floor(Math.random() * 50) + 10,
+                services: enterprise.services || ['Service 1', 'Service 2', 'Service 3'],
+                verified: enterprise.isVerified || Math.random() > 0.3,
+                is_active: true
+            }));
+            setEnterprises(enterprisesWithMockData);
+            console.log('Loaded enterprises from companies data:', enterprisesWithMockData.length);
         }
         catch (error) {
             console.error('Error loading enterprises:', error);
@@ -227,64 +218,259 @@ const AnnuairePage = () => {
                         }
                     }, filter)))
                 })]
-            }), _jsx(Grid, {
-                container: true, spacing: 3, children: filteredEnterprises.map((enterprise) => (_jsx(Grid, {
-                    item: true, xs: 12, md: 6, lg: 4, children: _jsx(Card, {
-                        sx: {
-                            height: '100%',
-                            transition: 'all 0.3s ease',
-                            '&:hover': {
-                                transform: 'translateY(-5px)',
-                                boxShadow: '0 15px 35px rgba(249, 115, 22, 0.15)',
-                            }
-                        }, children: _jsxs(CardContent, {
-                            sx: { p: 3 }, children: [_jsxs(Box, {
-                                sx: { display: 'flex', alignItems: 'start', mb: 2 }, children: [_jsx(Avatar, {
-                                    sx: {
-                                        bgcolor: '#f97316',
-                                        mr: 2,
-                                        width: 56,
-                                        height: 56
-                                    }, children: _jsx(BusinessIcon, {})
-                                }), _jsxs(Box, {
-                                    sx: { flex: 1 }, children: [_jsxs(Box, {
-                                        sx: { display: 'flex', alignItems: 'center', gap: 1, mb: 1 }, children: [_jsx(Typography, { variant: "h6", sx: { fontWeight: 600 }, children: enterprise.name }), enterprise.verified && (_jsx(Chip, {
-                                            label: "\u2713", size: "small", sx: {
-                                                backgroundColor: '#00853f',
-                                                color: 'white',
-                                                minWidth: '24px',
-                                                height: '24px'
+            }), _jsx(Box, {
+                sx: { display: 'flex', flexDirection: 'column', gap: 3 },
+                children: filteredEnterprises.map((enterprise) => (_jsx(Card, {
+                    key: enterprise.id,
+                    sx: {
+                        width: '100%',
+                        transition: 'all 0.3s ease',
+                        borderRadius: 3,
+                        border: '1px solid #e5e7eb',
+                        '&:hover': {
+                            transform: 'translateY(-4px)',
+                            boxShadow: '0 15px 35px rgba(249, 115, 22, 0.15)',
+                            border: '1px solid #f97316',
+                        }
+                    },
+                    children: _jsxs(CardContent, {
+                        sx: { p: 4 },
+                        children: [
+                            // Header avec avatar, nom et rating
+                            _jsxs(Box, {
+                                sx: {
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    mb: 3,
+                                    gap: 3
+                                },
+                                children: [
+                                    _jsx(Avatar, {
+                                        sx: {
+                                            bgcolor: '#f97316',
+                                            width: 70,
+                                            height: 70,
+                                            fontSize: '1.5rem'
+                                        },
+                                        children: _jsx(BusinessIcon, {})
+                                    }),
+                                    _jsxs(Box, {
+                                        sx: { flex: 1 },
+                                        children: [
+                                            _jsxs(Box, {
+                                                sx: {
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: 2,
+                                                    mb: 1
+                                                },
+                                                children: [
+                                                    _jsx(Typography, {
+                                                        variant: "h5",
+                                                        sx: {
+                                                            fontWeight: 600,
+                                                            color: '#1f2937'
+                                                        },
+                                                        children: enterprise.name
+                                                    }),
+                                                    enterprise.verified && (_jsx(Chip, {
+                                                        label: "✓ Vérifié",
+                                                        size: "small",
+                                                        sx: {
+                                                            backgroundColor: '#10b981',
+                                                            color: 'white',
+                                                            fontWeight: 600
+                                                        }
+                                                    }))
+                                                ]
+                                            }),
+                                            _jsx(Typography, {
+                                                variant: "h6",
+                                                color: "text.secondary",
+                                                sx: {
+                                                    mb: 1,
+                                                    fontWeight: 500
+                                                },
+                                                children: enterprise.category
+                                            }),
+                                            _jsxs(Box, {
+                                                sx: {
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: 1
+                                                },
+                                                children: [
+                                                    _jsx(Rating, {
+                                                        value: enterprise.rating || 4.5,
+                                                        precision: 0.1,
+                                                        size: "medium",
+                                                        readOnly: true
+                                                    }),
+                                                    _jsxs(Typography, {
+                                                        variant: "body1",
+                                                        color: "text.secondary",
+                                                        sx: { fontWeight: 500 },
+                                                        children: [
+                                                            (enterprise.rating || 4.5).toFixed(1),
+                                                            " (",
+                                                            enterprise.reviews || 0,
+                                                            " avis)"
+                                                        ]
+                                                    })
+                                                ]
+                                            })
+                                        ]
+                                    }),
+                                    // Bouton d'action à droite
+                                    _jsx(Button, {
+                                        variant: "contained",
+                                        size: "large",
+                                        onClick: () => {
+                                            const phone = enterprise.phone || enterprise.contact_phone;
+                                            if (phone) {
+                                                window.open(`https://wa.me/${phone.replace(/\D/g, '')}`, '_blank');
                                             }
-                                        }))]
-                                    }), _jsx(Typography, { variant: "body2", color: "text.secondary", sx: { mb: 1 }, children: enterprise.category }), _jsxs(Box, { sx: { display: 'flex', alignItems: 'center', gap: 1 }, children: [_jsx(Rating, { value: enterprise.rating || 4.5, precision: 0.1, size: "small", readOnly: true }), _jsxs(Typography, { variant: "body2", color: "text.secondary", children: [enterprise.rating?.toFixed(1), " (", enterprise.reviews, " avis)"] })] })]
-                                })]
-                            }), _jsx(Typography, { variant: "body2", sx: { mb: 2, color: 'text.secondary' }, children: enterprise.description }), _jsx(Box, {
-                                sx: { mb: 2 }, children: _jsx(Box, {
-                                    sx: { display: 'flex', flexWrap: 'wrap', gap: 0.5 }, children: enterprise.services?.map((service, index) => (_jsx(Chip, {
-                                        label: service, size: "small", sx: {
-                                            backgroundColor: 'rgba(249, 115, 22, 0.1)',
-                                            color: '#f97316',
-                                        }
-                                    }, index)))
-                                })
-                            }), _jsxs(Box, { sx: { display: 'flex', alignItems: 'center', gap: 1, mb: 2 }, children: [_jsx(LocationIcon, { sx: { color: '#f97316', fontSize: 18 } }), _jsx(Typography, { variant: "body2", children: enterprise.address || 'Dakar' })] }), _jsxs(Box, { sx: { display: 'flex', alignItems: 'center', gap: 1, mb: 3 }, children: [_jsx(PhoneIcon, { sx: { color: '#f97316', fontSize: 18 } }), _jsx(Typography, { variant: "body2", children: enterprise.phone || enterprise.contact_phone || 'Aucun numéro' })] }), _jsx(Box, {
-                                sx: { display: 'flex', justifyContent: 'center' }, children: _jsx(Button, {
-                                    variant: "contained", size: "medium", onClick: () => window.open(`https://wa.me/${enterprise.phone.replace(/\D/g, '')}`, '_blank'), sx: {
-                                        background: 'linear-gradient(135deg, #e67e22 0%, #f39c12 100%)',
-                                        color: 'white',
-                                        px: 4,
-                                        py: 1.5,
-                                        borderRadius: 2,
-                                        fontWeight: 600,
-                                        '&:hover': {
-                                            background: 'linear-gradient(135deg, #d35400 0%, #e67e22 100%)',
-                                            transform: 'translateY(-2px)',
-                                            boxShadow: '0 8px 25px rgba(230, 126, 34, 0.3)'
-                                        }
-                                    }, children: "\uD83D\uDCDE Contacter via WhatsApp"
-                                })
-                            })]
-                        })
+                                        },
+                                        sx: {
+                                            background: 'linear-gradient(135deg, #f97316 0%, #fb923c 100%)',
+                                            color: 'white',
+                                            px: 4,
+                                            py: 2,
+                                            borderRadius: 3,
+                                            fontWeight: 600,
+                                            fontSize: '1rem',
+                                            textTransform: 'none',
+                                            minWidth: '180px',
+                                            '&:hover': {
+                                                background: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)',
+                                                transform: 'translateY(-2px)',
+                                                boxShadow: '0 8px 25px rgba(249, 115, 22, 0.3)'
+                                            }
+                                        },
+                                        children: "📞 Contacter"
+                                    })
+                                ]
+                            }),
+
+                            // Description
+                            _jsx(Typography, {
+                                variant: "body1",
+                                sx: {
+                                    mb: 3,
+                                    color: 'text.secondary',
+                                    lineHeight: 1.6
+                                },
+                                children: enterprise.description
+                            }),
+
+                            // Services et informations
+                            _jsxs(Box, {
+                                sx: {
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'flex-start',
+                                    flexWrap: 'wrap',
+                                    gap: 3
+                                },
+                                children: [
+                                    // Services
+                                    _jsx(Box, {
+                                        sx: { flex: 1, minWidth: '300px' },
+                                        children: _jsxs(Box, {
+                                            sx: {
+                                                display: 'flex',
+                                                flexWrap: 'wrap',
+                                                gap: 1
+                                            },
+                                            children: [
+                                                _jsx(Typography, {
+                                                    variant: "subtitle2",
+                                                    sx: {
+                                                        width: '100%',
+                                                        mb: 1,
+                                                        fontWeight: 600,
+                                                        color: '#f97316'
+                                                    },
+                                                    children: "Services :"
+                                                }),
+                                                enterprise.services?.map((service, index) => (_jsx(Chip, {
+                                                    key: index,
+                                                    label: service,
+                                                    size: "medium",
+                                                    sx: {
+                                                        backgroundColor: 'rgba(249, 115, 22, 0.1)',
+                                                        color: '#f97316',
+                                                        fontWeight: 500,
+                                                        '&:hover': {
+                                                            backgroundColor: 'rgba(249, 115, 22, 0.2)',
+                                                        }
+                                                    }
+                                                }, index)))
+                                            ]
+                                        })
+                                    }),
+
+                                    // Informations de contact
+                                    _jsxs(Box, {
+                                        sx: {
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            gap: 2,
+                                            minWidth: '300px'
+                                        },
+                                        children: [
+                                            _jsxs(Box, {
+                                                sx: {
+                                                    display: 'flex',
+                                                    alignItems: 'flex-start',
+                                                    gap: 2
+                                                },
+                                                children: [
+                                                    _jsx(LocationIcon, {
+                                                        sx: {
+                                                            color: '#f97316',
+                                                            fontSize: 20,
+                                                            mt: 0.5
+                                                        }
+                                                    }),
+                                                    _jsx(Typography, {
+                                                        variant: "body1",
+                                                        sx: {
+                                                            lineHeight: 1.4,
+                                                            color: '#374151'
+                                                        },
+                                                        children: enterprise.address || 'Dakar'
+                                                    })
+                                                ]
+                                            }),
+                                            _jsxs(Box, {
+                                                sx: {
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: 2
+                                                },
+                                                children: [
+                                                    _jsx(PhoneIcon, {
+                                                        sx: {
+                                                            color: '#f97316',
+                                                            fontSize: 20
+                                                        }
+                                                    }),
+                                                    _jsx(Typography, {
+                                                        variant: "body1",
+                                                        sx: {
+                                                            fontWeight: 500,
+                                                            color: '#374151'
+                                                        },
+                                                        children: enterprise.phone || enterprise.contact_phone || 'Aucun numéro'
+                                                    })
+                                                ]
+                                            })
+                                        ]
+                                    })
+                                ]
+                            })
+                        ]
                     })
                 }, enterprise.id)))
             }), _jsx(Box, {

@@ -2,7 +2,7 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Box, Button, IconButton, Avatar, useMediaQuery, useTheme, Drawer, List, ListItem, ListItemText, ListItemButton } from '@mui/material';
-import { Menu as MenuIcon, Phone as PhoneIcon, Email as EmailIcon, PersonAdd as PersonAddIcon, Login as LoginIcon, Home as HomeIcon, Business as BusinessIcon, Construction as ConstructionIcon, Article as ArticleIcon, Info as InfoIcon, ContactPhone as ContactIcon } from '@mui/icons-material';
+import { Menu as MenuIcon, Phone as PhoneIcon, Email as EmailIcon, PersonAdd as PersonAddIcon, Login as LoginIcon, Home as HomeIcon, Business as BusinessIcon, Construction as ConstructionIcon, Article as ArticleIcon, Info as InfoIcon, ContactPhone as ContactIcon, Engineering as EngineeringIcon } from '@mui/icons-material';
 const Header = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const location = useLocation();
@@ -10,7 +10,7 @@ const Header = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const navigation = [
         { name: 'Accueil', href: '/', icon: _jsx(HomeIcon, {}) },
-        { name: 'Services', href: '/services', icon: _jsx(ConstructionIcon, {}) },
+        { name: 'Services', href: '/services', icon: _jsx(EngineeringIcon, {}) },
         { name: 'Annuaire', href: '/annuaire', icon: _jsx(BusinessIcon, {}) },
         { name: 'Actualités', href: '/actualites', icon: _jsx(ArticleIcon, {}) },
         { name: 'À propos', href: '/about', icon: _jsx(InfoIcon, {}) },

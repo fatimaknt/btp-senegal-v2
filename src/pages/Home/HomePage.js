@@ -965,22 +965,15 @@ const HomePage = () => {
                         flexDirection: 'column',
                         alignItems: 'center',
                         mb: 6
-                    }, children: [_jsx("img", {
-                        src: "/images/partners/btpscom.webp", alt: "BTPSENEGAL.COM Features", style: {
-                            maxWidth: '100%',
-                            height: 'auto',
-                            borderRadius: '8px',
-                            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-                            marginBottom: '24px'
-                        }
-                    }), _jsxs(Box, {
+                    }, children: [_jsxs(Box, {
                         sx: {
                             backgroundColor: 'white',
                             borderRadius: 2,
                             p: 4,
                             textAlign: 'center',
                             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-                            maxWidth: '600px'
+                            maxWidth: '600px',
+                            mb: 4
                         }, children: [_jsx(Typography, {
                             variant: "h4", sx: {
                                 color: '#e67e22',
@@ -993,6 +986,14 @@ const HomePage = () => {
                                 fontWeight: 400
                             }, children: "Restez \u00E0 jour avec les \u00E9v\u00E9nements majeurs du BTP au S\u00E9n\u00E9gal"
                         })]
+                    }), _jsx("img", {
+                        src: "/images/partners/btpscom.webp", alt: "BTPSENEGAL.COM Features", style: {
+                            maxWidth: '100%',
+                            height: 'auto',
+                            borderRadius: '8px',
+                            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+                            marginBottom: '24px'
+                        }
                     })]
                 })
             })
@@ -1087,10 +1088,12 @@ const HomePage = () => {
                         gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
                         gap: 4
                     }, children: [_jsxs(Card, {
+                        onClick: () => navigate('/actualites'),
                         sx: {
                             borderRadius: 2,
                             overflow: 'hidden',
                             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+                            cursor: 'pointer',
                             transition: 'all 0.3s ease',
                             '&:hover': {
                                 transform: 'translateY(-4px)',
@@ -1194,10 +1197,12 @@ const HomePage = () => {
                             }), _jsxs(Box, { sx: { display: 'flex', alignItems: 'center', justifyContent: 'space-between' }, children: [_jsx(Typography, { variant: "body2", sx: { color: '#6b7280', fontWeight: 600 }, children: "Actus BTP" }), _jsxs(Box, { sx: { display: 'flex', alignItems: 'center' }, children: [_jsx(Typography, { variant: "body2", sx: { color: '#6b7280', mr: 1 }, children: "\uD83D\uDCC5" }), _jsx(Typography, { variant: "body2", sx: { color: '#6b7280' }, children: "17 Janvier 2025" })] })] })]
                         })]
                     }), _jsxs(Card, {
+                        onClick: () => navigate('/actualites'),
                         sx: {
                             borderRadius: 2,
                             overflow: 'hidden',
                             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+                            cursor: 'pointer',
                             transition: 'all 0.3s ease',
                             '&:hover': {
                                 transform: 'translateY(-4px)',
@@ -1301,10 +1306,12 @@ const HomePage = () => {
                             }), _jsxs(Box, { sx: { display: 'flex', alignItems: 'center', justifyContent: 'space-between' }, children: [_jsx(Typography, { variant: "body2", sx: { color: '#6b7280', fontWeight: 600 }, children: "Actus BTP" }), _jsxs(Box, { sx: { display: 'flex', alignItems: 'center' }, children: [_jsx(Typography, { variant: "body2", sx: { color: '#6b7280', mr: 1 }, children: "\uD83D\uDCC5" }), _jsx(Typography, { variant: "body2", sx: { color: '#6b7280' }, children: "17 Janvier 2025" })] })] })]
                         })]
                     }), _jsxs(Card, {
+                        onClick: () => navigate('/actualites'),
                         sx: {
                             borderRadius: 2,
                             overflow: 'hidden',
                             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+                            cursor: 'pointer',
                             transition: 'all 0.3s ease',
                             '&:hover': {
                                 transform: 'translateY(-4px)',
@@ -1408,10 +1415,12 @@ const HomePage = () => {
                             }), _jsxs(Box, { sx: { display: 'flex', alignItems: 'center', justifyContent: 'space-between' }, children: [_jsx(Typography, { variant: "body2", sx: { color: '#6b7280', fontWeight: 600 }, children: "Actus BTP" }), _jsxs(Box, { sx: { display: 'flex', alignItems: 'center' }, children: [_jsx(Typography, { variant: "body2", sx: { color: '#6b7280', mr: 1 }, children: "\uD83D\uDCC5" }), _jsx(Typography, { variant: "body2", sx: { color: '#6b7280' }, children: "27 F\u00E9vrier 2021" })] })] })]
                         })]
                     }), _jsxs(Card, {
+                        onClick: () => navigate('/actualites'),
                         sx: {
                             borderRadius: 2,
                             overflow: 'hidden',
                             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+                            cursor: 'pointer',
                             transition: 'all 0.3s ease',
                             '&:hover': {
                                 transform: 'translateY(-4px)',
@@ -1515,10 +1524,12 @@ const HomePage = () => {
                             }), _jsxs(Box, { sx: { display: 'flex', alignItems: 'center', justifyContent: 'space-between' }, children: [_jsx(Typography, { variant: "body2", sx: { color: '#6b7280', fontWeight: 600 }, children: "Actus BTP" }), _jsxs(Box, { sx: { display: 'flex', alignItems: 'center' }, children: [_jsx(Typography, { variant: "body2", sx: { color: '#6b7280', mr: 1 }, children: "\uD83D\uDCC5" }), _jsx(Typography, { variant: "body2", sx: { color: '#6b7280' }, children: "25 F\u00E9vrier 2021" })] })] })]
                         })]
                     }), _jsxs(Card, {
+                        onClick: () => navigate('/actualites'),
                         sx: {
                             borderRadius: 2,
                             overflow: 'hidden',
                             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+                            cursor: 'pointer',
                             transition: 'all 0.3s ease',
                             '&:hover': {
                                 transform: 'translateY(-4px)',
