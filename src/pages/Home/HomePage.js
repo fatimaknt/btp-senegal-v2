@@ -871,7 +871,7 @@ const HomePage = () => {
                         }, children: [_jsx(Box, {
                             onClick: () => navigate('/entreprise/ebinka-group'), sx: {
                                 height: 220,
-                                backgroundImage: 'url(/images/enterprises/entreprise.jpeg)',
+                                backgroundImage: 'url(/images/partners/btp.jpg)',
                                 backgroundSize: 'contain',
                                 backgroundPosition: 'center',
                                 backgroundRepeat: 'no-repeat',
