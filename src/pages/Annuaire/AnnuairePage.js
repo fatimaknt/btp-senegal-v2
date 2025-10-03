@@ -572,9 +572,7 @@ const AnnuairePage = () => {
                                         })
                                     }),
 
-                                ],
-
-                                // Informations de contact en bas
+                                    // Informations de contact en bas
                                 _jsxs(Box, {
                                     sx: {
                                         display: 'flex',
@@ -634,8 +632,9 @@ const AnnuairePage = () => {
                                         })
                                     ]
                                 })
-                            ]
-                        })
+                                ]
+                            })
+                        ]
                     })
                 }, enterprise.id)))
             }), _jsx(Box, {
