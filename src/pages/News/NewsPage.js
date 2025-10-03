@@ -132,8 +132,8 @@ const NewsPage = () => {
                 sx: { backgroundColor: '#e67e22', color: 'white', py: 8 }, children: _jsxs(Container, {
                     maxWidth: "lg", children: [_jsx(Typography, {
                         variant: "h2", sx: {
-                                    fontWeight: 800,
-                                    mb: 2,
+                            fontWeight: 800,
+                            mb: 2,
                             color: 'white',
                             textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)'
                         }, children: "Actualit\u00E9s BTP S\u00E9n\u00E9gal"
@@ -145,24 +145,24 @@ const NewsPage = () => {
                         container: true, spacing: 3, alignItems: "center", children: [_jsx(Grid, {
                             item: true, xs: 12, md: 6, children: _jsx(TextField, {
                                 fullWidth: true, placeholder: "Rechercher un article...", value: searchTerm, onChange: (e) => setSearchTerm(e.target.value), InputProps: {
-                                                startAdornment: (_jsx(InputAdornment, { position: "start", children: _jsx(SearchIcon, { sx: { color: '#e67e22' } }) })),
-                                            }, sx: {
-                                                '& .MuiOutlinedInput-root': {
-                                                    '&:hover fieldset': { borderColor: '#e67e22' },
-                                                    '&.Mui-focused fieldset': { borderColor: '#e67e22' }
-                                                }
+                                    startAdornment: (_jsx(InputAdornment, { position: "start", children: _jsx(SearchIcon, { sx: { color: '#e67e22' } }) })),
+                                }, sx: {
+                                    '& .MuiOutlinedInput-root': {
+                                        '&:hover fieldset': { borderColor: '#e67e22' },
+                                        '&.Mui-focused fieldset': { borderColor: '#e67e22' }
+                                    }
                                 }
                             })
                         }), _jsx(Grid, {
                             item: true, xs: 12, md: 6, children: _jsx(Box, {
                                 sx: { display: 'flex', gap: 1, flexWrap: 'wrap' }, children: categories.map((category) => (_jsx(Chip, {
                                     label: category === 'all' ? 'Tous' : category, onClick: () => setSelectedCategory(category), variant: selectedCategory === category ? 'filled' : 'outlined', sx: {
-                                                    backgroundColor: selectedCategory === category ? '#e67e22' : 'transparent',
-                                                    color: selectedCategory === category ? 'white' : '#e67e22',
-                                                    borderColor: '#e67e22',
-                                                    '&:hover': {
-                                                        backgroundColor: selectedCategory === category ? '#d35400' : 'rgba(230, 126, 34, 0.1)'
-                                                    }
+                                        backgroundColor: selectedCategory === category ? '#e67e22' : 'transparent',
+                                        color: selectedCategory === category ? 'white' : '#e67e22',
+                                        borderColor: '#e67e22',
+                                        '&:hover': {
+                                            backgroundColor: selectedCategory === category ? '#d35400' : 'rgba(230, 126, 34, 0.1)'
+                                        }
                                     }
                                 }, category)))
                             })
@@ -173,23 +173,23 @@ const NewsPage = () => {
                         item: true, xs: 12, md: 6, lg: 4, children: _jsxs(Card, {
                             onClick: () => handleReadArticle(article.id),
                             sx: {
-                                        height: '100%',
+                                height: '100%',
                                 cursor: 'pointer',
-                                        transition: 'all 0.3s ease',
-                                        '&:hover': {
-                                            transform: 'translateY(-4px)',
+                                transition: 'all 0.3s ease',
+                                '&:hover': {
+                                    transform: 'translateY(-4px)',
                                     boxShadow: '0 12px 24px rgba(249, 115, 22, 0.15)',
                                     '& .article-title': {
                                         color: '#e67e22'
                                     }
-                                        }
+                                }
                             }, children: [article.image_url && (_jsx(CardMedia, { component: "img", height: "200", image: article.image_url, alt: article.title })), _jsxs(CardContent, {
                                 sx: { p: 3 }, children: [_jsx(Box, {
                                     sx: { display: 'flex', gap: 1, mb: 2 }, children: _jsx(Chip, {
                                         label: article.category || 'Actualités', size: "small", sx: {
-                                                            backgroundColor: 'rgba(249, 115, 22, 0.1)',
-                                                            color: '#e67e22',
-                                                            fontWeight: 600
+                                            backgroundColor: 'rgba(249, 115, 22, 0.1)',
+                                            color: '#e67e22',
+                                            fontWeight: 600
                                         }
                                     })
                                 }), _jsx(Typography, {
@@ -208,18 +208,18 @@ const NewsPage = () => {
                                     variant: "outlined",
                                     onClick: (e) => {
                                         e.stopPropagation();
-                                                        console.log('Button clicked for article:', { id: article.id, title: article.title });
-                                                        handleReadArticle(article.id);
+                                        console.log('Button clicked for article:', { id: article.id, title: article.title });
+                                        handleReadArticle(article.id);
                                     },
                                     sx: {
-                                                        borderColor: '#e67e22',
-                                                        color: '#e67e22',
-                                                        fontWeight: 600,
-                                                        '&:hover': {
-                                                            background: 'linear-gradient(135deg, #e67e22 0%, #f39c12 100%)',
-                                                            color: 'white',
-                                                            borderColor: '#e67e22'
-                                                        }
+                                        borderColor: '#e67e22',
+                                        color: '#e67e22',
+                                        fontWeight: 600,
+                                        '&:hover': {
+                                            background: 'linear-gradient(135deg, #e67e22 0%, #f39c12 100%)',
+                                            color: 'white',
+                                            borderColor: '#e67e22'
+                                        }
                                     },
                                     children: "Lire l'article 📖"
                                 })]
