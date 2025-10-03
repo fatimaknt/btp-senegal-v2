@@ -10,7 +10,7 @@ const StatsSection = () => {
         {
             id: 1,
             icon: Building2,
-            value: 1200,
+            value: 10000,
             suffix: '+',
             label: 'Entreprises référencées',
             description: 'Professionnels vérifiés',
