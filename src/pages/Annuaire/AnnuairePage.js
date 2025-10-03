@@ -207,8 +207,21 @@ const AnnuairePage = () => {
             })
         })), _jsxs(Container, {
             maxWidth: "lg", sx: { py: 6 }, children: [_jsxs(Box, {
-                sx: { mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }, children: [_jsxs(Typography, { variant: "h5", sx: { fontWeight: 600, color: '#1f2937' }, children: [filteredEnterprises.length, " entreprises trouv\u00E9es"] }), _jsx(Box, {
-                    sx: { display: 'flex', gap: 1, flexWrap: 'wrap' }, children: ['Vérifiées', 'Mieux notées', 'À proximité'].map((filter) => (_jsx(Chip, {
+                sx: {
+                    mb: 4,
+                    display: 'flex',
+                    flexDirection: { xs: 'column', md: 'row' },
+                    justifyContent: 'space-between',
+                    alignItems: { xs: 'flex-start', md: 'center' },
+                    gap: { xs: 2, md: 0 }
+                }, children: [_jsxs(Typography, { variant: "h5", sx: { fontWeight: 700, fontSize: { xs: ' 1.1rem', md: '1.5rem' }, mb: { xs: 1, md: 0 }, color: '#1f2937' }, children: [filteredEnterprises.length, " entreprises trouv\u00E9es"] }), _jsx(Box, {
+                    sx: {
+                        display: 'flex',
+                        gap: { xs: 0.5, md: 1 },
+                        flexWrap: 'wrap',
+                        width: { xs: '100%', md: 'auto' },
+                        justifyContent: { xs: 'flex-start', md: 'flex-end' }
+                    }, children: ['Vérifiées', 'Mieux notées', 'À proximité'].map((filter) => (_jsx(Chip, {
                         label: filter, clickable: true, sx: {
                             backgroundColor: 'rgba(249, 115, 22, 0.1)',
                             color: '#f97316',
@@ -224,19 +237,54 @@ const AnnuairePage = () => {
                     key: enterprise.id,
                     sx: {
                         width: '100%',
-                        transition: 'all 0.3s ease',
-                        borderRadius: 3,
-                        border: '1px solid #e5e7eb',
+                        transition: 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                        borderRadius: 2,
+                        border: 'none',
+                        background: 'linear-gradient(145deg, #ffffff 0%, #f8fafc 100%)',
+                        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.1)',
+                        position: 'relative',
+                        overflow: 'hidden',
+                        '&::before': {
+                            content: '""',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            height: '3px',
+                            background: 'linear-gradient(90deg, #f97316 0%, #fb923c 100%)',
+                            borderRadius: '6px 6px 0 0'
+                        },
+                        '&::after': {
+                            content: '""',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.02) 0%, rgba(251, 146, 60, 0.02) 100%)',
+                            opacity: 0,
+                            transition: 'opacity 0.3s ease'
+                        },
                         '&:hover': {
-                            transform: 'translateY(-4px)',
-                            boxShadow: '0 15px 35px rgba(249, 115, 22, 0.15)',
-                            border: '1px solid #f97316',
+                            transform: 'translateY(-12px)',
+                            boxShadow: '0 25px 50px rgba(249, 115, 22, 0.15), 0 10px 30px rgba(0, 0, 0, 0.1)',
+                            '&::before': {
+                                height: '5px',
+                                background: 'linear-gradient(90deg, #ea580c 0%, #f97316 100%)'
+                            },
+                            '&::after': {
+                                opacity: 1
+                            }
                         }
                     },
                     children: _jsxs(CardContent, {
-                        sx: { p: 4 },
+                        sx: {
+                            p: { xs: 3, md: 4 },
+                            position: 'relative',
+                            zIndex: 1
+                        },
                         children: [
-                            // Header avec avatar, nom et rating
+                            // Header avec avatar, nom et catégorie
                             _jsxs(Box, {
                                 sx: {
                                     display: 'flex',
@@ -247,109 +295,202 @@ const AnnuairePage = () => {
                                 children: [
                                     _jsx(Avatar, {
                                         sx: {
-                                            bgcolor: '#f97316',
-                                            width: 70,
-                                            height: 70,
-                                            fontSize: '1.5rem'
+                                            background: 'linear-gradient(135deg, #f97316 0%, #fb923c 100%)',
+                                            width: { xs: 65, md: 75 },
+                                            height: { xs: 65, md: 75 },
+                                            fontSize: { xs: '1.4rem', md: '1.6rem' },
+                                            boxShadow: '0 10px 30px rgba(249, 115, 22, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                                            border: '4px solid rgba(255, 255, 255, 0.9)',
+                                            transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                                            position: 'relative',
+                                            '&::before': {
+                                                content: '""',
+                                                position: 'absolute',
+                                                top: '-2px',
+                                                left: '-2px',
+                                                right: '-2px',
+                                                bottom: '-2px',
+                                                background: 'linear-gradient(135deg, #f97316, #fb923c, #f97316)',
+                                                borderRadius: '50%',
+                                                zIndex: -1,
+                                                opacity: 0,
+                                                transition: 'opacity 0.3s ease'
+                                            },
+                                            '&:hover': {
+                                                transform: 'scale(1.15) rotate(8deg)',
+                                                boxShadow: '0 15px 40px rgba(249, 115, 22, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)',
+                                                '&::before': {
+                                                    opacity: 1
+                                                }
+                                            }
                                         },
                                         children: _jsx(BusinessIcon, {})
                                     }),
                                     _jsxs(Box, {
                                         sx: { flex: 1 },
                                         children: [
-                                            _jsxs(Box, {
+                                            _jsx(Typography, {
+                                                variant: "h5",
                                                 sx: {
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    gap: 2,
-                                                    mb: 1
+                                                    fontWeight: 800,
+                                                    color: '#1f2937',
+                                                    background: 'linear-gradient(135deg, #1f2937 0%, #374151 50%, #1f2937 100%)',
+                                                    backgroundClip: 'text',
+                                                    WebkitBackgroundClip: 'text',
+                                                    WebkitTextFillColor: 'transparent',
+                                                    textShadow: '0 3px 6px rgba(0, 0, 0, 0.15)',
+                                                    letterSpacing: '-0.5px',
+                                                    lineHeight: 1.2,
+                                                    position: 'relative',
+                                                    mb: 1,
+                                                    '&::after': {
+                                                        content: '""',
+                                                        position: 'absolute',
+                                                        bottom: '-2px',
+                                                        left: 0,
+                                                        width: '0%',
+                                                        height: '2px',
+                                                        background: 'linear-gradient(90deg, #f97316, #fb923c)',
+                                                        transition: 'width 0.3s ease'
+                                                    },
+                                                    '&:hover::after': {
+                                                        width: '100%'
+                                                    }
                                                 },
-                                                children: [
-                                                    _jsx(Typography, {
-                                                        variant: "h5",
-                                                        sx: {
-                                                            fontWeight: 600,
-                                                            color: '#1f2937'
-                                                        },
-                                                        children: enterprise.name
-                                                    }),
-                                                    enterprise.verified && (_jsx(Chip, {
-                                                        label: "✓ Vérifié",
-                                                        size: "small",
-                                                        sx: {
-                                                            backgroundColor: '#10b981',
-                                                            color: 'white',
-                                                            fontWeight: 600
-                                                        }
-                                                    }))
-                                                ]
+                                                children: enterprise.name
                                             }),
                                             _jsx(Typography, {
                                                 variant: "h6",
-                                                color: "text.secondary",
                                                 sx: {
-                                                    mb: 1,
-                                                    fontWeight: 500
+                                                    mb: 2,
+                                                    fontWeight: 700,
+                                                    color: '#f97316',
+                                                    background: 'linear-gradient(135deg, #f97316 0%, #fb923c 50%, #f97316 100%)',
+                                                    backgroundClip: 'text',
+                                                    WebkitBackgroundClip: 'text',
+                                                    WebkitTextFillColor: 'transparent',
+                                                    textTransform: 'uppercase',
+                                                    letterSpacing: '1px',
+                                                    fontSize: '0.85rem',
+                                                    textShadow: '0 2px 4px rgba(249, 115, 22, 0.2)',
+                                                    position: 'relative',
+                                                    display: 'inline-block',
+                                                    '&::before': {
+                                                        content: '""',
+                                                        position: 'absolute',
+                                                        left: '-8px',
+                                                        top: '50%',
+                                                        transform: 'translateY(-50%)',
+                                                        width: '4px',
+                                                        height: '4px',
+                                                        background: 'linear-gradient(135deg, #f97316, #fb923c)',
+                                                        borderRadius: '50%'
+                                                    }
                                                 },
                                                 children: enterprise.category
-                                            }),
-                                            _jsxs(Box, {
-                                                sx: {
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    gap: 1
-                                                },
-                                                children: [
-                                                    _jsx(Rating, {
-                                                        value: enterprise.rating || 4.5,
-                                                        precision: 0.1,
-                                                        size: "medium",
-                                                        readOnly: true
-                                                    }),
-                                                    _jsxs(Typography, {
-                                                        variant: "body1",
-                                                        color: "text.secondary",
-                                                        sx: { fontWeight: 500 },
-                                                        children: [
-                                                            (enterprise.rating || 4.5).toFixed(1),
-                                                            " (",
-                                                            enterprise.reviews || 0,
-                                                            " avis)"
-                                                        ]
-                                                    })
-                                                ]
                                             })
                                         ]
-                                    }),
-                                    // Bouton d'action à droite
-                                    _jsx(Button, {
-                                        variant: "contained",
-                                        size: "large",
-                                        onClick: () => {
-                                            const phone = enterprise.phone || enterprise.contact_phone;
-                                            if (phone) {
-                                                window.open(`https://wa.me/${phone.replace(/\D/g, '')}`, '_blank');
-                                            }
-                                        },
-                                        sx: {
-                                            background: 'linear-gradient(135deg, #f97316 0%, #fb923c 100%)',
-                                            color: 'white',
-                                            px: 4,
-                                            py: 2,
-                                            borderRadius: 3,
-                                            fontWeight: 600,
-                                            fontSize: '1rem',
-                                            textTransform: 'none',
-                                            minWidth: '180px',
-                                            '&:hover': {
-                                                background: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)',
-                                                transform: 'translateY(-2px)',
-                                                boxShadow: '0 8px 25px rgba(249, 115, 22, 0.3)'
-                                            }
-                                        },
-                                        children: "📞 Contacter"
                                     })
                                 ]
+                            }),
+
+                            // Avis et rating seulement
+                            _jsx(Box, {
+                                sx: {
+                                    display: 'flex',
+                                    justifyContent: 'flex-start',
+                                    alignItems: 'center',
+                                    mb: 3,
+                                    gap: 1
+                                },
+                                children: [
+                                    _jsx(Rating, {
+                                        value: enterprise.rating || 4.5,
+                                        precision: 0.1,
+                                        size: "small",
+                                        readOnly: true
+                                    }),
+                                    _jsxs(Typography, {
+                                        variant: "body2",
+                                        color: "text.secondary",
+                                        sx: { fontWeight: 500, fontSize: '0.9rem' },
+                                        children: [
+                                            (enterprise.rating || 4.5).toFixed(1),
+                                            " (",
+                                            enterprise.reviews || 0,
+                                            " avis)"
+                                        ]
+                                    })
+                                ]
+                            }),
+
+                            // Bouton Contacter centré
+                            _jsx(Box, {
+                                sx: {
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    mb: 3
+                                },
+                                children: _jsx(Button, {
+                                    variant: "contained",
+                                    size: "large",
+                                    onClick: () => {
+                                        const phone = enterprise.phone || enterprise.contact_phone;
+                                        if (phone) {
+                                            window.open(`https://wa.me/${phone.replace(/\D/g, '')}`, '_blank');
+                                        }
+                                    },
+                                    sx: {
+                                        background: 'linear-gradient(135deg, #f97316 0%, #fb923c 100%)',
+                                        color: 'white',
+                                        px: { xs: 6, md: 8 },
+                                        py: { xs: 2, md: 2.5 },
+                                        borderRadius: 8,
+                                        fontWeight: 800,
+                                        fontSize: { xs: '1rem', md: '1.1rem' },
+                                        textTransform: 'none',
+                                        minWidth: { xs: '200px', md: '250px' },
+                                        height: { xs: '50px', md: '55px' },
+                                        boxShadow: '0 15px 40px rgba(249, 115, 22, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+                                        border: 'none',
+                                        position: 'relative',
+                                        overflow: 'hidden',
+                                        transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                                        '&::before': {
+                                            content: '""',
+                                            position: 'absolute',
+                                            top: 0,
+                                            left: 0,
+                                            right: 0,
+                                            bottom: 0,
+                                            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
+                                            opacity: 0,
+                                            transition: 'opacity 0.3s ease'
+                                        },
+                                        '&::after': {
+                                            content: '""',
+                                            position: 'absolute',
+                                            top: 0,
+                                            left: '-100%',
+                                            width: '100%',
+                                            height: '100%',
+                                            background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent)',
+                                            transition: 'left 0.6s ease'
+                                        },
+                                        '&:hover': {
+                                            background: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)',
+                                            transform: 'translateY(-8px) scale(1.05)',
+                                            boxShadow: '0 25px 60px rgba(249, 115, 22, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                                            '&::before': {
+                                                opacity: 1
+                                            },
+                                            '&::after': {
+                                                left: '100%'
+                                            }
+                                        }
+                                    },
+                                    children: "📞 Contacter"
+                                })
                             }),
 
                             // Description
@@ -398,11 +539,32 @@ const AnnuairePage = () => {
                                                     label: service,
                                                     size: "medium",
                                                     sx: {
-                                                        backgroundColor: 'rgba(249, 115, 22, 0.1)',
+                                                        background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(251, 146, 60, 0.08) 100%)',
                                                         color: '#f97316',
-                                                        fontWeight: 500,
+                                                        fontWeight: 700,
+                                                        border: '2px solid rgba(249, 115, 22, 0.15)',
+                                                        borderRadius: 8,
+                                                        transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                                                        position: 'relative',
+                                                        overflow: 'hidden',
+                                                        '&::before': {
+                                                            content: '""',
+                                                            position: 'absolute',
+                                                            top: 0,
+                                                            left: '-100%',
+                                                            width: '100%',
+                                                            height: '100%',
+                                                            background: 'linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.1), transparent)',
+                                                            transition: 'left 0.5s ease'
+                                                        },
                                                         '&:hover': {
-                                                            backgroundColor: 'rgba(249, 115, 22, 0.2)',
+                                                            background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(251, 146, 60, 0.15) 100%)',
+                                                            transform: 'translateY(-3px) scale(1.05)',
+                                                            boxShadow: '0 8px 25px rgba(249, 115, 22, 0.25)',
+                                                            border: '2px solid rgba(249, 115, 22, 0.3)',
+                                                            '&::before': {
+                                                                left: '100%'
+                                                            }
                                                         }
                                                     }
                                                 }, index)))
@@ -410,13 +572,15 @@ const AnnuairePage = () => {
                                         })
                                     }),
 
-                                    // Informations de contact
+                                    // Informations de contact en bas
                                     _jsxs(Box, {
                                         sx: {
                                             display: 'flex',
                                             flexDirection: 'column',
                                             gap: 2,
-                                            minWidth: '300px'
+                                            mt: 3,
+                                            pt: 3,
+                                            borderTop: '1px solid rgba(0, 0, 0, 0.1)'
                                         },
                                         children: [
                                             _jsxs(Box, {

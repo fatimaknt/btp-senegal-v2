@@ -78,11 +78,11 @@ const HomePage = () => {
                         }, children: "Innovation num\u00E9rique - Expertise Technique - Excellence/Qualit\u00E9 - D\u00E9veloppement & Collaboration! \uD83C\uDDF8\uD83C\uDDF3"
                     })]
                 }), _jsx(Box, {
-                    sx: { maxWidth: 800, mx: 'auto', mb: 3 }, children: _jsx(Card, {
+                    sx: { maxWidth: 400, mx: 'auto', mb: 3 }, children: _jsx(Card, {
                         sx: {
                             background: 'rgba(255, 255, 255, 0.15)',
                             backdropFilter: 'blur(30px)',
-                            borderRadius: 6,
+                            borderRadius: 3,
                             boxShadow: '0 25px 50px rgba(0, 0, 0, 0.15)',
                             border: '1px solid rgba(255, 255, 255, 0.2)',
                             position: 'relative',
@@ -96,12 +96,12 @@ const HomePage = () => {
                                 background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent)'
                             }
                         }, children: _jsxs(CardContent, {
-                            sx: { p: 3 }, children: [_jsx(Box, {
-                                component: "form", onSubmit: handleSearch, sx: { mb: 2 }, children: _jsxs(Box, {
+                            sx: { p: { xs: 4, md: 3 } }, children: [_jsx(Box, {
+                                component: "form", onSubmit: handleSearch, sx: { mb: { xs: 3, md: 2 } }, children: _jsxs(Box, {
                                     sx: {
                                         display: 'flex',
                                         flexDirection: { xs: 'column', sm: 'row' },
-                                        gap: 2,
+                                        gap: { xs: 2, md: 2 },
                                         alignItems: 'stretch'
                                     }, children: [_jsx(TextField, {
                                         fullWidth: true, placeholder: "Service ou entreprise recherch\u00E9e...", value: searchQuery, onChange: (e) => setSearchQuery(e.target.value), InputProps: {
@@ -116,10 +116,10 @@ const HomePage = () => {
                                         }, sx: {
                                             '& .MuiOutlinedInput-root': {
                                                 height: '50px',
-                                                borderRadius: '30px',
+                                                borderRadius: '20px',
                                                 backgroundColor: 'rgba(255, 255, 255, 0.95)',
                                                 boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
-                                                border: '2px solid rgba(255, 255, 255, 0.2)',
+                                                border: '2px solid rgba(255, 255, 255, 0.3)',
                                                 backdropFilter: 'blur(20px)',
                                                 '& fieldset': {
                                                     border: 'none'
@@ -127,12 +127,13 @@ const HomePage = () => {
                                                 '&:hover': {
                                                     backgroundColor: 'rgba(255, 255, 255, 0.98)',
                                                     boxShadow: '0 12px 35px rgba(0, 0, 0, 0.2)',
-                                                    transform: 'translateY(-2px)'
+                                                    transform: 'translateY(-2px)',
+                                                    border: '2px solid rgba(230, 126, 34, 0.4)'
                                                 },
                                                 '&.Mui-focused': {
                                                     backgroundColor: 'white',
                                                     boxShadow: '0 15px 40px rgba(249, 115, 22, 0.25)',
-                                                    border: '2px solid rgba(249, 115, 22, 0.3)'
+                                                    border: '2px solid rgba(249, 115, 22, 0.5)'
                                                 }
                                             },
                                             '& input': {
@@ -147,23 +148,23 @@ const HomePage = () => {
                                     }), _jsx(Button, {
                                         type: "submit", variant: "contained", sx: {
                                             height: '50px',
-                                            px: 6,
+                                            px: { xs: 5, md: 6 },
                                             py: 3,
                                             background: 'linear-gradient(135deg, #e67e22 0%, #f39c12 100%)',
                                             color: 'white',
-                                            borderRadius: '30px',
+                                            borderRadius: '20px',
                                             fontWeight: 700,
-                                            fontSize: '1.3rem',
+                                            fontSize: { xs: '1.2rem', md: '1.3rem' },
                                             textTransform: 'none',
-                                            border: '2px solid rgba(255, 255, 255, 0.2)',
+                                            border: '2px solid rgba(255, 255, 255, 0.3)',
                                             boxShadow: '0 8px 25px rgba(249, 115, 22, 0.3)',
-                                            minWidth: { xs: '90%', sm: '180px' },
+                                            minWidth: { xs: '80%', sm: '160px' },
                                             backdropFilter: 'blur(10px)',
                                             '&:hover': {
                                                 background: 'linear-gradient(135deg, #d35400 0%, #e67e22 100%)',
                                                 transform: 'translateY(-3px)',
                                                 boxShadow: '0 15px 35px rgba(249, 115, 22, 0.4)',
-                                                border: '2px solid rgba(255, 255, 255, 0.4)'
+                                                border: '2px solid rgba(255, 255, 255, 0.5)'
                                             }
                                         }, children: "Rechercher"
                                     })]
